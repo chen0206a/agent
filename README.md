@@ -92,17 +92,22 @@ Set-Location ..
 .\.venv\Scripts\python.exe scripts/run_stage4_e2e.py
 ```
 
-后端验证包含原 152 项业务/安全测试、Stage 4 新增测试、28 个政策案例、16 个离线 Agent 案例及两组 HTTP 冒烟。浏览器脚本临时创建数据库，在 8014/3810 启动测试服务，结束后停止服务；脚本模型标识 `NOT-A-REAL-MODEL`，不读取日常 API 密钥，也不改日常订单。它验证产品集成，不代表模型理解能力。
+Stage 5 完成时，后端 173 项测试、前端 5 项测试和 8 项浏览器 E2E 均通过；另有 28 个政策案例、16 个离线 Agent 案例及两组 HTTP 冒烟。浏览器脚本临时创建数据库，在 8014/3810 启动测试服务，结束后停止服务；脚本模型标识 `NOT-A-REAL-MODEL`，不读取日常 API 密钥，也不改日常订单。它验证产品集成，不代表模型理解能力。
 
-当前最终证据与截图：[docs/verification/stage4](docs/verification/stage4)。接口契约变动后同时更新 `frontend/openapi.json` 与 `frontend/src/lib/generated.ts`。
+最新评测与回归证据：[docs/verification/stage5](docs/verification/stage5)；Stage 4 页面截图与原验收证据：[docs/verification/stage4](docs/verification/stage4)。接口契约变动后同时更新 `frontend/openapi.json` 与 `frontend/src/lib/generated.ts`。
+
+Stage 5 已完成 125 条合成场景评测（Dev 75 / Test 50），采用第一轮 Dev 优化版本，最终冻结 Test 仅正式运行一次，46/50 通过。完整失败、模型身份、配置与数据集 hash、Token 和费用记录均已保留；不要重跑旧 Test 来替换正式成绩。
 
 ## 代码入口
 
 - `backend/app/api/`：业务路由、真实鉴权依赖、Auth 与 Portal 接口。
 - `backend/app/services/`：已有政策、金额、工作流，以及新增账户/门户服务。
 - `backend/app/repositories/` / `models/`：数据库访问与约束。
-- `backend/app/agent/`：已验收的单 Agent、受限工具、模型适配、政策检索；本轮核心未改。
+- `backend/app/agent/`：单 Agent、受限工具、模型适配、政策检索；Stage 5 优化了 Prompt 与工具说明，保留业务授权和金额计算边界。
 - `frontend/src/components/`：登录与应用框架、客户门户、管理员工作台、shadcn Button。
 - `frontend/src/app/`：页面路由与同源 API 代理；`frontend/e2e/`：浏览器测试。
 
-更详细的功能、指标口径、测试边界、推荐演示和阅读顺序见 Stage 4 交接报告。Stage 5 尚未开始。
+- `eval/stage5/`：冻结的 Dev/Test 数据集与 manifest。
+- `scripts/stage5.py`：隔离评测、评分与调用账本；`docs/verification/stage5/`：版本快照、完整轨迹与实测结果。
+
+页面与鉴权设计见 [Stage 4 交接报告](docs/STAGE4_HANDOFF.md)。Stage 5 已完成，指标口径与测试边界见 [评测报告](docs/STAGE5_EVALUATION.md) 和 [失败分析](docs/STAGE5_FAILURE_ANALYSIS.md)，推荐演示与阅读顺序见 [作品集](docs/STAGE5_PORTFOLIO.md)，简历表述见 [实测指标](docs/RESUME_METRICS.md)。
