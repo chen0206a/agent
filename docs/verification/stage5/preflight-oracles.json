@@ -1,0 +1,1152 @@
+{
+  "live_api_calls": 0,
+  "checks": [
+    {
+      "case_id": "S5-001",
+      "fixture_valid": true,
+      "fixture_hash": "1c74724bdf250f8c2202689634d1e638d6638cb2c8abfc0c82a05babb5db14b4",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "135.17"
+      ]
+    },
+    {
+      "case_id": "S5-002",
+      "fixture_valid": true,
+      "fixture_hash": "1598578f4cf74a49770b2c3e8c89be76d08ac8a3e9aafcc2389144ce3ae6ecb3",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "218.08"
+      ]
+    },
+    {
+      "case_id": "S5-003",
+      "fixture_valid": true,
+      "fixture_hash": "8152e1913cd78dd92aaf6ded0349e582b78618d341b83649ecdeac7378e31693",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "439.09"
+      ]
+    },
+    {
+      "case_id": "S5-006",
+      "fixture_valid": true,
+      "fixture_hash": "dcdd4df60af0aa74d4b1472c4fd7e8208fedd95fd6785e85d9b3320e6c5f3e7f",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-007",
+      "fixture_valid": true,
+      "fixture_hash": "29f8e1879071de3d2460dfdff6398bd92ef5e6e741758457d788140ee1de1236",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-008",
+      "fixture_valid": true,
+      "fixture_hash": "6871215dd03f72acf1b50a63614c4844cbde95215ad1cd81fbcc4dbcc8b35e6a",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-011",
+      "fixture_valid": true,
+      "fixture_hash": "c6c2149639d1fe631661ac7b7635b8bd55dcad0fbb08c7e2ebb41265c06650fb",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "1123.17"
+      ]
+    },
+    {
+      "case_id": "S5-012",
+      "fixture_valid": true,
+      "fixture_hash": "e8d6b0ed02a69873b69888dabd87cac70643c857006b0a17d27883b762f6e946",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "1898.08"
+      ]
+    },
+    {
+      "case_id": "S5-013",
+      "fixture_valid": true,
+      "fixture_hash": "7fe1e18f16c112b61c8f9740b74fc9760973b41ba6f2ecee56341d44eba72de7",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "2499.09"
+      ]
+    },
+    {
+      "case_id": "S5-016",
+      "fixture_valid": true,
+      "fixture_hash": "4e0951feb61822a05e7262b5afa88277f46d1cde0ed89a5231f81624080bc640",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-017",
+      "fixture_valid": true,
+      "fixture_hash": "84c8aec9560c2bdc058341542bc43748c87876bd34e5c28ace16d0a550965ccf",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "66.66"
+      ]
+    },
+    {
+      "case_id": "S5-018",
+      "fixture_valid": true,
+      "fixture_hash": "404673a78fbf144609224054fb8e9388e4a78d283c72478eea3654919ae861e6",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-021",
+      "fixture_valid": true,
+      "fixture_hash": "fc738b94c20a124530591e8b764e483a2f2ca22ba6a6900aca4d0fd3449cfd1b",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "RETURN_AND_REFUND",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-022",
+      "fixture_valid": true,
+      "fixture_hash": "542db37e688e594ed8691d283a7631f5c741e6043e62c07119adc65a02447154",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "RETURN_AND_REFUND",
+        "94.14"
+      ]
+    },
+    {
+      "case_id": "S5-023",
+      "fixture_valid": true,
+      "fixture_hash": "0c2e7481cf90f3354647996980018d4c4c4a5c202331648e6f05f8748702beeb",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "RETURN_AND_REFUND",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-026",
+      "fixture_valid": true,
+      "fixture_hash": "ba48bcea8de97cc8f9110573ff3c1d346072feb827b19242f49685e242fa02ad",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REPLACE_ITEM",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-027",
+      "fixture_valid": true,
+      "fixture_hash": "865f97a4fcf7c0b262acda1baa5f4bfbe3f29cf3d29a2ed36198877953aa75f9",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REPLACE_ITEM",
+        "94.14"
+      ]
+    },
+    {
+      "case_id": "S5-028",
+      "fixture_valid": true,
+      "fixture_hash": "e5823f81bb43389763dd4436c4f6f7b2654f75183e5089058b6f49ebbed5c3ec",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REPLACE_ITEM",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-031",
+      "fixture_valid": true,
+      "fixture_hash": "72bec2facdf5b24feb6ae900507a09e2d3e89c61842de94ddf5b8517c42e84e2",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REFUND_MISSING_ITEM",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-032",
+      "fixture_valid": true,
+      "fixture_hash": "0115aed85847d5c0bc5823ed9bf0071964ca2d3b93105e0b3d377f860b7b48e6",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REFUND_MISSING_ITEM",
+        "94.14"
+      ]
+    },
+    {
+      "case_id": "S5-033",
+      "fixture_valid": true,
+      "fixture_hash": "30474b884e29f7f16231f3efa6dc22f9f139d54a95d29499c989fe435bc274e4",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REFUND_MISSING_ITEM",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-036",
+      "fixture_valid": true,
+      "fixture_hash": "30ad3eda62f549c331ef506e58fd79496e2afea5286641754fe5c81be3d4363d",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-037",
+      "fixture_valid": true,
+      "fixture_hash": "77bc21651b022840e4449b21df02490d70aaeb2efd236c7346dae221e5c9ac6d",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-038",
+      "fixture_valid": true,
+      "fixture_hash": "e648de9edc669c6b0d7d919294926650b7acfaeafc00996d65615b0897c3b0ea",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-041",
+      "fixture_valid": true,
+      "fixture_hash": "06f1754f0ab202ba929e6b4fca6e60b74adfdba36e8b2113159c4a5646ec1410",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-042",
+      "fixture_valid": true,
+      "fixture_hash": "d144447643c2046cd2ce96c7fe273706949aed5937d4e2bddbd579ddc596a1c4",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-043",
+      "fixture_valid": true,
+      "fixture_hash": "47a2f1bddde5d1c6f71c86d13a8dda474727a4de8deae24bee2341d0d5ee2278",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-046",
+      "fixture_valid": true,
+      "fixture_hash": "e3be7cc7448a020b05a15ddb11f732452804ac3092a064f4553d50fb93f12d92",
+      "oracle_checked": true,
+      "actual": [
+        "DENY",
+        null,
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-047",
+      "fixture_valid": true,
+      "fixture_hash": "e63d6af4a3cbc75e00b98f97c14370d8472d22865f8ac5e9f1565e779b78b3d3",
+      "oracle_checked": true,
+      "actual": [
+        "DENY",
+        null,
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-048",
+      "fixture_valid": true,
+      "fixture_hash": "78642dd8cfeaaacc3dea95a95e8b6f2fe5091e45c12de9b1c3b057b80e1e6c3d",
+      "oracle_checked": true,
+      "actual": [
+        "DENY",
+        null,
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-051",
+      "fixture_valid": true,
+      "fixture_hash": "00fed4677ee10b4f8022418b0921cf5715aa079cbc4c348f2a4467a06db63ff6",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-052",
+      "fixture_valid": true,
+      "fixture_hash": "2f9e2e010f1f343edf1b85ef19165a986e82d6ae5904e642a89873f04fecb629",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-053",
+      "fixture_valid": true,
+      "fixture_hash": "cea2a7eef42f68b7da9013cf5cfd26bc8ab35c7ee0cf83078ef3df4d525604e8",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-056",
+      "fixture_valid": true,
+      "fixture_hash": "2296024edbde87c98e7e54218686ff6447f35decf1e3f527e43104b7c373ad3e",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-057",
+      "fixture_valid": true,
+      "fixture_hash": "c0c7c3ae75397a2b894ce8414b2545378b3b291a295c2e72f2b12d3c5a025911",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "112.97"
+      ]
+    },
+    {
+      "case_id": "S5-058",
+      "fixture_valid": true,
+      "fixture_hash": "f73febc3d3264f3bb0c57e2041a33ee3b15051dc3ea080e74fb86ea8ee5263ee",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-061",
+      "fixture_valid": true,
+      "fixture_hash": "62158f2e898f5ba0f5de8b0841403859fd04fc704beaa051d882481ff7b3e285",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-062",
+      "fixture_valid": true,
+      "fixture_hash": "41ae7ed8731bfc12218b133cad4f429dfd3d32dca840536c1abe5abbc7a66220",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-063",
+      "fixture_valid": true,
+      "fixture_hash": "18ff54f08e6f1246f9c4419004d95e9d0d0a8bf438bb21752d17810149f04082",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-066",
+      "fixture_valid": true,
+      "fixture_hash": "d7763861e9e922ae57f5cc680953d7893d10d023575c8fa03c7aeb966bd6af3f",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "135.17"
+      ]
+    },
+    {
+      "case_id": "S5-067",
+      "fixture_valid": true,
+      "fixture_hash": "bf36aba816e7a367f10e2750e56ae947bb274f28e3a4ed87b1b687aa59312d82",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "218.08"
+      ]
+    },
+    {
+      "case_id": "S5-068",
+      "fixture_valid": true,
+      "fixture_hash": "d550a5436c60ea075800bd4e1b04c523fd4649851515e94c758b020580078ed8",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "439.09"
+      ]
+    },
+    {
+      "case_id": "S5-071",
+      "fixture_valid": true,
+      "fixture_hash": "80723f7eb58724662c0fdbb596248a51591017b497e9c3b58add933d45e751ee",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-072",
+      "fixture_valid": true,
+      "fixture_hash": "6e936c8cfb7e8373bd0609b28b80235e59b6250f01df6e6e7d4e377ce245f187",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-073",
+      "fixture_valid": true,
+      "fixture_hash": "87a8ffe43c8ff25210ec6b83a8198bb40875e5c529793a1748e7b8b3aa5489b8",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-076",
+      "fixture_valid": true,
+      "fixture_hash": "8882e93b50543f0116ddd9da8ff48d40b1262fc2e252dd78a93cb5047297fd59",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-077",
+      "fixture_valid": true,
+      "fixture_hash": "ad948f6a6235d410880d60b023c8109127cb9b616899d82917dbf2ec92c7957c",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-078",
+      "fixture_valid": true,
+      "fixture_hash": "dabccdfb576c8da181047753d8c635a1a301ce694ca514e3300dbb2fe9b91ef0",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-081",
+      "fixture_valid": true,
+      "fixture_hash": "c4be9aa33119b193d4acc73f2bd15ab5f20480948d421b6d1b140291c800618b",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-082",
+      "fixture_valid": true,
+      "fixture_hash": "f98067dc431db676cb60e1d269375a02f375f5f5e90e9e1a39a716c104e0bcfb",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-083",
+      "fixture_valid": true,
+      "fixture_hash": "89caadba426b968c3a6e24cc3b219104bbba1c652ddc2efe8e8212457fb25cef",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-086",
+      "fixture_valid": true,
+      "fixture_hash": "f5b47925ee8a00bcf13764eba5f08e9c10739e2bf254b9cee183d53cb6682bd9",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-087",
+      "fixture_valid": true,
+      "fixture_hash": "298cdec6310b319c14ce192815c023a4a4f36e156b564112d9642b8d051775ee",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-088",
+      "fixture_valid": true,
+      "fixture_hash": "a7f62471b80dede6aee7dff1cd4a4ab523057cb26041fe9b6b8c13745bb34d65",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-091",
+      "fixture_valid": true,
+      "fixture_hash": "43eba41a36e73122ff5eddd78708f8f51ba036cffbf68318b90a2a080a322e7a",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-092",
+      "fixture_valid": true,
+      "fixture_hash": "c2d6b425a9914487981b3f9959dd2449cf4948e37faa8a4e6ce01b4c9619f05d",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-093",
+      "fixture_valid": true,
+      "fixture_hash": "05a573fef3fc8e01c78ea755ebcc03e2c0ef8fafb28277ebeb78d35f521e4c1a",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-096",
+      "fixture_valid": true,
+      "fixture_hash": "6f6a150e52e2648455bab4a0816f3ff2eb23b1ddff78447dae54e4c94e043d9e",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "112.97"
+      ]
+    },
+    {
+      "case_id": "S5-097",
+      "fixture_valid": true,
+      "fixture_hash": "ebf13ab94f0adb0958c3f6e71d4939b3cf7e7555b7594642c923410a629ae1d8",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "112.97"
+      ]
+    },
+    {
+      "case_id": "S5-098",
+      "fixture_valid": true,
+      "fixture_hash": "8a1bf40986f3dd5722b14a746a5ae5ea4087038e14004ff2c466b3ac71c145a0",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-101",
+      "fixture_valid": true,
+      "fixture_hash": "ce7adcd08aa821f01af6e5d19bdac4350a706940de4a5bf91040806ec627e647",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "135.17"
+      ]
+    },
+    {
+      "case_id": "S5-102",
+      "fixture_valid": true,
+      "fixture_hash": "94d376877e975011fb034a448556b99eef7ed5003dc4a035ac7e7dc0e959a36d",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "218.08"
+      ]
+    },
+    {
+      "case_id": "S5-103",
+      "fixture_valid": true,
+      "fixture_hash": "9703a413e7d2db5741daa8d3d4cca4e372c6e7a8ec0b41233a0a700769b1645c",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "439.09"
+      ]
+    },
+    {
+      "case_id": "S5-106",
+      "fixture_valid": true,
+      "fixture_hash": "f08cf6e544b4a70719df1b5875148f00ebc37bde3bf177c3a5e3c0735f1c1320",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "999.99"
+      ]
+    },
+    {
+      "case_id": "S5-107",
+      "fixture_valid": true,
+      "fixture_hash": "18145b13728b8aa833896cf6eb82057f597f6ccac0ae67e2adf68fdcef4a078f",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "1000.00"
+      ]
+    },
+    {
+      "case_id": "S5-108",
+      "fixture_valid": true,
+      "fixture_hash": "4ccc902cf41af6138e0e357ea21809361c0fe2869e07ea649ee8f13bdd8c5379",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "1000.01"
+      ]
+    },
+    {
+      "case_id": "S5-111",
+      "fixture_valid": true,
+      "fixture_hash": "a2e5c3fc30d717a9549f4780295c613ad40d283d698bbad0833518ebf512c58b",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-112",
+      "fixture_valid": true,
+      "fixture_hash": "8b6ca858db239db0acfe89a72eab578c0fffcb9daf6258306a547ef70964dddf",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "66.66"
+      ]
+    },
+    {
+      "case_id": "S5-113",
+      "fixture_valid": true,
+      "fixture_hash": "6540e002c3acf88dea2b9cee763e73d423276e5af75d9b8b99827d15c43d6585",
+      "oracle_checked": true,
+      "actual": [
+        "DENY",
+        null,
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-116",
+      "fixture_valid": true,
+      "fixture_hash": "0983b7f0f94346db2985fc90e5176b33d35ffe0c7455dc49664d7e51a6c809c7",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "20.00"
+      ]
+    },
+    {
+      "case_id": "S5-117",
+      "fixture_valid": true,
+      "fixture_hash": "8023dc7b196fd579ca2c3c117e2ecbf15f2e8f9197011e9b09fad289e87edb35",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "66.66"
+      ]
+    },
+    {
+      "case_id": "S5-118",
+      "fixture_valid": true,
+      "fixture_hash": "b42e3f9e58e73d1ee0fdc76042eb69238e4ce1f0ca165a4923cfa75664643733",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-121",
+      "fixture_valid": true,
+      "fixture_hash": "2ce2e97ef3eb8b26f52a92c7c3d33d3ece352e36168b1d2cc65df7d95f15638c",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-122",
+      "fixture_valid": true,
+      "fixture_hash": "6d2f30af616832ffb0880f7d5ab5e0e423124759587b3578b0d65e0f68995a8c",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-123",
+      "fixture_valid": true,
+      "fixture_hash": "2beda457ecf0d56f2e7f150feb110dbf4e249b217e802819064d55ec876fc4f8",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-004",
+      "fixture_valid": true,
+      "fixture_hash": "000d3cc702df543fb1de0f4520d465c6e4895c912d1f29af98c097adb14a3176",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "623.41"
+      ]
+    },
+    {
+      "case_id": "S5-005",
+      "fixture_valid": true,
+      "fixture_hash": "263caabbbda51a4f333e77f67a97304d9bfa2442f05ef521216a28e29ac13c75",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "752.62"
+      ]
+    },
+    {
+      "case_id": "S5-009",
+      "fixture_valid": true,
+      "fixture_hash": "b8b11ab32f1b5b1ce0d2bf0466fb0bc6fe044c909cafdb53ce26df265ab3ccf5",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-010",
+      "fixture_valid": true,
+      "fixture_hash": "dae45c7dc58a97f76f8199e22f75a1d2a8507eaf09c0bc5474e77f7ba40c591c",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-014",
+      "fixture_valid": true,
+      "fixture_hash": "7011fb931807ea6f964af30d7b3a001418167e08a52cc79a91e8dd44a0d20914",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "3173.41"
+      ]
+    },
+    {
+      "case_id": "S5-015",
+      "fixture_valid": true,
+      "fixture_hash": "5add0ca1affd04f06ac84c91da130f0b4083c4fcf54695029bd4226bb284a10b",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "4725.62"
+      ]
+    },
+    {
+      "case_id": "S5-019",
+      "fixture_valid": true,
+      "fixture_hash": "17fcfb92905494a37198be2b1733e0349e2268351c3db7cf985836c6b4c121d8",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "66.66"
+      ]
+    },
+    {
+      "case_id": "S5-020",
+      "fixture_valid": true,
+      "fixture_hash": "f01e5e82b82f22ecfe1604b5faa9ceb89345e3be9df67bd9b5937257d258cb5f",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-024",
+      "fixture_valid": true,
+      "fixture_hash": "9ab1dc8b070c334fcc1875b0596ab0a7b63aaf3bc733c0520d772dfa366fec11",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "RETURN_AND_REFUND",
+        "94.14"
+      ]
+    },
+    {
+      "case_id": "S5-025",
+      "fixture_valid": true,
+      "fixture_hash": "0bbb856602f68a58b9f051e7504629c59929cc8974eb1f832f9b1982a8be6703",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "RETURN_AND_REFUND",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-029",
+      "fixture_valid": true,
+      "fixture_hash": "fd4135ceae6ca36e1f5ef5b9d73deea380dee1b5ea88bf319f21f275d680cc54",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REPLACE_ITEM",
+        "94.14"
+      ]
+    },
+    {
+      "case_id": "S5-030",
+      "fixture_valid": true,
+      "fixture_hash": "8dc46698f7358b789a4f9e0b1470d70ba400be8615b29b9b2f47b63e23bd4adb",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REPLACE_ITEM",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-034",
+      "fixture_valid": true,
+      "fixture_hash": "7720fac792bdb752051d093fd44c8ced25b38f0459946107e730dd06fdf12ed8",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REFUND_MISSING_ITEM",
+        "94.14"
+      ]
+    },
+    {
+      "case_id": "S5-035",
+      "fixture_valid": true,
+      "fixture_hash": "790214a2d4a8555ab91abf716ee70ed4528696ad59ee6193b94182b561d9143a",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "REFUND_MISSING_ITEM",
+        "47.07"
+      ]
+    },
+    {
+      "case_id": "S5-039",
+      "fixture_valid": true,
+      "fixture_hash": "e97180f98242282e4b20d618e47e6e0452c76a3136b82a5962c374f5026c4a33",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-040",
+      "fixture_valid": true,
+      "fixture_hash": "769086b7edacc13960256db0a90984b053648c57081665edff3257998996ac74",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CREATE_LOGISTICS_TICKET",
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-044",
+      "fixture_valid": true,
+      "fixture_hash": "63f6cd7cd854a575c3373950986c5792cf8024fe3c7d99e0cd918ab681e54695",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-045",
+      "fixture_valid": true,
+      "fixture_hash": "67104c8849dc000b8208ce05fea607ab83ae0ca3e69f1d16be86f7a15f880415",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-049",
+      "fixture_valid": true,
+      "fixture_hash": "4530135246556fbe0fbc0b231bd62bc16ed53c4e87de3bc616e650a656f31e9f",
+      "oracle_checked": true,
+      "actual": [
+        "DENY",
+        null,
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-050",
+      "fixture_valid": true,
+      "fixture_hash": "c5911b1f6b0f1ce5da7aab8c787bfa1ef63defab02c24982964f8fd6e24ab947",
+      "oracle_checked": true,
+      "actual": [
+        "DENY",
+        null,
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-054",
+      "fixture_valid": true,
+      "fixture_hash": "561efcf70cd3667bd887f7cbf9d9dccdcc1c17e1eb93c739678d6c10a9e0b651",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-055",
+      "fixture_valid": true,
+      "fixture_hash": "7c9b5c957eca8f8eafe025c826af1abafd7f8d7f7635041b42c16c4b8aa285ab",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-059",
+      "fixture_valid": true,
+      "fixture_hash": "9d9d6469671d58b0e461a0a090b5452d7eaf4753e98b02541f99bdbbf4c5e48a",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "66.66"
+      ]
+    },
+    {
+      "case_id": "S5-060",
+      "fixture_valid": true,
+      "fixture_hash": "e1f464c83685cdb76619789dcaf658cbaf7c1fdc315e90e0513622b36eaf7732",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "112.97"
+      ]
+    },
+    {
+      "case_id": "S5-064",
+      "fixture_valid": true,
+      "fixture_hash": "245157a123dfde9a1dd9afe0f004386fffea1edb0121d64ff7117e115ac9e88f",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-065",
+      "fixture_valid": true,
+      "fixture_hash": "9323ec34e47c772b26f539c6afe2f3c6137d2e95cdcd8c8de1e3435337686434",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-069",
+      "fixture_valid": true,
+      "fixture_hash": "b4f5e79fc37a95b69651bb57ba6841e3bf430d01b2f80283c222e1a52a551913",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "623.41"
+      ]
+    },
+    {
+      "case_id": "S5-070",
+      "fixture_valid": true,
+      "fixture_hash": "97520a125ff30065fa2213b40e50a78159e37249ec487754f6dfefe84883bc0d",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "752.62"
+      ]
+    },
+    {
+      "case_id": "S5-074",
+      "fixture_valid": true,
+      "fixture_hash": "a03131b7d18b5cf5c27c66d277ab532363412a820956708f36debbe294610980",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-075",
+      "fixture_valid": true,
+      "fixture_hash": "11a9aa7e2dfcb951c1bf684b376c99847a78f57c42c1de61883ccb85305e500b",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-079",
+      "fixture_valid": true,
+      "fixture_hash": "02f17443a1bfd7643944237e9044f9679c1a1299fbb52a6403f8fd0f0613108d",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-080",
+      "fixture_valid": true,
+      "fixture_hash": "9ed129d458a827abd0c83b17746993247376a9fe1575ba66d43ad3cc27a79123",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-084",
+      "fixture_valid": true,
+      "fixture_hash": "cc9e6544c7849b396726aa30576b03aa96c93ba18e5c649ab5a01fa93facf0ff",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-085",
+      "fixture_valid": true,
+      "fixture_hash": "398b8255ca89e2b1812264756a279ecf4560ca2df81c60a3364707c9f522dd58",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-089",
+      "fixture_valid": true,
+      "fixture_hash": "916fb0847af06b35337c16feb8817036a2c5bc03cd3653bece93bd32d2396841",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-090",
+      "fixture_valid": true,
+      "fixture_hash": "a1d07fe317b3ec6ba3be30fbc00911c0c0eae6da40c24b8e73dfb969cf70b91e",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-094",
+      "fixture_valid": true,
+      "fixture_hash": "b2e3535c45f4f6f61ce4c221605fa49471bd5a262029d21f1ca266e1374cce93",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-095",
+      "fixture_valid": true,
+      "fixture_hash": "399727c9000eb9ab2ba01e8979e6ef40f9531ea21e82a03ebd8c940a659ef761",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-099",
+      "fixture_valid": true,
+      "fixture_hash": "b3d276819b3de9c23b6d5a9cfe78807cc971a3519b6c1c0499be270a3f837a98",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "112.97"
+      ]
+    },
+    {
+      "case_id": "S5-100",
+      "fixture_valid": true,
+      "fixture_hash": "4b66290e9494a4368cf86cc55d2c7254e160f54d239dd1174fb885f42c73115e",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-104",
+      "fixture_valid": true,
+      "fixture_hash": "d3ba0371bd7af41d9a46da768d175527cd6d7dc637cf12b1b2e7c0caeb17a237",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "623.41"
+      ]
+    },
+    {
+      "case_id": "S5-105",
+      "fixture_valid": true,
+      "fixture_hash": "d684fd856c55153161f8c5866331016de8d5c839eaeb40201d71ea685c750e0d",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "752.62"
+      ]
+    },
+    {
+      "case_id": "S5-109",
+      "fixture_valid": true,
+      "fixture_hash": "e15f4e2b798e84ca8fca2c72b3b35f1b0d604daf92408338efaeb79916771040",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "CANCEL_AND_REFUND",
+        "999.98"
+      ]
+    },
+    {
+      "case_id": "S5-110",
+      "fixture_valid": true,
+      "fixture_hash": "3cc684aff1e5a5f58883fcf1fd3d93ef77e5cd44d128bb5f5cf85b6235710931",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "CANCEL_AND_REFUND",
+        "1000.02"
+      ]
+    },
+    {
+      "case_id": "S5-114",
+      "fixture_valid": true,
+      "fixture_hash": "6bf0832c3ed05f6f5ab6246b66d9fe7279f0d5622eead1e01c8f416d07e1a5c8",
+      "oracle_checked": true,
+      "actual": [
+        "REQUIRE_APPROVAL",
+        "RETURN_AND_REFUND",
+        "94.14"
+      ]
+    },
+    {
+      "case_id": "S5-115",
+      "fixture_valid": true,
+      "fixture_hash": "be6df30a1d9c77d68e2c2c734f395a7851be76da44157a8343d2dc2671a9859b",
+      "oracle_checked": true,
+      "actual": [
+        "DENY",
+        null,
+        "0.00"
+      ]
+    },
+    {
+      "case_id": "S5-119",
+      "fixture_valid": true,
+      "fixture_hash": "a410053af701d785de8cf1689fc53b4145fa999126f1946ccb5bebcf8009ba94",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "20.00"
+      ]
+    },
+    {
+      "case_id": "S5-120",
+      "fixture_valid": true,
+      "fixture_hash": "2ff7e4ef826d0f4022e76fe9a067de13262a4a6e4fc5f6b9641eac24b3a87e9a",
+      "oracle_checked": true,
+      "actual": [
+        "ALLOW",
+        "RETURN_AND_REFUND",
+        "33.33"
+      ]
+    },
+    {
+      "case_id": "S5-124",
+      "fixture_valid": true,
+      "fixture_hash": "772f501c606eaf4e1153f6d4f7b2072c2754aa99c50f1b51af7600d062b452e8",
+      "oracle_checked": false
+    },
+    {
+      "case_id": "S5-125",
+      "fixture_valid": true,
+      "fixture_hash": "37c554c9e077105ff175e0fe083694223b6d4483279bfe15828cc26c4290672d",
+      "oracle_checked": false
+    }
+  ],
+  "total": 125,
+  "passed": true
+}

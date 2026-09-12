@@ -1,0 +1,166 @@
+Policy: REQUIRE_APPROVAL; amount: 2512.98; execution: WAITING_APPROVAL
+Approval: APPROVED
+Execution: SUCCESS; final action: CANCEL_AND_REFUND
+[
+  {
+    "id": 1,
+    "action_request_id": 1,
+    "event_type": "POLICY_EVALUATED",
+    "actor": "user:6",
+    "data_json": {
+      "result": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "CANCEL_AND_REFUND",
+        "amount": "2512.98",
+        "risk_level": "HIGH",
+        "rule_codes": [
+          "UNSHIPPED_CANCELLATION",
+          "HIGH_AMOUNT"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      },
+      "snapshot": {
+        "evaluated_at": "2026-09-08T23:32:32.481801+08:00",
+        "issue_type": "CANCEL",
+        "order": {
+          "id": 1006,
+          "user_id": 6,
+          "status": "PAID",
+          "currency": "CNY",
+          "original_amount": "2519.99",
+          "discount_amount": "7.01",
+          "payable_amount": "2512.98",
+          "paid_amount": "2512.98",
+          "created_at": "2026-09-05T15:32:08.662582Z",
+          "paid_at": "2026-09-05T16:32:08.662582Z",
+          "shipped_at": null,
+          "delivered_at": null
+        },
+        "item": null,
+        "shipment": null,
+        "line_balance": null,
+        "reserved_amount": "0.00",
+        "whole_refund_exists": false,
+        "replacement_exists": false
+      }
+    },
+    "created_at": "2026-09-08T15:32:32.493638Z"
+  },
+  {
+    "id": 2,
+    "action_request_id": 1,
+    "event_type": "POLICY_REVALIDATED",
+    "actor": "admin:demo-reviewer",
+    "data_json": {
+      "valid": true,
+      "result": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "CANCEL_AND_REFUND",
+        "amount": "2512.98",
+        "risk_level": "HIGH",
+        "rule_codes": [
+          "UNSHIPPED_CANCELLATION",
+          "HIGH_AMOUNT"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      },
+      "snapshot": {
+        "evaluated_at": "2026-09-08T23:32:32.568199+08:00",
+        "issue_type": "CANCEL",
+        "order": {
+          "id": 1006,
+          "user_id": 6,
+          "status": "PAID",
+          "currency": "CNY",
+          "original_amount": "2519.99",
+          "discount_amount": "7.01",
+          "payable_amount": "2512.98",
+          "paid_amount": "2512.98",
+          "created_at": "2026-09-05T15:32:08.662582Z",
+          "paid_at": "2026-09-05T16:32:08.662582Z",
+          "shipped_at": null,
+          "delivered_at": null
+        },
+        "item": null,
+        "shipment": null,
+        "line_balance": null,
+        "reserved_amount": "0.00",
+        "whole_refund_exists": false,
+        "replacement_exists": false
+      }
+    },
+    "created_at": "2026-09-08T15:32:32.568268Z"
+  },
+  {
+    "id": 3,
+    "action_request_id": 1,
+    "event_type": "APPROVAL_REVIEWED",
+    "actor": "admin:demo-reviewer",
+    "data_json": {
+      "status": "APPROVED",
+      "reason": "Demo reviewer checked the request"
+    },
+    "created_at": "2026-09-08T15:32:32.578328Z"
+  },
+  {
+    "id": 4,
+    "action_request_id": 1,
+    "event_type": "POLICY_REVALIDATED",
+    "actor": "admin:demo-reviewer",
+    "data_json": {
+      "valid": true,
+      "result": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "CANCEL_AND_REFUND",
+        "amount": "2512.98",
+        "risk_level": "HIGH",
+        "rule_codes": [
+          "UNSHIPPED_CANCELLATION",
+          "HIGH_AMOUNT"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      },
+      "snapshot": {
+        "evaluated_at": "2026-09-08T23:32:32.635456+08:00",
+        "issue_type": "CANCEL",
+        "order": {
+          "id": 1006,
+          "user_id": 6,
+          "status": "PAID",
+          "currency": "CNY",
+          "original_amount": "2519.99",
+          "discount_amount": "7.01",
+          "payable_amount": "2512.98",
+          "paid_amount": "2512.98",
+          "created_at": "2026-09-05T15:32:08.662582Z",
+          "paid_at": "2026-09-05T16:32:08.662582Z",
+          "shipped_at": null,
+          "delivered_at": null
+        },
+        "item": null,
+        "shipment": null,
+        "line_balance": null,
+        "reserved_amount": "0.00",
+        "whole_refund_exists": false,
+        "replacement_exists": false
+      }
+    },
+    "created_at": "2026-09-08T15:32:32.635523Z"
+  },
+  {
+    "id": 5,
+    "action_request_id": 1,
+    "event_type": "SIMULATION_SUCCEEDED",
+    "actor": "admin:demo-reviewer",
+    "data_json": {
+      "action_type": "CANCEL_AND_REFUND",
+      "amount": "2512.98",
+      "payment_provider": "local-simulator",
+      "result": "done"
+    },
+    "created_at": "2026-09-08T15:32:32.644822Z"
+  }
+]

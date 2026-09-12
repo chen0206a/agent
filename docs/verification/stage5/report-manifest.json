@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-09-11T10:30:58.234279+00:00",
+  "reports": {
+    "STAGE5_EVALUATION.md": "c14c4bc2c9878d7351d34c41bc40362721bd006b06251c582605145ea5de404e",
+    "STAGE5_FAILURE_ANALYSIS.md": "6985d1b8f61718b9ad263148de460a61e8a761d2d3751ba4ca06c29e0ee5588a",
+    "STAGE5_PORTFOLIO.md": "e7809cb85d4c134d4cad7ca361809f5cd77c2a8378af2c855c75f8c809bbc004",
+    "RESUME_METRICS.md": "b33c84dfc67accb3bd2207702b91badeb3bf8c4f09c6bff21f76fa28fa91da76"
+  },
+  "report_generator_hash": "fa7acf4d4f21c31deb680841e6869458c55de3794f04a2dd5396e8e8c7229e75",
+  "manual_analysis_note": "Post-generation failure interpretation and integrity section added to reports; frozen scores unchanged."
+}

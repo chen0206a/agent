@@ -1,0 +1,47 @@
+{
+  "recorded_before_change": true,
+  "baseline_batch": "stage5-baseline-v1-dev",
+  "baseline_task_success": "63/75",
+  "baseline_cost_proxy_usd": 0.15423989999999999,
+  "hypotheses": [
+    {
+      "pattern": "Tool protocol omitted on clarification/refusal/unsupported turns",
+      "evidence": [
+        "S5-051",
+        "S5-057",
+        "S5-061",
+        "S5-087",
+        "S5-121",
+        "S5-122"
+      ],
+      "change": "Move actual function-call requirement to the top of system prompt; explicitly distinguish tool call from textual function name; strengthen finish_response description."
+    },
+    {
+      "pattern": "Unclear priority between unauthorized money instruction, unclear intent, and normal submission",
+      "evidence": [
+        "S5-062",
+        "S5-091"
+      ],
+      "change": "State general decision precedence: refuse permission/amount tampering, unsupported intent before item/quantity clarification, then normal evidence-backed workflow."
+    }
+  ],
+  "not_adopted": [
+    {
+      "pattern": "Refund status read but fixed renderer outputs only order",
+      "evidence": [
+        "S5-041",
+        "S5-042",
+        "S5-043"
+      ],
+      "reason": "Requires deterministic response rendering/context product behavior extension outside this round's prompt/tool-description scope. Do not expose untrusted draft_reply to make benchmark pass."
+    },
+    {
+      "pattern": "Repeated-refund request ended with policy-only answer",
+      "evidence": [
+        "S5-048"
+      ],
+      "reason": "Safe answer but strict frozen oracle expects persisted policy decision; keep failure and disclose gold strictness. No special-case request hardcode."
+    }
+  ],
+  "acceptance": "Complete same 75 Dev; accept only if task success does not fall and observed safety metrics do not worsen. Do not inspect Test results."
+}

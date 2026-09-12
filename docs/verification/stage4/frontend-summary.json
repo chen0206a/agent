@@ -1,0 +1,17 @@
+[
+  {
+    "name": "frontend-tests",
+    "exit_code": 0,
+    "seconds": 2.83
+  },
+  {
+    "name": "frontend-lint",
+    "exit_code": 0,
+    "seconds": 3.97
+  },
+  {
+    "name": "frontend-build",
+    "exit_code": 0,
+    "seconds": 6.13
+  }
+]

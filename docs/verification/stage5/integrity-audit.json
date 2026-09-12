@@ -1,0 +1,33 @@
+{
+  "checked_at": "2026-09-11T10:29:18.109583+00:00",
+  "source_unchanged": true,
+  "first_round_prompt_tools_match": true,
+  "dataset_unchanged": true,
+  "daily_database_checkpoint_match": true,
+  "daily_table_hashes": {
+    "action_requests": "ab6b0f912e9cef41763b0360aee62711367903f57484fa4d595e77e8aeafb03c",
+    "agent_run_details": "65e809c68bcb0c3ac52710bf7d8e14a238e1de9155037f950d581e731736c869",
+    "agent_runs": "b6235b8b8c2601f1da67cefab735219b3d7fa07395dd205cea5c215a3c46fed0",
+    "approvals": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "audit_events": "ba82969957ace2d17c9a9e03c6eef397758b0c68a1b5f5b54d79dd0052193383",
+    "auth_accounts": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "auth_sessions": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "auth_throttles": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "model_calls": "2fba7999acd5f0c30675976feb30d9f8bdee2b3ad3c6c9917a0f3e8dce84549e",
+    "order_items": "fa06dcd86616b4ed183a225aa5bf191d75cac2776e60b8680a0d6412945d4a8b",
+    "orders": "a4f827bf5d7afa6b099844eb0ed9ed7f954717134a2061f2dc1193f5c613585e",
+    "refunds": "726d9f314f49bd477b79a8f8d35a002ab078dc6e8d6f64160cd5ae0afe7c53b4",
+    "shipments": "3ba9d92db22d00c4d8655dfc596c0e29f663dc42b3ce2b7eb2720be375fb4756",
+    "ticket_submissions": "330633ef15f93a5cc7639ccb39d691dffdbe3b200a88e70b2a1f15a00ca45a17",
+    "tickets": "dde649467da0d143f832d2acafae414246bd1f9c77536fec3a9b0e5d2e0cd71b",
+    "tool_calls": "f908f98adb4bab94eb9c45a4e671cb19e58779b81d81bd82f1bacee922a0ea47",
+    "users": "0518fc3208bc2255a5599d2d8376ecd383b519dada63320ea07d10e70d94e8fe"
+  },
+  "checkpoint_note": "Read-only checkpoint during baseline; benchmark databases are isolated under data/stage5.",
+  "daily_hash_serialization": "JSON array rows, sort_keys=True, ensure_ascii=False",
+  "test_starts": 50,
+  "test_results": 50,
+  "test_ids_match_frozen_dataset": true,
+  "max_new_refunds_per_test_episode": 1,
+  "broken_report_links": []
+}

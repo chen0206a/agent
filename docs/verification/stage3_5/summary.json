@@ -1,0 +1,106 @@
+{
+  "stage": "3.5",
+  "config_versions": {
+    "baseline": "baseline-2238164b5703",
+    "optimized": "optimized-a764ea1a294c"
+  },
+  "agent_runs": 10,
+  "live_llm_calls": 24,
+  "additional_live_retries_or_diagnostics": 0,
+  "totals": {
+    "baseline": {
+      "llm_calls": 13,
+      "tool_calls": 23,
+      "input_tokens": 30343,
+      "output_tokens": 2145,
+      "latency_ms": 53086
+    },
+    "optimized": {
+      "llm_calls": 11,
+      "tool_calls": 15,
+      "input_tokens": 22665,
+      "output_tokens": 1153,
+      "latency_ms": 47126
+    }
+  },
+  "baseline_passed": 4,
+  "optimized_passed": 5,
+  "representative_acceptance_passed": true,
+  "production_ready": false,
+  "local_business_database_unchanged": true,
+  "protected_source_files_unchanged": [
+    "backend/app/api/dependencies.py",
+    "backend/app/models/__init__.py",
+    "backend/app/models/entities.py",
+    "backend/app/repositories/__init__.py",
+    "backend/app/repositories/store.py",
+    "backend/app/services/__init__.py",
+    "backend/app/services/business.py",
+    "backend/app/services/calculator.py",
+    "backend/app/services/policy.py",
+    "backend/app/services/workflow.py"
+  ],
+  "regression": {
+    "verified_at": "2026-09-09T09:32:05.081691+00:00",
+    "python": "3.13.5",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "passed": true,
+    "tests": 152,
+    "failures": 0,
+    "errors": 0,
+    "steps": [
+      {
+        "name": "pytest",
+        "exit_code": 0,
+        "duration_seconds": 47.9
+      },
+      {
+        "name": "ruff-check",
+        "exit_code": 0,
+        "duration_seconds": 0.26
+      },
+      {
+        "name": "ruff-format",
+        "exit_code": 0,
+        "duration_seconds": 0.22
+      },
+      {
+        "name": "pip-check",
+        "exit_code": 0,
+        "duration_seconds": 1.39
+      },
+      {
+        "name": "policy-eval",
+        "exit_code": 0,
+        "duration_seconds": 1.64
+      },
+      {
+        "name": "http-smoke",
+        "exit_code": 0,
+        "duration_seconds": 5.7
+      },
+      {
+        "name": "agent-eval",
+        "exit_code": 0,
+        "duration_seconds": 15.4
+      },
+      {
+        "name": "agent-http-smoke",
+        "exit_code": 0,
+        "duration_seconds": 5.85
+      }
+    ]
+  },
+  "failures": [
+    {
+      "phase": "baseline",
+      "case": "injection",
+      "failure_stage": "MODEL_PROTOCOL",
+      "failure_stages": [
+        "MODEL_PROTOCOL",
+        "TOOL_SELECTION",
+        "RESPONSE"
+      ]
+    }
+  ]
+}

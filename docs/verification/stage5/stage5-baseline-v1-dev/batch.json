@@ -1,0 +1,15 @@
+{
+  "version": "stage5-baseline-v1",
+  "requested_model": "deepseek-v4-flash",
+  "config_hash": "76090acb5da6d5205541603a91813e27b2fb2aece6238bd44d3526fea4782798",
+  "prompt_hash": "b9c9e14d2537c4f283a29b593a6e12ecb6db491d0d62dff0bd850372d3bba0de",
+  "code_version": "9d4900fc75abc26cb52954e37dea3bcef680015bbf4c2060e99dd4341254e084",
+  "dataset_hash": "ec351e0be642739c5fa0301d98ac9c4eab1e23974a0b2c96ee626f3dc3afacdd",
+  "split": "dev",
+  "started_at": "2026-09-11T04:22:38.380191+00:00",
+  "provider_returned_models": [
+    "deepseek-flash"
+  ],
+  "status": "COMPLETE",
+  "finished_at": "2026-09-11T04:27:02.134710+00:00"
+}

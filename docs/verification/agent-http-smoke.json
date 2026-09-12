@@ -1,0 +1,164 @@
+{
+  "passed": true,
+  "transport": "real HTTP / loopback Uvicorn",
+  "isolated_database": true,
+  "agent_mode": "scripted-fixture",
+  "requests_checked": 31,
+  "observations": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/tickets",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/actions",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/actions/1/simulate-execution",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/actions/1/simulate-execution",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/approvals",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/approvals/1/review",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/actions/1/simulate-execution",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/actions/1/simulate-execution",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/orders/1006/refunds",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/actions/1/audit",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/tickets",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/actions",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/actions/2/simulate-execution",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/actions/2/simulate-execution",
+      "status": 409
+    },
+    {
+      "method": "POST",
+      "path": "/actions/2/return-receipt",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/actions/2/simulate-execution",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/actions/2/simulate-execution",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/orders/1003/refunds",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/actions/2/audit",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/orders/1002",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/orders/999999",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/tickets",
+      "status": 422
+    },
+    {
+      "method": "GET",
+      "path": "/agent/status",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/agent/runs",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/agent/runs",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/agent/runs/1",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/agent/runs/1/trace",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/agent/runs/1/trace",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/agent/policies/approval",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json",
+      "status": 200
+    }
+  ]
+}

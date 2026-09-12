@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "mode": "additive schema upgrade",
+  "old_tables_unchanged": true,
+  "table_count": 14,
+  "backup": "D:\\RAG-agent\u9879\u76ee\\after-sale-copilot\\data\\backups\\before-stage3-20260909T030854Z.db",
+  "old_table_snapshots": {
+    "action_requests": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "agent_runs": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "approvals": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "audit_events": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "order_items": {
+      "rows": 48,
+      "sha256": "fa06dcd86616b4ed183a225aa5bf191d75cac2776e60b8680a0d6412945d4a8b"
+    },
+    "orders": {
+      "rows": 24,
+      "sha256": "a4f827bf5d7afa6b099844eb0ed9ed7f954717134a2061f2dc1193f5c613585e"
+    },
+    "refunds": {
+      "rows": 3,
+      "sha256": "2d03895be819e13063a75c0fbcf45da46eb8964d7a94da951438d60825f176a3"
+    },
+    "shipments": {
+      "rows": 19,
+      "sha256": "3ba9d92db22d00c4d8655dfc596c0e29f663dc42b3ce2b7eb2720be375fb4756"
+    },
+    "tickets": {
+      "rows": 3,
+      "sha256": "7541e2e560ffae7418d82affec81119ee7a73b8845961e7c612bd513c8531964"
+    },
+    "tool_calls": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "users": {
+      "rows": 10,
+      "sha256": "0518fc3208bc2255a5599d2d8376ecd383b519dada63320ea07d10e70d94e8fe"
+    }
+  },
+  "live_model_configured": false
+}

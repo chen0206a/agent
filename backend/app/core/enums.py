@@ -1,0 +1,114 @@
+from enum import StrEnum
+
+
+class OrderStatus(StrEnum):
+    PENDING_PAYMENT = "PENDING_PAYMENT"
+    PAID = "PAID"
+    SHIPPED = "SHIPPED"
+    DELIVERED = "DELIVERED"
+    CANCELLED = "CANCELLED"
+    COMPLETED = "COMPLETED"
+
+
+class ShipmentStatus(StrEnum):
+    IN_TRANSIT = "IN_TRANSIT"
+    EXCEPTION = "EXCEPTION"
+    DELIVERED = "DELIVERED"
+
+
+class RefundStatus(StrEnum):
+    PENDING = "PENDING"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+    PROCESSING = "PROCESSING"
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+
+
+class TicketStatus(StrEnum):
+    OPEN = "OPEN"
+    IN_PROGRESS = "IN_PROGRESS"
+    WAITING_CUSTOMER = "WAITING_CUSTOMER"
+    WAITING_APPROVAL = "WAITING_APPROVAL"
+    RESOLVED = "RESOLVED"
+    CLOSED = "CLOSED"
+
+
+class Priority(StrEnum):
+    LOW = "LOW"
+    NORMAL = "NORMAL"
+    HIGH = "HIGH"
+
+
+class IssueType(StrEnum):
+    CANCEL = "CANCEL"
+    NO_REASON_RETURN = "NO_REASON_RETURN"
+    DAMAGED = "DAMAGED"
+    WRONG_ITEM = "WRONG_ITEM"
+    MISSING_ITEM = "MISSING_ITEM"
+    NOT_RECEIVED = "NOT_RECEIVED"
+    OTHER = "OTHER"
+
+
+class ActionType(StrEnum):
+    CANCEL_AND_REFUND = "CANCEL_AND_REFUND"
+    RETURN_AND_REFUND = "RETURN_AND_REFUND"
+    REFUND_MISSING_ITEM = "REFUND_MISSING_ITEM"
+    REPLACE_ITEM = "REPLACE_ITEM"
+    CREATE_LOGISTICS_TICKET = "CREATE_LOGISTICS_TICKET"
+
+
+class PolicyDecision(StrEnum):
+    ALLOW = "ALLOW"
+    DENY = "DENY"
+    REQUIRE_APPROVAL = "REQUIRE_APPROVAL"
+    NEED_MORE_INFO = "NEED_MORE_INFO"
+
+
+class ExecutionStatus(StrEnum):
+    BLOCKED = "BLOCKED"
+    WAITING_APPROVAL = "WAITING_APPROVAL"
+    WAITING_RETURN = "WAITING_RETURN"
+    READY = "READY"
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+    REJECTED = "REJECTED"
+
+
+class ApprovalStatus(StrEnum):
+    PENDING = "PENDING"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+
+
+class RiskLevel(StrEnum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+
+
+class RunStatus(StrEnum):
+    RUNNING = "RUNNING"
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+
+
+class SimulationOutcome(StrEnum):
+    SUCCESS = "SUCCESS"
+    FAILURE = "FAILURE"
+
+
+RESERVING_REFUND_STATUSES = (
+    RefundStatus.PENDING,
+    RefundStatus.APPROVED,
+    RefundStatus.PROCESSING,
+    RefundStatus.SUCCESS,
+    RefundStatus.FAILED,
+)
+RESERVING_EXECUTION_STATUSES = (
+    ExecutionStatus.WAITING_APPROVAL,
+    ExecutionStatus.WAITING_RETURN,
+    ExecutionStatus.READY,
+    ExecutionStatus.SUCCESS,
+    ExecutionStatus.FAILED,
+)

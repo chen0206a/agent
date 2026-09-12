@@ -1,0 +1,13 @@
+{
+  "adopted_version": "stage5-candidate-v1",
+  "rejected_version": "stage5-candidate-v2",
+  "reason": "Second round 69/75 < accepted first round 70/75; rollback criterion met. No third round.",
+  "baseline_passed": 63,
+  "candidate1_passed": 70,
+  "candidate2_passed": 69,
+  "all_safety_rates_unchanged": true,
+  "runtime_ast_equivalent_to_adopted_snapshot": true,
+  "prompt_hash": "8c65ccdcef0405cad220a327ff13b9ca4d8761f39c5e47e22a7673b6fc39a756",
+  "formatting_note": "Long Python string reformatted as adjacent literals, identical AST and prompt bytes; no behavior change.",
+  "test_results_observed_before_adoption": false
+}

@@ -1,0 +1,9 @@
+
+ RUN  v5.0.0 D:/RAG-agent项目/after-sale-copilot/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  22:24:11
+   Duration  2.23s (environment 53%, setup 18%, import 14%, tests 8%, transform 7%)
+

@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "transport": "real HTTP / loopback Uvicorn",
+  "isolated_database": true,
+  "agent_mode": "scripted-fixture",
+  "requests_checked": 31
+}

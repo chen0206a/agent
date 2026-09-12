@@ -1,0 +1,23 @@
+{
+  "case_id": "S5-067",
+  "batch": "stage5-candidate-v2-dev",
+  "attempt": 3,
+  "started_at": "2026-09-11T04:37:10.892418+00:00",
+  "requested_model": "deepseek-v4-flash",
+  "request_hash": "ff3755a3dbd73c60a70d65ec7165bfc98c4e44097a4ae03de2d5c8d884a234b3",
+  "actual_external_request": true,
+  "injected_fault": null,
+  "input_upper_bound": 9769,
+  "output_upper_bound": 1024,
+  "provider_returned_model": "deepseek-flash",
+  "status_code": 200,
+  "input_tokens": 2717,
+  "output_tokens": 64,
+  "reserved_cost_usd": 0.0041595,
+  "cache_hit_tokens": 2560,
+  "cache_miss_tokens": 157,
+  "finished_at": "2026-09-11T04:37:11.752472+00:00",
+  "latency_ms": 860,
+  "usage_complete": true,
+  "cost_proxy_usd": 0.0008918999999999999
+}

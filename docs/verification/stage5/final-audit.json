@@ -1,0 +1,31 @@
+{
+  "actual_external_attempts": 756,
+  "injected_transport_attempts": 9,
+  "input_tokens": 1729205,
+  "output_tokens": 55791,
+  "unknown_usage_attempts": 0,
+  "cost_proxy_usd": 0.5857107,
+  "budget_usd": 5,
+  "test_episodes": 50,
+  "unique_test_case_ids": 50,
+  "dataset_hash": "ec351e0be642739c5fa0301d98ac9c4eab1e23974a0b2c96ee626f3dc3afacdd",
+  "requested_models": [
+    "deepseek-v4-flash"
+  ],
+  "provider_returned_models": [
+    "deepseek-flash"
+  ],
+  "fixed_dev_cases": [
+    "S5-051",
+    "S5-057",
+    "S5-061",
+    "S5-062",
+    "S5-087",
+    "S5-091",
+    "S5-121",
+    "S5-122"
+  ],
+  "regressed_dev_cases": [
+    "S5-072"
+  ]
+}

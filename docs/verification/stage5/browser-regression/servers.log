@@ -1,0 +1,275 @@
+▲ Next.js 16.3.4
+- Local:         http://127.0.0.1:3810
+- Network:       http://127.0.0.1:3810
+✓ Ready in 260ms
+✓ Running next.config.ts took 58ms
+INFO:     Started server process [34560]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8014 (Press CTRL+C to quit)
+2026-09-11 12:40:31,155 INFO aftersale request_id=eb4e3c98d6c348d6b444bfbb650995d9 method=GET path=/health status=200 latency_ms=186.8
+INFO:     127.0.0.1:54850 - "GET /health HTTP/1.1" 200 OK
+2026-09-11 12:40:34,428 INFO aftersale request_id=40dae5c7a31f4c4cb253bee7fb53fade method=GET path=/auth/me status=401 latency_ms=27.3
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:34,471 INFO aftersale request_id=1d29ff9376a74653b48f29baf71c7b09 method=GET path=/auth/me status=401 latency_ms=1.1
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:34,688 INFO aftersale request_id=143100641d1843308e1da47919c1556e method=GET path=/orders/1001 status=401 latency_ms=1.7
+INFO:     127.0.0.1:58911 - "GET /orders/1001 HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:34,956 INFO aftersale request_id=49b48b3ee0c44328ba17bbdb4030e3af method=GET path=/auth/me status=401 latency_ms=1.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:35,517 INFO aftersale request_id=d35908cb1ec14c6490d2999189309bd4 method=POST path=/auth/login status=200 latency_ms=426.1
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:35,576 INFO aftersale request_id=86f7c20dccac4270a133966539215753 method=GET path=/users/1/orders status=200 latency_ms=22.8
+INFO:     127.0.0.1:58911 - "GET /users/1/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:35,628 INFO aftersale request_id=9d7759f862d547ef8dd107028f528057 method=GET path=/auth/me status=200 latency_ms=8.9
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:35,649 INFO aftersale request_id=c2aecae7e4324e38a2900151a63d9e14 method=GET path=/users/1/orders status=200 latency_ms=9.1
+INFO:     127.0.0.1:58911 - "GET /users/1/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:35,965 INFO aftersale request_id=04970dd437b54de197f264350a988f9b method=GET path=/auth/me status=200 latency_ms=7.3
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:35,998 INFO aftersale request_id=2c2107150a3a4bb485744f855ca64dff method=GET path=/portal/runs status=200 latency_ms=17.9
+INFO:     127.0.0.1:62245 - "GET /portal/runs?limit=100&order_id=1001 HTTP/1.1" 200 OK
+2026-09-11 12:40:36,004 INFO aftersale request_id=fa58f75900114cbeb072ff77e355eb9c method=GET path=/users/1/orders status=200 latency_ms=27.0
+INFO:     127.0.0.1:58911 - "GET /users/1/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:36,316 INFO aftersale request_id=13793c2f01f14a598a892e449fade894 method=POST path=/agent/runs status=200 latency_ms=250.1
+INFO:     127.0.0.1:58911 - "POST /agent/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:36,330 INFO aftersale request_id=091e7f52fe1a4be392d9877cf104b030 method=GET path=/portal/runs status=200 latency_ms=6.3
+INFO:     127.0.0.1:58911 - "GET /portal/runs?limit=100&order_id=1001 HTTP/1.1" 200 OK
+2026-09-11 12:40:36,495 INFO aftersale request_id=ce9b5a54364c4cf980e627e487a5a5b6 method=GET path=/auth/me status=200 latency_ms=6.5
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:36,523 INFO aftersale request_id=14d80e8f88954f68a84565ca25aac2ca method=GET path=/portal/actions status=200 latency_ms=11.0
+INFO:     127.0.0.1:58911 - "GET /portal/actions?offset=0 HTTP/1.1" 200 OK
+2026-09-11 12:40:36,525 INFO aftersale request_id=6c945ec6e1d54426aa15a1e41a15b832 method=GET path=/tickets status=200 latency_ms=10.6
+INFO:     127.0.0.1:62245 - "GET /tickets?offset=0 HTTP/1.1" 200 OK
+2026-09-11 12:40:36,577 INFO aftersale request_id=41528338a7fb416e93410235e5e33142 method=GET path=/auth/me status=200 latency_ms=6.6
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:36,597 INFO aftersale request_id=d5dfa0fda3f047109abaf9706c193025 method=GET path=/portal/actions status=200 latency_ms=7.7
+INFO:     127.0.0.1:58911 - "GET /portal/actions?offset=0 HTTP/1.1" 200 OK
+2026-09-11 12:40:36,598 INFO aftersale request_id=dac77fb6f31348b594d4017d1c0e5868 method=GET path=/tickets status=200 latency_ms=7.5
+INFO:     127.0.0.1:62245 - "GET /tickets?offset=0 HTTP/1.1" 200 OK
+2026-09-11 12:40:36,716 INFO aftersale request_id=0aaa26d27b3d4441892f306f3a06dafe method=GET path=/auth/me status=200 latency_ms=6.8
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:36,746 INFO aftersale request_id=a47242f3e5ed4c738b91207b9dda735c method=GET path=/users/1/orders status=200 latency_ms=8.9
+INFO:     127.0.0.1:58911 - "GET /users/1/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:37,122 INFO aftersale request_id=e570e3a914644a2d9d2f389ffcbcf817 method=GET path=/auth/me status=401 latency_ms=1.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:37,660 INFO aftersale request_id=f57dcccb53414821ad1617c590078168 method=POST path=/auth/login status=200 latency_ms=411.2
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:37,699 INFO aftersale request_id=f29c2a7b03624904b9722a7df2bc8e1e method=GET path=/users/6/orders status=200 latency_ms=9.3
+INFO:     127.0.0.1:58911 - "GET /users/6/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:37,714 INFO aftersale request_id=2c0a31f5f215401bbc92d383aaf18e51 method=GET path=/auth/me status=200 latency_ms=6.2
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:37,732 INFO aftersale request_id=46e403c9c5a84fab85360d4e155b6e69 method=GET path=/users/6/orders status=200 latency_ms=6.3
+INFO:     127.0.0.1:58911 - "GET /users/6/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:38,127 INFO aftersale request_id=eb170410b676455ca44eaede85070719 method=GET path=/auth/me status=200 latency_ms=9.1
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:38,170 INFO aftersale request_id=bdd0a3874e214d86945275cea6639b3c method=GET path=/portal/runs status=200 latency_ms=13.0
+INFO:     127.0.0.1:62245 - "GET /portal/runs?limit=100&order_id=1006 HTTP/1.1" 200 OK
+2026-09-11 12:40:38,172 INFO aftersale request_id=1aa51f2b32d6423d9b5e3da9b522997b method=GET path=/users/6/orders status=200 latency_ms=17.4
+INFO:     127.0.0.1:58911 - "GET /users/6/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:38,441 INFO aftersale request_id=8541d344c6e244789e9424361eaa632f method=POST path=/agent/runs status=200 latency_ms=229.1
+INFO:     127.0.0.1:58911 - "POST /agent/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:38,456 INFO aftersale request_id=33bbbb17f2e749c8a5205faa1f901b7f method=GET path=/portal/runs status=200 latency_ms=6.6
+INFO:     127.0.0.1:58911 - "GET /portal/runs?limit=100&order_id=1006 HTTP/1.1" 200 OK
+2026-09-11 12:40:38,546 INFO aftersale request_id=f021bcb5f4944b9eb26bdb166263c996 method=GET path=/portal/actions status=200 latency_ms=5.6
+INFO:     127.0.0.1:58911 - "GET /portal/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:38,611 INFO aftersale request_id=81875354c9f441b39a550c2c5c06514a method=POST path=/auth/logout status=204 latency_ms=13.9
+INFO:     127.0.0.1:58911 - "POST /auth/logout HTTP/1.1" 204 No Content
+2026-09-11 12:40:38,633 INFO aftersale request_id=09b4e2d73dfa45eb9b81ebfe7568c696 method=GET path=/auth/me status=401 latency_ms=3.1
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:39,202 INFO aftersale request_id=ba40bcfdde6041149574fb84b3b92a11 method=POST path=/auth/login status=200 latency_ms=470.0
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:39,264 INFO aftersale request_id=13820729b3734a3f9e54702a4e844aad method=GET path=/portal/dashboard status=200 latency_ms=45.9
+INFO:     127.0.0.1:58911 - "GET /portal/dashboard HTTP/1.1" 200 OK
+2026-09-11 12:40:39,275 INFO aftersale request_id=47e85308bfd64cd198cf6cfd876fbf8d method=GET path=/auth/me status=200 latency_ms=7.1
+INFO:     127.0.0.1:62245 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:39,305 INFO aftersale request_id=5e2d20980746411d91bbcfbe42329b96 method=GET path=/portal/dashboard status=200 latency_ms=20.9
+INFO:     127.0.0.1:58911 - "GET /portal/dashboard HTTP/1.1" 200 OK
+2026-09-11 12:40:39,612 INFO aftersale request_id=c0259201879246299d6e3df4e71dd996 method=GET path=/auth/me status=200 latency_ms=8.7
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:39,634 INFO aftersale request_id=1ab7c403d3c649869ae294ddd12ab697 method=GET path=/portal/actions status=200 latency_ms=8.2
+INFO:     127.0.0.1:58911 - "GET /portal/actions?offset=0&status=WAITING_APPROVAL HTTP/1.1" 200 OK
+2026-09-11 12:40:39,706 INFO aftersale request_id=1b112340b7ed40e4aa13ce971624d952 method=GET path=/portal/actions status=200 latency_ms=9.2
+INFO:     127.0.0.1:58911 - "GET /portal/actions?offset=0&risk=HIGH HTTP/1.1" 200 OK
+2026-09-11 12:40:39,888 INFO aftersale request_id=3452833f5b874f42ae993fcf86a440ca method=GET path=/auth/me status=200 latency_ms=10.4
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:39,912 INFO aftersale request_id=9adeeda12d6047a4933147a0f497a63b method=GET path=/tickets/5 status=200 latency_ms=12.1
+INFO:     127.0.0.1:58911 - "GET /tickets/5 HTTP/1.1" 200 OK
+2026-09-11 12:40:39,921 INFO aftersale request_id=5024dcd8b18b4f6cad28357359eab825 method=GET path=/portal/runs status=200 latency_ms=14.8
+INFO:     127.0.0.1:60615 - "GET /portal/runs?limit=100 HTTP/1.1" 200 OK
+2026-09-11 12:40:39,924 INFO aftersale request_id=769f6bd0b021430aae5cf2a9a661dc9b method=GET path=/tickets/5/actions status=200 latency_ms=21.5
+INFO:     127.0.0.1:62245 - "GET /tickets/5/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:40,094 INFO aftersale request_id=95e1616154284f61951f57326fbb8af7 method=GET path=/approvals status=200 latency_ms=15.7
+INFO:     127.0.0.1:58911 - "GET /approvals?status=PENDING&limit=100&offset=0 HTTP/1.1" 200 OK
+2026-09-11 12:40:40,140 INFO aftersale request_id=44f26a71f9214bd9baa1caa5bf10dc13 method=POST path=/approvals/1/review status=200 latency_ms=33.1
+INFO:     127.0.0.1:58911 - "POST /approvals/1/review HTTP/1.1" 200 OK
+2026-09-11 12:40:40,157 INFO aftersale request_id=ad99b94300b84ff6a4694d7752a2ad4c method=GET path=/tickets/5/actions status=200 latency_ms=7.7
+INFO:     127.0.0.1:58911 - "GET /tickets/5/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:40,309 INFO aftersale request_id=de2480074c3846dd974b1319ece7b6a6 method=POST path=/actions/2/simulate-execution status=200 latency_ms=27.5
+INFO:     127.0.0.1:58911 - "POST /actions/2/simulate-execution HTTP/1.1" 200 OK
+2026-09-11 12:40:40,328 INFO aftersale request_id=df7538e91fb14887ba4f708d9fc7f5f7 method=GET path=/tickets/5/actions status=200 latency_ms=9.7
+INFO:     127.0.0.1:58911 - "GET /tickets/5/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:40,417 INFO aftersale request_id=3bf51792c45648ac8bb6f926793f5fa6 method=GET path=/actions/2 status=200 latency_ms=7.4
+INFO:     127.0.0.1:58911 - "GET /actions/2 HTTP/1.1" 200 OK
+2026-09-11 12:40:40,831 INFO aftersale request_id=96f2901ba1e245fab2bd025c82b734a1 method=GET path=/auth/me status=401 latency_ms=1.3
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:41,362 INFO aftersale request_id=0c7fda36f01c4d00a80c61d5d43f3e8e method=POST path=/auth/login status=200 latency_ms=407.4
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:41,400 INFO aftersale request_id=f4180bc9871a43cc8566cd1e4e9d854c method=GET path=/users/10/orders status=200 latency_ms=7.4
+INFO:     127.0.0.1:58911 - "GET /users/10/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:41,419 INFO aftersale request_id=3d58adc8736e4be382649b157f219878 method=GET path=/auth/me status=200 latency_ms=7.1
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:41,435 INFO aftersale request_id=db12de3d2f2d4e5e99f61e831fe89c07 method=GET path=/users/10/orders status=200 latency_ms=7.1
+INFO:     127.0.0.1:58911 - "GET /users/10/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:41,820 INFO aftersale request_id=7954ea05bed84566900b952f7ced6f7e method=GET path=/auth/me status=200 latency_ms=6.3
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:41,861 INFO aftersale request_id=f7e0141c08ee4fffa406cae4c50da7e6 method=GET path=/portal/runs status=200 latency_ms=10.6
+INFO:     127.0.0.1:62245 - "GET /portal/runs?limit=100&order_id=1010 HTTP/1.1" 200 OK
+2026-09-11 12:40:41,862 INFO aftersale request_id=f5316f67bc4149dc8e00a5019c217108 method=GET path=/users/10/orders status=200 latency_ms=13.9
+INFO:     127.0.0.1:58911 - "GET /users/10/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:42,155 INFO aftersale request_id=766bb6d10c2e445e82db7b824a4b065a method=POST path=/agent/runs status=200 latency_ms=240.2
+INFO:     127.0.0.1:58911 - "POST /agent/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:42,169 INFO aftersale request_id=8da197daee9b4af8aac39b8dc3c02b52 method=GET path=/portal/runs status=200 latency_ms=5.5
+INFO:     127.0.0.1:58911 - "GET /portal/runs?limit=100&order_id=1010 HTTP/1.1" 200 OK
+2026-09-11 12:40:42,281 INFO aftersale request_id=81c8d9af6236489b9277bf26ca2bcd01 method=GET path=/auth/me status=200 latency_ms=6.3
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:42,310 INFO aftersale request_id=ddd237bf2ef24255935bfad9b2676437 method=GET path=/orders/1010 status=200 latency_ms=13.4
+INFO:     127.0.0.1:58911 - "GET /orders/1010 HTTP/1.1" 200 OK
+2026-09-11 12:40:42,320 INFO aftersale request_id=b0e3db73545d44958e18d6acaa2a24d8 method=GET path=/orders/1010/items status=200 latency_ms=22.1
+INFO:     127.0.0.1:62245 - "GET /orders/1010/items HTTP/1.1" 200 OK
+2026-09-11 12:40:42,322 INFO aftersale request_id=88dfebb727aa44ce9a71995b6e33d114 method=GET path=/orders/1010/shipment status=200 latency_ms=21.7
+INFO:     127.0.0.1:60615 - "GET /orders/1010/shipment HTTP/1.1" 200 OK
+2026-09-11 12:40:42,322 INFO aftersale request_id=aeec9268a09e47a4a6e4dd349f39c7ea method=GET path=/orders/1010/refunds status=200 latency_ms=18.1
+INFO:     127.0.0.1:61393 - "GET /orders/1010/refunds HTTP/1.1" 200 OK
+2026-09-11 12:40:42,752 INFO aftersale request_id=78aa38fa7964423497da347f4cc5af31 method=GET path=/auth/me status=401 latency_ms=1.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:43,268 INFO aftersale request_id=587a87cac96641a3aace248af41dda37 method=POST path=/auth/login status=200 latency_ms=401.7
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:43,306 INFO aftersale request_id=15e1c719515d45c3a0ecac0746074e96 method=GET path=/users/4/orders status=200 latency_ms=8.9
+INFO:     127.0.0.1:58911 - "GET /users/4/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:43,325 INFO aftersale request_id=18cc04266f4a425bb2ece0606e06c2db method=GET path=/auth/me status=200 latency_ms=6.6
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:43,340 INFO aftersale request_id=3137fb7688794c2ab9fcf808c4145622 method=GET path=/users/4/orders status=200 latency_ms=7.7
+INFO:     127.0.0.1:58911 - "GET /users/4/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:43,752 INFO aftersale request_id=7ce550504c62484684676a98df55cfa1 method=GET path=/auth/me status=200 latency_ms=9.1
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:43,792 INFO aftersale request_id=98bf560781604ddc96b9e0ca91ade36d method=GET path=/portal/runs status=200 latency_ms=9.3
+INFO:     127.0.0.1:62245 - "GET /portal/runs?limit=100 HTTP/1.1" 200 OK
+2026-09-11 12:40:43,793 INFO aftersale request_id=e41e6dfe542142cb9c215b6b8317f76a method=GET path=/users/4/orders status=200 latency_ms=12.2
+INFO:     127.0.0.1:58911 - "GET /users/4/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:43,919 INFO aftersale request_id=05dcfed7bbf94447ab38bb5117121c50 method=POST path=/agent/runs status=200 latency_ms=77.2
+INFO:     127.0.0.1:58911 - "POST /agent/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:43,931 INFO aftersale request_id=3b2c02b190be4da385b430879e7bb87d method=GET path=/portal/runs status=200 latency_ms=5.6
+INFO:     127.0.0.1:58911 - "GET /portal/runs?limit=100 HTTP/1.1" 200 OK
+2026-09-11 12:40:43,965 INFO aftersale request_id=36a52e0336bd409bb8ae38783c4e067e method=GET path=/portal/runs status=200 latency_ms=5.5
+INFO:     127.0.0.1:58911 - "GET /portal/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:44,247 INFO aftersale request_id=73ddc05e05184da2a16beb01b150427b method=POST path=/agent/runs status=200 latency_ms=217.1
+INFO:     127.0.0.1:58911 - "POST /agent/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:44,260 INFO aftersale request_id=34fd0470cc1f4403ab725c0989df1338 method=GET path=/portal/runs status=200 latency_ms=5.8
+INFO:     127.0.0.1:58911 - "GET /portal/runs?limit=100 HTTP/1.1" 200 OK
+2026-09-11 12:40:44,355 INFO aftersale request_id=0e9898ff4ad74f2692d58d0564440089 method=GET path=/portal/runs status=200 latency_ms=5.9
+INFO:     127.0.0.1:58911 - "GET /portal/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:44,651 INFO aftersale request_id=4338151dd3f1419aba4ee67e781084e3 method=GET path=/auth/me status=401 latency_ms=1.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:45,186 INFO aftersale request_id=5a14f21ab5a049fc8640b1c7ca2f9d87 method=POST path=/auth/login status=200 latency_ms=419.9
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:45,223 INFO aftersale request_id=9c702f83ec8542c4961298f1fe900848 method=GET path=/users/2/orders status=200 latency_ms=7.7
+INFO:     127.0.0.1:58911 - "GET /users/2/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:45,261 INFO aftersale request_id=a6482872fd1841f3b4de169e9484e420 method=GET path=/auth/me status=200 latency_ms=7.1
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:45,278 INFO aftersale request_id=a2c2c13a6c184efc8e2d533323874d2c method=GET path=/users/2/orders status=200 latency_ms=8.4
+INFO:     127.0.0.1:58911 - "GET /users/2/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:45,597 INFO aftersale request_id=01d512ec60f942b99c8290a210549767 method=GET path=/orders/1001 status=403 latency_ms=5.6
+INFO:     127.0.0.1:58911 - "GET /orders/1001 HTTP/1.1" 403 Forbidden
+2026-09-11 12:40:45,612 INFO aftersale request_id=1b5770f87d564a4a920e5e9476a342a1 method=GET path=/approvals status=403 latency_ms=5.1
+INFO:     127.0.0.1:58911 - "GET /approvals HTTP/1.1" 403 Forbidden
+2026-09-11 12:40:45,625 INFO aftersale request_id=3000a4b62914407fa7d83a8babd39270 method=GET path=/agent/runs/1/trace status=403 latency_ms=5.6
+INFO:     127.0.0.1:58911 - "GET /agent/runs/1/trace HTTP/1.1" 403 Forbidden
+2026-09-11 12:40:45,673 INFO aftersale request_id=4a4fe54c6a2c439dbf0c7072bd543af0 method=GET path=/auth/me status=200 latency_ms=7.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:46,027 INFO aftersale request_id=d67cdd7d69dd472cb32e0c415894c7e4 method=GET path=/auth/me status=401 latency_ms=1.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:46,554 INFO aftersale request_id=96e6ed713ff045e5b409eac6816d2508 method=POST path=/auth/login status=200 latency_ms=405.6
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:46,591 INFO aftersale request_id=c3bf8030910b4fdabc62deb3148e85cf method=GET path=/users/3/orders status=200 latency_ms=7.4
+INFO:     127.0.0.1:58911 - "GET /users/3/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:46,606 INFO aftersale request_id=bb8f1949d8304f3a9347beac773a9cff method=GET path=/auth/me status=200 latency_ms=5.8
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:46,621 INFO aftersale request_id=efb8e78155c84b369f9798a34fc0a2af method=GET path=/users/3/orders status=200 latency_ms=6.6
+INFO:     127.0.0.1:58911 - "GET /users/3/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:47,016 INFO aftersale request_id=480b034dcbe94480a3df9a8dfff3aee5 method=GET path=/auth/me status=200 latency_ms=7.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:47,055 INFO aftersale request_id=00c901c2c7244a20a1c295f1e5676a67 method=GET path=/portal/runs status=200 latency_ms=6.1
+INFO:     127.0.0.1:62245 - "GET /portal/runs?limit=100&order_id=1003 HTTP/1.1" 200 OK
+2026-09-11 12:40:47,057 INFO aftersale request_id=f489736d03a249abb60879e94330b9fc method=GET path=/users/3/orders status=200 latency_ms=10.2
+INFO:     127.0.0.1:58911 - "GET /users/3/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:47,375 INFO aftersale request_id=07c9be87e09f4765925ec155402e8cdf method=POST path=/agent/runs status=200 latency_ms=268.5
+INFO:     127.0.0.1:58911 - "POST /agent/runs HTTP/1.1" 200 OK
+2026-09-11 12:40:47,389 INFO aftersale request_id=e2112fcd76fd495abea80afa517c0cec method=GET path=/portal/runs status=200 latency_ms=6.0
+INFO:     127.0.0.1:58911 - "GET /portal/runs?limit=100&order_id=1003 HTTP/1.1" 200 OK
+2026-09-11 12:40:47,449 INFO aftersale request_id=f94e9764d10f448f87a854ff96c096a6 method=GET path=/portal/actions status=200 latency_ms=6.2
+INFO:     127.0.0.1:58911 - "GET /portal/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:47,507 INFO aftersale request_id=4b444609dd394dc38697cfc8d84a462f method=POST path=/auth/logout status=204 latency_ms=11.3
+INFO:     127.0.0.1:58911 - "POST /auth/logout HTTP/1.1" 204 No Content
+2026-09-11 12:40:47,529 INFO aftersale request_id=9e2f96b1af2344feb3e56b3c29f4477c method=GET path=/auth/me status=401 latency_ms=2.6
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:48,036 INFO aftersale request_id=7241ae846450474e8ab9d81650cc903c method=POST path=/auth/login status=200 latency_ms=424.1
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:48,076 INFO aftersale request_id=7d0185f08d464fc08c6f969539a1cfd7 method=GET path=/portal/dashboard status=200 latency_ms=25.2
+INFO:     127.0.0.1:58911 - "GET /portal/dashboard HTTP/1.1" 200 OK
+2026-09-11 12:40:48,078 INFO aftersale request_id=0ea016586c1649dfa2ab5249db7f7eb2 method=GET path=/auth/me status=200 latency_ms=8.8
+INFO:     127.0.0.1:62245 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:48,111 INFO aftersale request_id=6a2ee446d1c04396a58782f96702a0d3 method=GET path=/portal/dashboard status=200 latency_ms=25.8
+INFO:     127.0.0.1:58911 - "GET /portal/dashboard HTTP/1.1" 200 OK
+2026-09-11 12:40:48,490 INFO aftersale request_id=ae30f274b44f4f409973f3f1232cb9f7 method=GET path=/auth/me status=200 latency_ms=6.7
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:48,515 INFO aftersale request_id=663c471acdd540708b5566fa6749dfbe method=GET path=/tickets/8 status=200 latency_ms=10.4
+INFO:     127.0.0.1:58911 - "GET /tickets/8 HTTP/1.1" 200 OK
+2026-09-11 12:40:48,523 INFO aftersale request_id=62255ed4ede244b48f9ba0822b1b7344 method=GET path=/tickets/8/actions status=200 latency_ms=14.9
+INFO:     127.0.0.1:62245 - "GET /tickets/8/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:48,524 INFO aftersale request_id=ab457ef59feb432a94ef20b77a761e63 method=GET path=/portal/runs status=200 latency_ms=11.9
+INFO:     127.0.0.1:57028 - "GET /portal/runs?limit=100 HTTP/1.1" 200 OK
+2026-09-11 12:40:48,725 INFO aftersale request_id=cef91055fc02469986a1731bc3daf876 method=POST path=/actions/5/return-receipt status=200 latency_ms=21.5
+INFO:     127.0.0.1:58911 - "POST /actions/5/return-receipt HTTP/1.1" 200 OK
+2026-09-11 12:40:48,741 INFO aftersale request_id=d3365f3c008f436d87a759d71ebec64f method=GET path=/tickets/8/actions status=200 latency_ms=7.7
+INFO:     127.0.0.1:58911 - "GET /tickets/8/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:48,888 INFO aftersale request_id=01d639c459ed4ca3b054210e2d46a76f method=POST path=/actions/5/simulate-execution status=200 latency_ms=26.9
+INFO:     127.0.0.1:58911 - "POST /actions/5/simulate-execution HTTP/1.1" 200 OK
+2026-09-11 12:40:48,910 INFO aftersale request_id=36ee9db0953b478b929c08004df9ef44 method=GET path=/tickets/8/actions status=200 latency_ms=11.5
+INFO:     127.0.0.1:58911 - "GET /tickets/8/actions HTTP/1.1" 200 OK
+2026-09-11 12:40:49,046 INFO aftersale request_id=7a87ac866e59495c943509ece4b6d84f method=GET path=/auth/me status=200 latency_ms=13.9
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:49,122 INFO aftersale request_id=92f71c46db3f4e8295076a4ee37ca86c method=GET path=/portal/dashboard status=200 latency_ms=51.2
+INFO:     127.0.0.1:58911 - "GET /portal/dashboard HTTP/1.1" 200 OK
+2026-09-11 12:40:49,285 INFO aftersale request_id=0be04fc6a82c4c89a7f06501b69f4509 method=GET path=/portal/dashboard status=200 latency_ms=17.2
+INFO:     127.0.0.1:58911 - "GET /portal/dashboard HTTP/1.1" 200 OK
+2026-09-11 12:40:49,343 INFO aftersale request_id=f517763771ec44968e638182e6c8336b method=GET path=/auth/me status=200 latency_ms=10.8
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:49,380 INFO aftersale request_id=49f020d9e8644541b03e791c30e63520 method=GET path=/portal/runs status=200 latency_ms=10.9
+INFO:     127.0.0.1:58911 - "GET /portal/runs?offset=0 HTTP/1.1" 200 OK
+2026-09-11 12:40:49,543 INFO aftersale request_id=4fda402f1b594a139b88975c996c6e22 method=GET path=/auth/me status=200 latency_ms=8.5
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:49,592 INFO aftersale request_id=b0020379177e4f54a03838587608c3b8 method=GET path=/agent/runs/1/trace status=200 latency_ms=29.9
+INFO:     127.0.0.1:58911 - "GET /agent/runs/1/trace HTTP/1.1" 200 OK
+2026-09-11 12:40:49,663 INFO aftersale request_id=71c06689ee014967a198c7168c6bd747 method=GET path=/agent/runs/1/trace status=200 latency_ms=11.7
+INFO:     127.0.0.1:58911 - "GET /agent/runs/1/trace HTTP/1.1" 200 OK
+2026-09-11 12:40:50,113 INFO aftersale request_id=7bf118c995a740f68da8a47fa6769633 method=GET path=/auth/me status=401 latency_ms=0.8
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:50,658 INFO aftersale request_id=c8bd852b66bd4753ae5b9853ac5b5241 method=POST path=/auth/login status=200 latency_ms=428.8
+INFO:     127.0.0.1:58911 - "POST /auth/login HTTP/1.1" 200 OK
+2026-09-11 12:40:50,697 INFO aftersale request_id=95a7fde8975a4d28ac61c8803a8b462f method=GET path=/users/5/orders status=200 latency_ms=10.9
+INFO:     127.0.0.1:58911 - "GET /users/5/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:50,711 INFO aftersale request_id=5a8cad02f0604249aa722b2376d36b53 method=GET path=/auth/me status=200 latency_ms=6.0
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:50,726 INFO aftersale request_id=b1a29f8948234af5acee07b9c4a09246 method=GET path=/users/5/orders status=200 latency_ms=7.4
+INFO:     127.0.0.1:58911 - "GET /users/5/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:51,106 INFO aftersale request_id=e48b984277664d2da83891c32aba3091 method=GET path=/auth/me status=200 latency_ms=5.7
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 200 OK
+2026-09-11 12:40:51,137 INFO aftersale request_id=7a5a860dd3a142a09fc7800a20a78711 method=GET path=/users/5/orders status=200 latency_ms=10.1
+INFO:     127.0.0.1:58911 - "GET /users/5/orders HTTP/1.1" 200 OK
+2026-09-11 12:40:51,239 INFO aftersale request_id=2178933df1144f7089b8662f05927134 method=POST path=/auth/logout status=204 latency_ms=10.3
+INFO:     127.0.0.1:58911 - "POST /auth/logout HTTP/1.1" 204 No Content
+2026-09-11 12:40:51,256 INFO aftersale request_id=aee72b44325b486ab8ec40353d74cef9 method=GET path=/auth/me status=401 latency_ms=1.3
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized
+2026-09-11 12:40:51,273 INFO aftersale request_id=3a02bbf2155540ada9222f9a717169da method=GET path=/auth/me status=401 latency_ms=0.9
+INFO:     127.0.0.1:58911 - "GET /auth/me HTTP/1.1" 401 Unauthorized

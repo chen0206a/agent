@@ -1,0 +1,437 @@
+{
+  "config": {
+    "argv": [
+      "D:\\nodejs\\node.EXE",
+      "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\playwright.config.ts",
+    "rootDir": "D:/RAG-agent项目/after-sale-copilot/frontend/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/RAG-agent项目/after-sale-copilot/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "D:/RAG-agent项目/after-sale-copilot/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../docs/verification/stage4/e2e.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "portal.spec.ts",
+      "file": "portal.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "登录页截图与未登录保护",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 649,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:09:46.389Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-14da19707ce12b88b8f2",
+          "file": "portal.spec.ts",
+          "line": 17,
+          "column": 5
+        },
+        {
+          "title": "A 普通未发货取消退款；刷新保留状态",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2079,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:09:49.069Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-34844119fcae775c318c",
+          "file": "portal.spec.ts",
+          "line": 22,
+          "column": 5
+        },
+        {
+          "title": "B 高金额退款→人工审批→模拟执行",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3111,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:09:51.160Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-cc376948edfee02c3421",
+          "file": "portal.spec.ts",
+          "line": 32,
+          "column": 5
+        },
+        {
+          "title": "C 签收未收到→物流调查",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1307,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:09:54.281Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-9335a835ac0acd25bfa4",
+          "file": "portal.spec.ts",
+          "line": 45,
+          "column": 5
+        },
+        {
+          "title": "D 信息不足→补问→多轮续聊",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11024,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true })\u001b[22m\n\n    at D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts:53:72",
+                    "location": {
+                      "file": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts",
+                      "column": 72,
+                      "line": 53
+                    },
+                    "snippet": "  51 | test(\"D 信息不足→补问→多轮续聊\",async({page})=>{\n  52 |   await chat(page,\"customer4\",null,\"我想取消订单，尚未选择具体订单\");\n> 53 |   await expect(page.getByText(\"请提供需要处理的订单号，或先选择您自己的订单。\",{exact:true})).toBeVisible();\n     |                                                                        ^\n  54 |   const first=await (await page.request.get(\"/api/portal/runs\")).json();\n  55 |   await page.getByRole(\"textbox\",{name:\"售后消息\"}).fill(\"订单1014，请查询并取消\");\n  56 |   await page.getByRole(\"button\",{name:\"发送消息\"}).click();"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts",
+                        "column": 72,
+                        "line": 53
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true }) with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('请提供需要处理的订单号，或先选择您自己的订单。', { exact: true })\u001b[22m\n\n\n  51 | test(\"D 信息不足→补问→多轮续聊\",async({page})=>{\n  52 |   await chat(page,\"customer4\",null,\"我想取消订单，尚未选择具体订单\");\n> 53 |   await expect(page.getByText(\"请提供需要处理的订单号，或先选择您自己的订单。\",{exact:true})).toBeVisible();\n     |                                                                        ^\n  54 |   const first=await (await page.request.get(\"/api/portal/runs\")).json();\n  55 |   await page.getByRole(\"textbox\",{name:\"售后消息\"}).fill(\"订单1014，请查询并取消\");\n  56 |   await page.getByRole(\"button\",{name:\"发送消息\"}).click();\n    at D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts:53:72"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:09:55.596Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\test-results\\portal-D-信息不足→补问→多轮续聊\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\test-results\\portal-D-信息不足→补问→多轮续聊\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\test-results\\portal-D-信息不足→补问→多轮续聊\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts",
+                    "column": 72,
+                    "line": 53
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-8071e3f2cea320b50df9",
+          "file": "portal.spec.ts",
+          "line": 51,
+          "column": 5
+        },
+        {
+          "title": "E/F 越权API和管理员页面被拒绝",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1438,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:10:07.393Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-9a0d3f57e7e64e6dcaa2",
+          "file": "portal.spec.ts",
+          "line": 60,
+          "column": 5
+        },
+        {
+          "title": "退货收货→执行；管理员Trace与实时统计",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2688,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m6\u001b[39m\nReceived:    \u001b[31m5\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m6\u001b[39m\nReceived:    \u001b[31m5\u001b[39m\n    at D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts:78:104",
+                    "location": {
+                      "file": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts",
+                      "column": 104,
+                      "line": 78
+                    },
+                    "snippet": "  76 |   await page.goto(\"/admin\"); await expect(page.getByRole(\"heading\",{name:\"售后服务，一览全局\"})).toBeVisible();\n  77 |   await page.screenshot({path:path.join(screenshots,\"07-dashboard.png\"),fullPage:true});\n> 78 |   const stats=await (await page.request.get(\"/api/portal/dashboard\")).json(); expect(stats.total_runs).toBeGreaterThanOrEqual(6); expect(stats.input_tokens).toBe(0);\n     |                                                                                                        ^\n  79 |   await page.goto(\"/admin/runs/1\"); await expect(page.getByRole(\"heading\",{name:\"工具调用轨迹\"})).toBeVisible();\n  80 |   const trace=await (await page.request.get(\"/api/agent/runs/1/trace\")).json(); expect(JSON.stringify(trace)).not.toContain('\"role\":\"system\"'); expect(JSON.stringify(trace)).not.toContain(\"reasoning_content\");\n  81 |   await page.screenshot({path:path.join(screenshots,\"08-trace.png\"),fullPage:true});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts",
+                        "column": 104,
+                        "line": 78
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m6\u001b[39m\nReceived:    \u001b[31m5\u001b[39m\n\n  76 |   await page.goto(\"/admin\"); await expect(page.getByRole(\"heading\",{name:\"售后服务，一览全局\"})).toBeVisible();\n  77 |   await page.screenshot({path:path.join(screenshots,\"07-dashboard.png\"),fullPage:true});\n> 78 |   const stats=await (await page.request.get(\"/api/portal/dashboard\")).json(); expect(stats.total_runs).toBeGreaterThanOrEqual(6); expect(stats.input_tokens).toBe(0);\n     |                                                                                                        ^\n  79 |   await page.goto(\"/admin/runs/1\"); await expect(page.getByRole(\"heading\",{name:\"工具调用轨迹\"})).toBeVisible();\n  80 |   const trace=await (await page.request.get(\"/api/agent/runs/1/trace\")).json(); expect(JSON.stringify(trace)).not.toContain('\"role\":\"system\"'); expect(JSON.stringify(trace)).not.toContain(\"reasoning_content\");\n  81 |   await page.screenshot({path:path.join(screenshots,\"08-trace.png\"),fullPage:true});\n    at D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts:78:104"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:10:09.091Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\test-results\\portal-退货收货→执行；管理员Trace与实时统计\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\test-results\\portal-退货收货→执行；管理员Trace与实时统计\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\test-results\\portal-退货收货→执行；管理员Trace与实时统计\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "D:\\RAG-agent项目\\after-sale-copilot\\frontend\\e2e\\portal.spec.ts",
+                    "column": 104,
+                    "line": 78
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-cadec9e0293f0cc1bc6b",
+          "file": "portal.spec.ts",
+          "line": 68,
+          "column": 5
+        },
+        {
+          "title": "手机宽度与退出登录",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 952,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-10T14:10:12.522Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "291f6c0e7fe47579f0c2-f403da1c44661014e617",
+          "file": "portal.spec.ts",
+          "line": 83,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-10T14:09:45.917Z",
+    "duration": 27944.287,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

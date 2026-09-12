@@ -1,0 +1,51 @@
+{
+  "verified_at": "2026-09-10T14:22:36.769612+00:00",
+  "python": "3.13.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "passed": true,
+  "tests": 166,
+  "failures": 0,
+  "errors": 0,
+  "steps": [
+    {
+      "name": "pytest",
+      "exit_code": 0,
+      "duration_seconds": 60.12
+    },
+    {
+      "name": "ruff-check",
+      "exit_code": 0,
+      "duration_seconds": 0.17
+    },
+    {
+      "name": "ruff-format",
+      "exit_code": 0,
+      "duration_seconds": 0.17
+    },
+    {
+      "name": "pip-check",
+      "exit_code": 0,
+      "duration_seconds": 0.82
+    },
+    {
+      "name": "policy-eval",
+      "exit_code": 0,
+      "duration_seconds": 1.29
+    },
+    {
+      "name": "http-smoke",
+      "exit_code": 0,
+      "duration_seconds": 6.46
+    },
+    {
+      "name": "agent-eval",
+      "exit_code": 0,
+      "duration_seconds": 6.29
+    },
+    {
+      "name": "agent-http-smoke",
+      "exit_code": 0,
+      "duration_seconds": 6.8
+    }
+  ]
+}

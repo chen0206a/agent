@@ -1,0 +1,18 @@
+[
+  {
+    "name": "frontend-tests",
+    "exit_code": 0
+  },
+  {
+    "name": "frontend-lint",
+    "exit_code": 0
+  },
+  {
+    "name": "frontend-build",
+    "exit_code": 0
+  },
+  {
+    "name": "frontend-e2e",
+    "exit_code": 0
+  }
+]

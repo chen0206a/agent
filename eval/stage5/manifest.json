@@ -1,0 +1,14 @@
+{
+  "version": "stage5-dataset-v1",
+  "files": {
+    "dev.json": "d86ffbbae1a53137d276721410cb78bda14345bf3897100f6494a48b700163c3",
+    "test.json": "33ea116597ea6602914cc8768c8adf5c1022ca57617143301ed549d5dd1d1b69"
+  },
+  "dataset_hash": "ec351e0be642739c5fa0301d98ac9c4eab1e23974a0b2c96ee626f3dc3afacdd",
+  "cases": 125,
+  "dev": 75,
+  "test": 50,
+  "categories": 25,
+  "frozen_before_live": true,
+  "fixture_oracle_validation": "docs/verification/stage5/preflight-oracles.json"
+}
