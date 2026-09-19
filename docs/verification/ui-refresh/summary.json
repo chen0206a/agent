@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-19",
+  "change": "Presentation CSS only; layout imports theme stylesheet",
+  "component_tests": {
+    "passed": 5
+  },
+  "browser_e2e": {
+    "passed": 8,
+    "model": "scripted fixture; no live API"
+  },
+  "lint": "passed",
+  "production_build": "passed",
+  "historical_evidence_unchanged": true,
+  "backend_and_eval_unchanged": true,
+  "reference_commit": "f7298dba92b15cbc2e85b875ef69ec52d37dc61d",
+  "theme_sha256": "f24ca10e5afc3a18bf35dc89c975a463bfc213b6bc70c08a6fa54995aff49c05"
+}

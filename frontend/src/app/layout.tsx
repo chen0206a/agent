@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./apple-inspired.css";
 export const metadata: Metadata = {
   title: "AfterSale Copilot · 售后服务中心",
   description: "订单、物流与售后服务，全程安心相伴。",

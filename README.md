@@ -183,3 +183,5 @@ scripts/                 # Startup, account setup and evaluation commands
 - [Product & Auth Design](docs/STAGE4_HANDOFF.md)：页面、权限和 API 设计。
 - [Evaluation Protocol](docs/verification/stage5/PROTOCOL.md)：冻结与评测约束。
 - [Demo & Code Reading Guide](docs/STAGE5_PORTFOLIO.md)：业务演示与代码阅读顺序。
+
+- [UI Design & Credits](docs/UI_DESIGN.md)：界面参考、MIT 许可与视觉回归。
