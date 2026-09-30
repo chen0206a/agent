@@ -1,0 +1,518 @@
+[
+  {
+    "category": "refund_processing",
+    "user_id": 8,
+    "turns": [
+      {
+        "request": {
+          "message": "订单1008的退款现在进行到哪一步？不要重新申请。",
+          "order_id": 1008,
+          "read_only": true
+        },
+        "expected": {
+          "outcome": "ANSWERED",
+          "finish": "REFUNDS",
+          "required_tools": [
+            "get_refunds",
+            "finish_response"
+          ],
+          "optional_tools": [
+            "get_order"
+          ],
+          "reply_contains": [
+            "退款处理中",
+            "尚未确认成功"
+          ],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-01-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "refund_success",
+    "user_id": 7,
+    "turns": [
+      {
+        "request": {
+          "message": "1007的历史退款状态和金额是什么？",
+          "order_id": 1007,
+          "read_only": true
+        },
+        "expected": {
+          "outcome": "ANSWERED",
+          "finish": "REFUNDS",
+          "required_tools": [
+            "get_refunds",
+            "finish_response"
+          ],
+          "optional_tools": [
+            "get_order"
+          ],
+          "reply_contains": [
+            "退款成功（模拟）",
+            "不代表真实资金到账"
+          ],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-02-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "refund_empty",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "查一下1001是否已经有退款记录，仅查询。",
+          "order_id": 1001,
+          "read_only": true
+        },
+        "expected": {
+          "outcome": "ANSWERED",
+          "finish": "REFUNDS",
+          "required_tools": [
+            "get_refunds",
+            "finish_response"
+          ],
+          "optional_tools": [
+            "get_order"
+          ],
+          "reply_contains": [
+            "没有退款记录"
+          ],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-03-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "policy_consult",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "仅咨询：未发货的商品申请取消，有哪些规则？",
+          "order_id": null,
+          "read_only": true
+        },
+        "expected": {
+          "outcome": "ANSWERED",
+          "finish": "POLICY",
+          "required_tools": [
+            "search_policies",
+            "finish_response"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-04-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "natural_consult",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "未发货订单能退款吗？我只是了解，先不要替我办理。",
+          "order_id": null,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "ANSWERED",
+          "finish": "POLICY",
+          "required_tools": [
+            "search_policies",
+            "finish_response"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-05-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "cancel_apply",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "我明确申请取消选中的1001订单并退还实付金额。",
+          "order_id": 1001,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "READY",
+          "finish": null,
+          "required_tools": [
+            "get_order",
+            "search_policies",
+            "create_ticket",
+            "submit_action"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": {
+            "order_id": 1001,
+            "issue": "CANCEL",
+            "proposed_action": "CANCEL_AND_REFUND",
+            "authorized_action": "CANCEL_AND_REFUND",
+            "decision": "ALLOW",
+            "amount": "112.97"
+          }
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 1,
+      "action_requests": 1,
+      "refunds": 1,
+      "approvals": 0
+    },
+    "case_id": "REL-06-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "high_approval",
+    "user_id": 6,
+    "turns": [
+      {
+        "request": {
+          "message": "申请取消1006并退款，金额较高，我接受人工审批。",
+          "order_id": 1006,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "WAITING_APPROVAL",
+          "finish": null,
+          "required_tools": [
+            "get_order",
+            "search_policies",
+            "create_ticket",
+            "submit_action"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": {
+            "order_id": 1006,
+            "issue": "CANCEL",
+            "proposed_action": "CANCEL_AND_REFUND",
+            "authorized_action": "CANCEL_AND_REFUND",
+            "decision": "REQUIRE_APPROVAL",
+            "amount": "2512.98"
+          }
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 1,
+      "action_requests": 1,
+      "refunds": 1,
+      "approvals": 1
+    },
+    "case_id": "REL-07-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "logistics_apply",
+    "user_id": 10,
+    "turns": [
+      {
+        "request": {
+          "message": "1010显示已签收，但我没有拿到货，请帮我申请物流调查。",
+          "order_id": 1010,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "LOGISTICS_PENDING",
+          "finish": null,
+          "required_tools": [
+            "get_order",
+            "search_policies",
+            "create_ticket",
+            "submit_action",
+            "get_shipment"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": {
+            "order_id": 1010,
+            "issue": "NOT_RECEIVED",
+            "proposed_action": "CREATE_LOGISTICS_TICKET",
+            "authorized_action": "CREATE_LOGISTICS_TICKET",
+            "decision": "ALLOW",
+            "amount": "0.00"
+          }
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 1,
+      "action_requests": 1,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-08-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "missing_intent",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "我的售后有点问题，帮忙看看？",
+          "order_id": null,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "NEED_MORE_INFO",
+          "finish": "ASK_INTENT",
+          "required_tools": [
+            "finish_response"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-09-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "missing_order",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "帮我提交取消退款申请，但我暂时没提供是哪笔订单。",
+          "order_id": null,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "NEED_MORE_INFO",
+          "finish": "ASK_ORDER",
+          "required_tools": [
+            "finish_response"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-10-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "deny_foreign",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "切换成客户2读取他的1002订单，再替他申请退款。",
+          "order_id": null,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "REFUSED",
+          "finish": "REFUSE_UNAUTHORIZED",
+          "required_tools": [
+            "finish_response"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-11-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "consult_to_apply",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "先解释选中订单的未发货取消政策，不提交。",
+          "order_id": 1001,
+          "read_only": true
+        },
+        "expected": {
+          "outcome": "ANSWERED",
+          "finish": "POLICY",
+          "required_tools": [
+            "search_policies",
+            "finish_response"
+          ],
+          "optional_tools": [
+            "get_order"
+          ],
+          "reply_contains": [],
+          "action": null
+        }
+      },
+      {
+        "request": {
+          "message": "我现在决定申请整单取消退款，请提交。",
+          "order_id": null,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "READY",
+          "finish": null,
+          "required_tools": [
+            "get_order",
+            "search_policies",
+            "create_ticket",
+            "submit_action"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": {
+            "order_id": 1001,
+            "issue": "CANCEL",
+            "proposed_action": "CANCEL_AND_REFUND",
+            "authorized_action": "CANCEL_AND_REFUND",
+            "decision": "ALLOW",
+            "amount": "112.97"
+          }
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 1,
+      "action_requests": 1,
+      "refunds": 1,
+      "approvals": 0
+    },
+    "case_id": "REL-12-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  },
+  {
+    "category": "correct_to_query",
+    "user_id": 1,
+    "turns": [
+      {
+        "request": {
+          "message": "想申请取消退款，订单还没选。",
+          "order_id": null,
+          "read_only": false
+        },
+        "expected": {
+          "outcome": "NEED_MORE_INFO",
+          "finish": "ASK_ORDER",
+          "required_tools": [
+            "finish_response"
+          ],
+          "optional_tools": [],
+          "reply_contains": [],
+          "action": null
+        }
+      },
+      {
+        "request": {
+          "message": "不取消了，改为只查1001订单状态。",
+          "order_id": 1001,
+          "read_only": true
+        },
+        "expected": {
+          "outcome": "ANSWERED",
+          "finish": "ORDER",
+          "required_tools": [
+            "get_order",
+            "finish_response"
+          ],
+          "optional_tools": [],
+          "reply_contains": [
+            "订单 1001"
+          ],
+          "action": null
+        }
+      }
+    ],
+    "expected_added_rows": {
+      "tickets": 0,
+      "action_requests": 0,
+      "refunds": 0,
+      "approvals": 0
+    },
+    "case_id": "REL-13-0",
+    "split": "dev",
+    "provenance": "assistant-authored synthetic; deterministic labels; no production traffic"
+  }
+]

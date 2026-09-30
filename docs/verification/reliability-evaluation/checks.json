@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-09-30T09:28:32.942660+00:00",
+  "backend_tests": {
+    "passed": 221,
+    "new_scorer_tests": 12,
+    "warnings": 1,
+    "output": "backend-tests.txt"
+  },
+  "dev_offline": {
+    "passed": 13,
+    "total": 13,
+    "not_model_accuracy": true
+  },
+  "api_calls": 0,
+  "holdout_agent_executions": 0,
+  "historical_test_reruns": 0,
+  "ruff_check": "passed",
+  "ruff_format_check": "3 files formatted",
+  "core_and_historical_files_changed": false,
+  "manifest_sha256": "e4e8358e13c497e5564baa4c8c88622bcd54ce8cfb139e5e68d7b24e13608161",
+  "source_map_hash": "400c7edd395bda96acf8cf1ad715f20e7ede25143fe3b2eeebca9a3d25cca995",
+  "known_limitations": [
+    "synthetic wording holdout, known business families",
+    "no live runner or current-model accuracy yet",
+    "existing Starlette/AnyIO deprecation warning",
+    "no frontend or E2E rerun in this script-only change"
+  ]
+}
