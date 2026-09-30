@@ -39,8 +39,9 @@ TOOL_MODELS = {
     "finish_response": (
         FinishArgs,
         "结束补问、查询、拒绝或非售后请求时必须实际调用本函数，不能只输出文字。"
-        "越权或伪造金额用 REFUSE_UNAUTHORIZED；意图未明或不支持用 UNSUPPORTED；"
-        "意图明确后才按缺失信息选择 ASK_ORDER/ASK_ITEM/ASK_QUANTITY。draft_reply 不展示给客户。",
+        "越权或伪造金额用 REFUSE_UNAUTHORIZED；非售后请求用 UNSUPPORTED；"
+        "意图未明确用 ASK_INTENT；退款进度查询后用 REFUNDS；"
+        "意图明确后按缺失信息选择 ASK_ORDER/ASK_ITEM/ASK_QUANTITY。draft_reply 不展示给客户。",
     ),
 }
 
@@ -75,6 +76,7 @@ class ToolContext:
     request: ChatRequest
     observed_orders: dict[int, dict] = field(default_factory=dict)
     observed_items: dict[int, list[dict]] = field(default_factory=dict)
+    observed_refunds: dict[int, list[dict]] = field(default_factory=dict)
     citations: dict[str, Citation] = field(default_factory=dict)
     ticket_id: int | None = None
     action: ActionRead | None = None
@@ -109,6 +111,8 @@ class AgentTools:
                 "INVALID_TOOL_ARGUMENTS", "工具参数不符合 schema；不能添加身份、金额或状态", 422
             ) from error
         ctx = self.context
+        if ctx.request.read_only and name in {"create_ticket", "submit_action"}:
+            raise DomainError("CONSULTATION_ONLY", "本轮仅咨询，不能建单或提交申请；请用查询工具回答。")
         if name == "list_my_orders":
             orders = self.business.list_user_orders(ctx.user_id)
             return {
@@ -138,12 +142,12 @@ class AgentTools:
                     if shipment
                     else None
                 }
-            return {
-                "refunds": [
-                    RefundRead.model_validate(r).model_dump(mode="json")
-                    for r in self.business.get_refunds(order.id)
-                ]
-            }
+            refunds = [
+                RefundRead.model_validate(r).model_dump(mode="json")
+                for r in self.business.get_refunds(order.id)
+            ]
+            ctx.observed_refunds[order.id] = refunds
+            return {"refunds": refunds}
         if name == "search_policies":
             docs = self.knowledge.search(args.query)
             ctx.citations.update({doc.id: doc for doc in docs})
@@ -193,6 +197,8 @@ class AgentTools:
             raise DomainError("POLICY_LOOKUP_REQUIRED", "政策回答需要有效来源")
         if args.kind == "ORDER" and not ctx.observed_orders:
             raise DomainError("ORDER_LOOKUP_REQUIRED", "订单回答需要实际查询")
+        if args.kind == "REFUNDS" and not ctx.observed_refunds:
+            raise DomainError("REFUND_LOOKUP_REQUIRED", "退款进度回答必须先查询当前用户的退款记录")
         ctx.finish = args
         return {"finished": True, "kind": args.kind}
 

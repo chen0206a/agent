@@ -1,0 +1,16 @@
+
+Running 9 tests using 1 worker
+
+  ok 1 e2e\portal.spec.ts:5:1 › 咨询模式查询真实数据库退款状态，不产生新申请 (1.9s)
+  ok 2 e2e\portal.spec.ts:51:1 › 登录页截图与未登录保护 (334ms)
+  ok 3 e2e\portal.spec.ts:66:1 › A 普通未发货取消退款；刷新保留状态 (2.5s)
+  ok 4 e2e\portal.spec.ts:96:1 › B 高金额退款→人工审批→模拟执行 (4.1s)
+  ok 5 e2e\portal.spec.ts:139:1 › C 签收未收到→物流调查 (2.0s)
+  ok 6 e2e\portal.spec.ts:151:1 › D 信息不足→补问→多轮续聊 (1.8s)
+  ok 7 e2e\portal.spec.ts:167:1 › E/F 越权API和管理员页面被拒绝 (1.4s)
+  ok 8 e2e\portal.spec.ts:187:1 › 退货收货→执行；管理员Trace与实时统计 (4.3s)
+  ok 9 e2e\portal.spec.ts:239:1 › 手机宽度与退出登录 (1.4s)
+
+  9 passed (21.1s)
+(node:11228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)

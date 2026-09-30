@@ -321,6 +321,8 @@ function Chat({ userId }: { userId: number }) {
   const search = useSearchParams();
   const [order, setOrder] = useState(search.get("order") || "");
   const [message, setMessage] = useState("");
+  const [readOnly, setReadOnly] = useState(false);
+  const [retryPending, setRetryPending] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [parent, setParent] = useState<number | null | undefined>();
@@ -345,8 +347,10 @@ function Chat({ userId }: { userId: number }) {
               parent === undefined ? history.data?.[0]?.id : parent,
             idempotency_key: crypto.randomUUID(),
             evidence_provided: false,
+            read_only: readOnly,
           };
     pending.current = body;
+    setRetryPending(true);
     try {
       let result = await api<Model<"ChatResult">>("/agent/runs", body);
       for (let i = 0; result.status === "RUNNING" && i < 100; i++) {
@@ -361,6 +365,7 @@ function Chat({ userId }: { userId: number }) {
       setParent(result.run_id);
       setMessage("");
       pending.current = null;
+      setRetryPending(false);
       history.refresh();
     } catch (e) {
       setError((e as Error).message);
@@ -395,6 +400,8 @@ function Chat({ userId }: { userId: number }) {
                 setParent(null);
                 setLatest(undefined);
                 pending.current = null;
+                setRetryPending(false);
+                setError("");
                 setMessage("");
               }}
             >
@@ -439,6 +446,18 @@ function Chat({ userId }: { userId: number }) {
                 </button>
               ))}
             </div>
+            <label className="consultation-mode">
+              <input
+                type="checkbox"
+                checked={readOnly}
+                disabled={busy || retryPending}
+                onChange={(e) => setReadOnly(e.target.checked)}
+              />
+              仅咨询，不提交申请
+            </label>
+            {retryPending && error && (
+              <p>重试沿用原请求和咨询模式；如需切换，请先开始新对话。</p>
+            )}
             {error && <ErrorBox message={error} />}
             <form onSubmit={send}>
               <textarea
@@ -480,6 +499,8 @@ function Chat({ userId }: { userId: number }) {
                   setParent(null);
                   setLatest(undefined);
                   pending.current = null;
+                  setRetryPending(false);
+                  setError("");
                 }}
               >
                 <option value="">暂未选择</option>

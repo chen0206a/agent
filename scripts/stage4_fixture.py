@@ -3,7 +3,7 @@
 import os
 import re
 
-from app.agent.evaluation import case_provider, tool_reply
+from app.agent.evaluation import ScriptedProvider, case_provider, tool_reply
 from app.core.config import Settings
 from app.db.seed import seed
 from app.db.session import initialize, write_transaction
@@ -47,6 +47,14 @@ class BrowserFixtureProvider:
         if not match:
             return tool_reply("finish_response", {"kind": "ASK_ORDER"})
         order = int(match[1])
+        if "本轮仅咨询 read_only=true。" in messages[0]["content"]:
+            self.plan = ScriptedProvider(
+                [
+                    tool_reply("get_refunds", {"order_id": order}),
+                    tool_reply("finish_response", {"kind": "REFUNDS"}),
+                ]
+            )
+            return self.plan.complete(messages, tools, timeout)
         case = {"order_id": order, "message": query, "issue": "CANCEL", "action": "CANCEL_AND_REFUND"}
         if order == 1010:
             case.update(issue="NOT_RECEIVED", action="CREATE_LOGISTICS_TICKET", shipment=True)

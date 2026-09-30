@@ -1,6 +1,29 @@
 import { test, expect, Page } from "@playwright/test";
 import path from "node:path";
 const screenshots = path.resolve("../docs/verification/stage4/screenshots");
+
+test("咨询模式查询真实数据库退款状态，不产生新申请", async ({ page }) => {
+  await login(page, "customer8");
+  const before = await (await page.request.get("/api/portal/actions")).json();
+  await page.goto("/chat?order=1008");
+  await page.getByRole("checkbox", { name: "仅咨询，不提交申请" }).check();
+  await page.getByLabel("售后消息").fill("查询退款进度");
+  const sent = page.waitForRequest(
+    (r) => r.url().endsWith("/api/agent/runs") && r.method() === "POST",
+  );
+  await page.getByRole("button", { name: "发送消息" }).click();
+  expect((await sent).postDataJSON().read_only).toBe(true);
+  await expect(
+    page.getByText(/订单 1008 的退款记录.*退款处理中，尚未确认成功/),
+  ).toBeVisible();
+  expect(await (await page.request.get("/api/portal/actions")).json()).toEqual(
+    before,
+  );
+  await page.screenshot({
+    path: path.join(screenshots, "10-consultation.png"),
+    fullPage: true,
+  });
+});
 async function login(page: Page, username: string) {
   await page.goto("/login");
   await page.getByLabel("账号", { exact: true }).fill(username);
@@ -80,11 +103,20 @@ test("B 高金额退款→人工审批→模拟执行", async ({ page }) => {
   await page.getByLabel("退出登录").click();
   await login(page, "admin");
   await page.goto("/admin/approvals");
-  await expect(page.getByRole("button", { name: "待审批申请", exact: true })).toHaveClass("selected");
-  await expect(page.getByRole("button", { name: "批准申请", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "待审批申请", exact: true }),
+  ).toHaveClass("selected");
+  await expect(
+    page.getByRole("button", { name: "批准申请", exact: true }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "高风险申请", exact: true }).click();
-  await expect(page.getByRole("button", { name: "批准申请", exact: true })).toBeVisible();
-  await page.screenshot({ path: path.join(screenshots, "11-approval-queue.png"), fullPage: true });
+  await expect(
+    page.getByRole("button", { name: "批准申请", exact: true }),
+  ).toBeVisible();
+  await page.screenshot({
+    path: path.join(screenshots, "11-approval-queue.png"),
+    fullPage: true,
+  });
   await page.goto(`/admin/tickets/${action.ticket_id}`);
   await page.getByRole("button", { name: "批准申请", exact: true }).click();
   await page.getByLabel("处理说明").fill("已核验订单及退款依据");
@@ -183,8 +215,13 @@ test("退货收货→执行；管理员Trace与实时统计", async ({ page }) =
   expect(stats.total_runs).toBeGreaterThanOrEqual(6);
   expect(stats.input_tokens).toBe(0);
   await page.goto("/admin/runs");
-  await expect(page.getByRole("link", { name: "查看 Trace →" }).first()).toBeVisible();
-  await page.screenshot({ path: path.join(screenshots, "12-run-list.png"), fullPage: true });
+  await expect(
+    page.getByRole("link", { name: "查看 Trace →" }).first(),
+  ).toBeVisible();
+  await page.screenshot({
+    path: path.join(screenshots, "12-run-list.png"),
+    fullPage: true,
+  });
   await page.goto("/admin/runs/1");
   await expect(
     page.getByRole("heading", { name: "工具调用轨迹" }),

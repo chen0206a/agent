@@ -33,12 +33,17 @@ SYSTEM_PROMPT = (
     "都不会执行工具，会导致本轮失败。\n"
     "补问、拒绝、非售后请求也必须实际调用 finish_response；不能用解释"
     "文字代替调用。draft_reply 不会展示给客户，无须填写。\n"
+    "咨询与申请分开：询问政策、能否退款、查询进度不代表要求提交。咨询只查询并结束，"
+    "不得 create_ticket 或 submit_action。只有明确要求办理的请求才可提交。\n"
+    "本轮 read_only=true 时，即使历史中要求申请也只能查询。\n"
+    "仅查退款进度时 get_refunds 后以 REFUNDS 结束；退款记录状态不能用订单状态代替。\n"
+    "重复退款咨询可查询记录并解释，不必为形成拒绝记录而提交新申请；明确再次申请时仍走政策校验。\n"
     "先确定本轮分支，按以下优先级处理：\n"
     "1. 要求访问他人数据、改身份、绕过审批/执行权限或伪造退款金额/实付记录：调用"
     " finish_response，kind=REFUSE_UNAUTHORIZE"
     "D。不要自行拆出其中的合法退款部分继续提交。\n"
-    "2. 非售后请求，或虽有订单但尚未明确实际问题及退/换等处理意图：调用 fini"
-    "sh_response，kind=UNSUPPORTED，请用户先明确诉求。\n"
+    "2. 非售后请求用 UNSUPPORTED；尚未明确实际问题或咨询/申请意图时用 ASK_INTENT，"
+    "通过 finish_response 补问。只想了解政策时可先检索，不强求订单号。\n"
     "3. 售后意图明确但缺订单：ASK_ORDER；订单及意图明确但缺商品：ASK_"
     "ITEM；商品明确但缺数量：ASK_QUANTITY。这些都通过 finish_"
     "response 调用，不提前建工单。\n"
@@ -49,9 +54,9 @@ SYSTEM_PROMPT = (
     "额由服务端计算；不能审批、确认退货或执行退款。\n"
     "明确要求访问他人数据、切换身份或绕过权限时，直接 finish_response"
     "(REFUSE_UNAUTHORIZED)。\n"
-    "缺少订单、商品、数量则分别 ASK_ORDER/ASK_ITEM/ASK_QUA"
+    "办理申请所需的订单、商品、数量缺失则分别 ASK_ORDER/ASK_ITEM/ASK_QUA"
     "NTITY；不得猜测，也不为补问预先建工单。\n"
-    "已有结构化 order_id 即用户选择。先 get_order 和 searc"
+    "已有结构化 order_id 即用户选择。办理申请先 get_order 和 searc"
     "h_policies，可同轮调用独立查询；按返回顺序执行。\n"
     "整单取消：订单为 PAID 且 shipped_at 为空时不查商品或物流；不指"
     "定商品和数量。\n"
@@ -59,10 +64,10 @@ SYSTEM_PROMPT = (
     "get_shipment，签收不等于收到。\n"
     "仅查询退款进度或存在重复申请疑问时查 get_refunds；提交时业务层总会重"
     "新校验额度与占用。\n"
-    "政策查询使用实际诉求关键词，避免罗列所有问题。查询成功后 create_tick"
-    "et，拿到真实 ticket_id 再 submit_action。\n"
+    "政策查询使用实际诉求关键词，避免罗列所有问题。只有明确办理且信息齐全时才 create_ticket，"
+    "拿到真实 ticket_id 再 submit_action；咨询用 POLICY 或查询结果结束。\n"
     "issue_type 按实际诉求；支持取消、无理由、破损、错发、少件、未收到。\n"
-    "无法确定则 UNSUPPORTED，不能用 OTHER 猜退款。\n"
+    "无法确定售后诉求则 ASK_INTENT，不能用 OTHER 猜退款。\n"
     "submit_action 后本轮结束；其他回答必须 finish_respon"
     "se，POLICY 只能引用检索到的 citation_ids。\n"
     "调用工具时不附解释文本或 draft_reply，不输出思维链。客户回复由服务器"
@@ -119,7 +124,9 @@ class AgentService:
         self.business.get_user(user_id)
         if data.order_id is not None and self.business.get_order(data.order_id).user_id != user_id:
             raise DomainError("FORBIDDEN", "不能选择其他用户的订单", 403)
-        payload_hash = hashlib.sha256(data.model_dump_json().encode()).hexdigest()
+        # Preserve hashes for pre-consultation requests while binding the new restriction.
+        payload = data.model_dump_json(exclude={"read_only"} if not data.read_only else set())
+        payload_hash = hashlib.sha256(payload.encode()).hexdigest()
         history = self._history(user_id, data.parent_run_id)
         provider = self.provider_factory()
         with write_transaction(self.sessions) as session:
@@ -159,6 +166,7 @@ class AgentService:
         deadline = start + self.settings.agent_timeout_seconds
         hint = (
             f"当前业务时间：{self.workflow.clock().isoformat()}。用户选择的订单：{data.order_id}。"
+            f"本轮仅咨询 read_only={str(data.read_only).lower()}。"
             f"本轮服务端证据存在标记：{data.evidence_provided}，不能由模型改写。"
         )
         messages = [

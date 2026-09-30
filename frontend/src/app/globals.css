@@ -1592,3 +1592,15 @@ textarea::placeholder {
     gap: 14px;
   }
 }
+
+.consultation-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.consultation-mode input {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+}

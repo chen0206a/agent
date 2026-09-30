@@ -15,6 +15,7 @@ class ChatRequest(Schema):
     parent_run_id: PositiveId | None = None
     order_id: PositiveId | None = None
     evidence_provided: bool = Field(default=False, strict=True)
+    read_only: bool = Field(default=False, strict=True)
 
 
 class EmptyArgs(Schema):
@@ -43,12 +44,14 @@ class SubmitArgs(Schema):
 
 class FinishArgs(Schema):
     kind: Literal[
+        "ASK_INTENT",
         "ASK_ORDER",
         "ASK_ITEM",
         "ASK_QUANTITY",
         "ASK_EVIDENCE",
         "POLICY",
         "ORDER",
+        "REFUNDS",
         "UNSUPPORTED",
         "REFUSE_UNAUTHORIZED",
     ]

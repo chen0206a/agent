@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { ActionCard } from "./customer";
+import { ActionCard, Customer } from "./customer";
 import Portal from "./portal";
 import { api, setCsrf } from "@/lib/api";
 import type { Model } from "@/lib/api";
@@ -56,13 +56,11 @@ describe("真实业务状态文案", () => {
   });
 });
 it("登录错误可见且密码不会作为URL或身份参数发送", async () => {
-  const fetcher = vi
-    .fn()
-    .mockResolvedValue({
-      ok: false,
-      status: 401,
-      json: async () => ({ error: { message: "账号或密码不正确" } }),
-    });
+  const fetcher = vi.fn().mockResolvedValue({
+    ok: false,
+    status: 401,
+    json: async () => ({ error: { message: "账号或密码不正确" } }),
+  });
   vi.stubGlobal("fetch", fetcher);
   render(<Portal />);
   await screen.findByLabelText("账号");
@@ -84,13 +82,11 @@ it("登录错误可见且密码不会作为URL或身份参数发送", async () =
   expect(call[1].headers).not.toHaveProperty("X-Demo-Role");
 });
 it("API写入携带CSRF并保留Cookie；不替用户决定金额", async () => {
-  const fetcher = vi
-    .fn()
-    .mockResolvedValue({
-      ok: true,
-      status: 200,
-      json: async () => ({ id: 7 }),
-    });
+  const fetcher = vi.fn().mockResolvedValue({
+    ok: true,
+    status: 200,
+    json: async () => ({ id: 7 }),
+  });
   vi.stubGlobal("fetch", fetcher);
   setCsrf("test-csrf");
   await api("/agent/runs", {
@@ -100,4 +96,35 @@ it("API写入携带CSRF并保留Cookie；不替用户决定金额", async () => 
   expect(fetcher.mock.calls[0][1].credentials).toBe("same-origin");
   expect(fetcher.mock.calls[0][1].headers["X-CSRF-Token"]).toBe("test-csrf");
   expect(fetcher.mock.calls[0][1].body).not.toContain("amount");
+});
+
+it("咨询模式发送后端约束，失败重试保留原请求", async () => {
+  const fetcher = vi.fn().mockImplementation(async (_url, init) => {
+    if (init?.method === "POST") throw new Error("连接中断");
+    return { ok: true, status: 200, json: async () => [] };
+  });
+  vi.stubGlobal("fetch", fetcher);
+  render(<Customer path="/chat" me={{ user_id: 1 } as Model<"AccountRead">} />);
+  const mode = screen.getByRole("checkbox", { name: "仅咨询，不提交申请" });
+  fireEvent.click(mode);
+  fireEvent.change(screen.getByLabelText("售后消息"), {
+    target: { value: "能退款吗" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "发送消息" }));
+  await screen.findByText("连接中断");
+  expect(mode).toBeDisabled();
+  fireEvent.click(screen.getByRole("button", { name: "发送消息" }));
+  await waitFor(() =>
+    expect(
+      fetcher.mock.calls.filter((c) => c[1]?.method === "POST"),
+    ).toHaveLength(2),
+  );
+  const calls = fetcher.mock.calls.filter((c) => c[1]?.method === "POST");
+  expect(JSON.parse(calls[0][1].body).read_only).toBe(true);
+  expect(calls[0][1].body).toBe(calls[1][1].body);
+  await waitFor(() =>
+    expect(screen.getByRole("button", { name: "新对话" })).toBeEnabled(),
+  );
+  fireEvent.click(screen.getByRole("button", { name: "新对话" }));
+  expect(mode).toBeEnabled();
 });

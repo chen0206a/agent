@@ -3801,6 +3801,11 @@
             "type": "boolean",
             "title": "Evidence Provided",
             "default": false
+          },
+          "read_only": {
+            "type": "boolean",
+            "title": "Read Only",
+            "default": false
           }
         },
         "additionalProperties": false,

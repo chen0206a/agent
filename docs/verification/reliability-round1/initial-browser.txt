@@ -1,0 +1,178 @@
+
+Running 9 tests using 1 worker
+
+  ok 1 e2e\portal.spec.ts:5:1 › 咨询模式查询真实数据库退款状态，不产生新申请 (2.0s)
+  ok 2 e2e\portal.spec.ts:51:1 › 登录页截图与未登录保护 (389ms)
+  x  3 e2e\portal.spec.ts:66:1 › A 普通未发货取消退款；刷新保留状态 (11.8s)
+  x  4 e2e\portal.spec.ts:96:1 › B 高金额退款→人工审批→模拟执行 (12.2s)
+  x  5 e2e\portal.spec.ts:139:1 › C 签收未收到→物流调查 (12.0s)
+  ok 6 e2e\portal.spec.ts:151:1 › D 信息不足→补问→多轮续聊 (1.9s)
+  ok 7 e2e\portal.spec.ts:167:1 › E/F 越权API和管理员页面被拒绝 (1.4s)
+  x  8 e2e\portal.spec.ts:187:1 › 退货收货→执行；管理员Trace与实时统计 (11.8s)
+  ok 9 e2e\portal.spec.ts:239:1 › 手机宽度与退出登录 (1.4s)
+
+
+  1) e2e\portal.spec.ts:66:1 › A 普通未发货取消退款；刷新保留状态 ──────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('申请已通过，等待处理，尚未退款', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('申请已通过，等待处理，尚未退款', { exact: true }) with timeout 10000ms
+      - waiting for getByText('申请已通过，等待处理，尚未退款', { exact: true })
+
+
+      68 |   await expect(
+      69 |     page.getByText("申请已通过，等待处理，尚未退款", { exact: true }),
+    > 70 |   ).toBeVisible();
+         |     ^
+      71 |   await page.screenshot({
+      72 |     path: path.join(screenshots, "03-chat.png"),
+      73 |     fullPage: true,
+        at D:\RAG-agent项目\after-sale-copilot\frontend\e2e\portal.spec.ts:70:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\portal-A-普通未发货取消退款；刷新保留状态\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\portal-A-普通未发货取消退款；刷新保留状态\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\portal-A-普通未发货取消退款；刷新保留状态\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\portal-A-普通未发货取消退款；刷新保留状态\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) e2e\portal.spec.ts:96:1 › B 高金额退款→人工审批→模拟执行 ───────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('退款申请已提交，正在等待人工审核', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('退款申请已提交，正在等待人工审核', { exact: true }) with timeout 10000ms
+      - waiting for getByText('退款申请已提交，正在等待人工审核', { exact: true })
+
+
+       98 |   await expect(
+       99 |     page.getByText("退款申请已提交，正在等待人工审核", { exact: true }),
+    > 100 |   ).toBeVisible();
+          |     ^
+      101 |   const actions = await (await page.request.get("/api/portal/actions")).json();
+      102 |   const action = actions[0];
+      103 |   await page.getByLabel("退出登录").click();
+        at D:\RAG-agent项目\after-sale-copilot\frontend\e2e\portal.spec.ts:100:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\portal-B-高金额退款→人工审批→模拟执行\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\portal-B-高金额退款→人工审批→模拟执行\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\portal-B-高金额退款→人工审批→模拟执行\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\portal-B-高金额退款→人工审批→模拟执行\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) e2e\portal.spec.ts:139:1 › C 签收未收到→物流调查 ───────────────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('已提交物流调查建议，等待客服处理；未退款', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('已提交物流调查建议，等待客服处理；未退款', { exact: true }) with timeout 10000ms
+      - waiting for getByText('已提交物流调查建议，等待客服处理；未退款', { exact: true })
+
+
+      141 |   await expect(
+      142 |     page.getByText("已提交物流调查建议，等待客服处理；未退款", { exact: true }),
+    > 143 |   ).toBeVisible();
+          |     ^
+      144 |   await page.goto("/orders/1010");
+      145 |   await expect(page.getByText("物流记录已签收", { exact: true })).toBeVisible();
+      146 |   await page.screenshot({
+        at D:\RAG-agent项目\after-sale-copilot\frontend\e2e\portal.spec.ts:143:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\portal-C-签收未收到→物流调查\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\portal-C-签收未收到→物流调查\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\portal-C-签收未收到→物流调查\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\portal-C-签收未收到→物流调查\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) e2e\portal.spec.ts:187:1 › 退货收货→执行；管理员Trace与实时统计 ──────────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('等待仓库确认收到退货，尚未退款', { exact: true })
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('等待仓库确认收到退货，尚未退款', { exact: true }) with timeout 10000ms
+      - waiting for getByText('等待仓库确认收到退货，尚未退款', { exact: true })
+
+
+      189 |   await expect(
+      190 |     page.getByText("等待仓库确认收到退货，尚未退款", { exact: true }),
+    > 191 |   ).toBeVisible();
+          |     ^
+      192 |   const action = (
+      193 |     await (await page.request.get("/api/portal/actions")).json()
+      194 |   )[0];
+        at D:\RAG-agent项目\after-sale-copilot\frontend\e2e\portal.spec.ts:191:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\portal-退货收货→执行；管理员Trace与实时统计\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\portal-退货收货→执行；管理员Trace与实时统计\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\portal-退货收货→执行；管理员Trace与实时统计\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\portal-退货收货→执行；管理员Trace与实时统计\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    e2e\portal.spec.ts:66:1 › A 普通未发货取消退款；刷新保留状态 ───────────────────────────────────────────────────
+    e2e\portal.spec.ts:96:1 › B 高金额退款→人工审批→模拟执行 ────────────────────────────────────────────────────
+    e2e\portal.spec.ts:139:1 › C 签收未收到→物流调查 ────────────────────────────────────────────────────────
+    e2e\portal.spec.ts:187:1 › 退货收货→执行；管理员Trace与实时统计 ───────────────────────────────────────────────
+  5 passed (1.0m)
+(node:4552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+(node:43248) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+(node:40092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+(node:3056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+(node:43492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)

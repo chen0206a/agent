@@ -760,6 +760,11 @@ export interface components {
              * @default false
              */
             evidence_provided: boolean;
+            /**
+             * Read Only
+             * @default false
+             */
+            read_only: boolean;
         };
         /** ChatResult */
         ChatResult: {

@@ -1,0 +1,43 @@
+{
+  "verified_at": "2026-09-30T04:41:28.039649+00:00",
+  "base_commit": "7ebc07d97c3765bda2cf2a09ea5be2718d6af5e1",
+  "working_tree_sha256": {
+    "backend/app/agent/contracts.py": "a4ccdcc318e4be5a58f9245a1b9650d15bfb086b7690b3882a8fe927bc3c4980",
+    "backend/app/agent/runtime.py": "1c5facafa0f1871c07b508661738d50293432f5c887f8cd101d4b5973a94c8a0",
+    "backend/app/agent/tools.py": "0dac26475bcf2970210e1f4e8b8aff1c0bebdc5eee5a4fff67703246c35c2b99",
+    "backend/app/agent/replies.py": "9e879b196de467a08ca8fbcb4757404f66bf9e3925db567590686242144b9664",
+    "backend/tests/test_consultation.py": "2de9268823dae45f99ef76ef3e2ef163ee170c453f8d701df153f471c3967bac",
+    "frontend/src/components/customer.tsx": "8e52eb419247dee23a9726a8ea49326680c9b2fdd51592a50044a8ebc282186c",
+    "frontend/src/components/product.test.tsx": "5c8aba379ffd88b619b5563d336232440695c01777b58fb9d66b0b72ef9a87ee",
+    "frontend/e2e/portal.spec.ts": "b52b118b83fc845006e1aaa1995f8e5192c493ae6f0c1451d6bf7445d0bc4d1e",
+    "scripts/stage4_fixture.py": "654dad04dd7ad97655997d1c92cf32121b5a4bde0ad272b74852de848ce52c83"
+  },
+  "backend": {
+    "passed": 190,
+    "original_tests": 173,
+    "added": 17,
+    "warnings": [
+      "Starlette/AnyIO deprecation"
+    ]
+  },
+  "frontend": {
+    "component_tests": 6,
+    "lint": "passed",
+    "build": "passed",
+    "browser_e2e": 9,
+    "initial_browser_e2e": {
+      "passed": 5,
+      "failed": 4,
+      "cause": "scripted fixture matched prompt example instead of current flag; fixed"
+    }
+  },
+  "policy_cases": 28,
+  "offline_agent_cases": 16,
+  "agent_http_requests": 31,
+  "live_api_calls": 0,
+  "frozen_test_rerun": false,
+  "ruff_check": "passed",
+  "changed_python_format": "passed",
+  "full_tree_format": "existing mixed line endings in scripts/stage5_reports.py; unchanged",
+  "historical_files_unchanged": true
+}
