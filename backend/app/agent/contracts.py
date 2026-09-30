@@ -107,6 +107,7 @@ class ChatResult(Schema):
     tool_calls: int
     latency_ms: int
     error_type: str | None
+    failure_stage: Literal["model", "tool", "runtime", "recovery"] | None = None
     parent_run_id: int | None
     created_at: datetime
     finished_at: datetime | None

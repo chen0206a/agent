@@ -289,6 +289,8 @@ class AgentService:
             if remaining <= 0:
                 raise ProviderError("RUN_TIMEOUT")
             with write_transaction(self.sessions) as session:
+                if Store(session).get(AgentRun, run_id).status != RunStatus.RUNNING:
+                    raise ProviderError("RUN_CLOSED")
                 sequence = (
                     len(list(session.scalars(select(ModelCall.id).where(ModelCall.agent_run_id == run_id))))
                     + 1
@@ -320,6 +322,8 @@ class AgentService:
                 failure = ProviderError("INVALID_MODEL_RESPONSE")
             with write_transaction(self.sessions) as session:
                 row = Store(session).get(ModelCall, call_id)
+                if row.status != RunStatus.RUNNING:
+                    raise ProviderError("RUN_CLOSED")
                 row.latency_ms = int((time.monotonic() - start) * 1000)
                 row.status = RunStatus.FAILED if failure else RunStatus.SUCCESS
                 row.error_type = failure.code if failure else None
@@ -335,6 +339,8 @@ class AgentService:
 
     def _tool_step(self, run_id: int, tools: AgentTools, call: dict) -> tuple[dict, str | None]:
         with write_transaction(self.sessions) as session:
+            if Store(session).get(AgentRun, run_id).status != RunStatus.RUNNING:
+                raise DomainError("RUN_CLOSED", "运行已经结束，不能继续调用工具")
             row = Store(session).add(
                 ToolCall(
                     agent_run_id=run_id,
@@ -359,9 +365,10 @@ class AgentService:
             result = {"error": {"code": error_code, "message": "结果过大，请缩小查询范围"}}
         with write_transaction(self.sessions) as session:
             row = Store(session).get(ToolCall, call_id)
-            row.result_json, row.error_type = result, error_code
-            row.status = RunStatus.FAILED if error_code else RunStatus.SUCCESS
-            row.latency_ms = int((time.monotonic() - start) * 1000)
+            if row.status == RunStatus.RUNNING:
+                row.result_json, row.error_type = result, error_code
+                row.status = RunStatus.FAILED if error_code else RunStatus.SUCCESS
+                row.latency_ms = int((time.monotonic() - start) * 1000)
         return result, error_code
 
     def _reconcile(self, context: ToolContext) -> None:
@@ -378,11 +385,35 @@ class AgentService:
             if action:
                 context.action = ActionRead.model_validate(action)
 
-    def _finalize(self, context: ToolContext, error_code: str | None, latency_ms: int) -> None:
-        outcome, reply = render_reply(context, error_code)
+    def _finalize(
+        self, context: ToolContext, error_code: str | None, latency_ms: int, *, interrupted: bool = False
+    ) -> None:
         with write_transaction(self.sessions) as session:
             store = Store(session)
             run, detail = store.get(AgentRun, context.run_id), store.get(AgentRunDetail, context.run_id)
+            if run.status != RunStatus.RUNNING:
+                return
+            # Re-read committed side effects under the same lock as terminalization.
+            mapping = session.scalar(
+                select(TicketSubmission).where(
+                    TicketSubmission.user_id == context.user_id,
+                    TicketSubmission.idempotency_key == f"agent:{context.run_id}:ticket",
+                )
+            )
+            if mapping:
+                context.ticket_id = mapping.ticket_id
+            action = store.find_request(context.user_id, f"agent:{context.run_id}:action")
+            if action:
+                context.action = ActionRead.model_validate(action)
+            outcome, reply = render_reply(context, error_code)
+            if interrupted:
+                for model in (ModelCall, ToolCall):
+                    for call in session.scalars(
+                        select(model).where(
+                            model.agent_run_id == context.run_id, model.status == RunStatus.RUNNING
+                        )
+                    ):
+                        call.status, call.error_type = RunStatus.FAILED, "TRACE_INTERRUPTED"
             run.status = RunStatus.FAILED if error_code else RunStatus.SUCCESS
             run.ticket_id, run.error_type, run.latency_ms = context.ticket_id, error_code, latency_ms
             detail.outcome, detail.reply, detail.finished_at = outcome, reply, utcnow()
@@ -414,6 +445,24 @@ class AgentService:
                 c.input_tokens is not None and c.output_tokens is not None for c in live_calls
             )
             action = self.workflow.get_action(detail.action_request_id) if detail.action_request_id else None
+            failure_stage = None
+            if run.error_type:
+                failure_stage = "runtime"
+                if run.error_type == "RUN_INTERRUPTED":
+                    failure_stage = "recovery"
+                elif any(c.error_type == run.error_type for c in calls):
+                    failure_stage = "model"
+                elif (
+                    session.scalar(
+                        select(ToolCall.id)
+                        .where(ToolCall.agent_run_id == run_id, ToolCall.error_type == run.error_type)
+                        .limit(1)
+                    )
+                    is not None
+                ):
+                    failure_stage = "tool"
+                elif run.error_type == "MODEL_NOT_CONFIGURED":
+                    failure_stage = "model"
             return ChatResult(
                 run_id=run.id,
                 status=run.status,
@@ -432,6 +481,7 @@ class AgentService:
                 ),
                 latency_ms=run.latency_ms,
                 error_type=run.error_type,
+                failure_stage=failure_stage,
                 parent_run_id=detail.parent_run_id,
                 created_at=run.created_at,
                 finished_at=detail.finished_at,
@@ -498,11 +548,5 @@ class AgentService:
             )
             latency = int((utcnow() - run.created_at).total_seconds() * 1000)
         self._reconcile(context)
-        self._finalize(context, "RUN_INTERRUPTED", latency)
-        with write_transaction(self.sessions) as session:
-            for model in (ModelCall, ToolCall):
-                for call in session.scalars(
-                    select(model).where(model.agent_run_id == run_id, model.status == RunStatus.RUNNING)
-                ):
-                    call.status, call.error_type = RunStatus.FAILED, "TRACE_INTERRUPTED"
+        self._finalize(context, "RUN_INTERRUPTED", latency, interrupted=True)
         return self.get_run(run_id)

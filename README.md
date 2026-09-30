@@ -12,9 +12,11 @@ A production-style after-sales AI Agent with stateful workflow, deterministic po
 | Tool Selection Accuracy | **98.0%** |
 | Required Tool Recall | **99.3%** |
 | Evaluation Cases | **125 / 25 scenario types** |
-| Backend Regression Tests | **173 passed** |
+| Backend Regression Tests | **209 passed** |
 
 Metrics are measured on frozen synthetic after-sales evaluation scenarios, not production traffic.
+
+模型指标来自历史冻结版本；后端测试数量为当前版本。后续可靠性改动尚未进行新的真实模型评测。
 
 “Production-style” 指业务分层、权限与审计设计；订单、物流和资金操作均为本地模拟，未接入真实支付渠道。
 
@@ -178,6 +180,7 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
+- [Request Recovery](docs/RELIABILITY_ROUND3.md)：断线重试、刷新恢复、已提交申请核对与失败阶段。
 - [Conversation Reliability](docs/RELIABILITY_ROUND2.md)：显式续聊、订单隔离与并发消息保护。
 - [Reliability Improvements](docs/RELIABILITY_ROUND1.md)：退款进度、仅咨询保护与新增回归；新版本尚未重新测量真实模型成绩。
 - [Evaluation Report](docs/STAGE5_EVALUATION.md)：指标、对照实验与统计口径。

@@ -1,0 +1,220 @@
+{
+  "suite": "Stage 3 agent orchestration",
+  "mode": "scripted-fixture",
+  "live_model_verified": false,
+  "model": null,
+  "scope": "Deterministic orchestration and tool-boundary tests; NOT model accuracy",
+  "total": 16,
+  "passed": 16,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "未发货取消",
+      "passed": true,
+      "expected": [
+        "READY"
+      ],
+      "actual": "READY",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 4,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。拟退款 112.97 元，政策校验通过，等待管理员模拟执行，尚未退款。"
+    },
+    {
+      "name": "已发货取消",
+      "passed": true,
+      "expected": [
+        "LOGISTICS_PENDING"
+      ],
+      "actual": "LOGISTICS_PENDING",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。政策要求先进行物流调查或拦截，已提交建议等待管理员处理，未退款。"
+    },
+    {
+      "name": "七天内部分退货",
+      "passed": true,
+      "expected": [
+        "WAITING_RETURN"
+      ],
+      "actual": "WAITING_RETURN",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。拟退款 33.33 元，需先确认退货收货，尚未退款。"
+    },
+    {
+      "name": "超期退货",
+      "passed": true,
+      "expected": [
+        "POLICY_DENIED"
+      ],
+      "actual": "POLICY_DENIED",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。已超过模拟无理由退货申请期限，当前未执行退款。"
+    },
+    {
+      "name": "清仓退货",
+      "passed": true,
+      "expected": [
+        "POLICY_DENIED"
+      ],
+      "actual": "POLICY_DENIED",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。该商品不支持模拟政策中的无理由退货，当前未执行退款。"
+    },
+    {
+      "name": "高金额人工审批",
+      "passed": true,
+      "expected": [
+        "WAITING_APPROVAL"
+      ],
+      "actual": "WAITING_APPROVAL",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 4,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。拟退款金额为 2512.98 元，需人工审批，尚未执行。"
+    },
+    {
+      "name": "防止重复退款",
+      "passed": true,
+      "expected": [
+        "POLICY_DENIED"
+      ],
+      "actual": "POLICY_DENIED",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 6,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。申请数量超过剩余可售后数量，当前未执行退款。"
+    },
+    {
+      "name": "在途退款占额度",
+      "passed": true,
+      "expected": [
+        "POLICY_DENIED"
+      ],
+      "actual": "POLICY_DENIED",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 6,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。申请数量超过剩余可售后数量，当前未执行退款。"
+    },
+    {
+      "name": "签收未收到",
+      "passed": true,
+      "expected": [
+        "LOGISTICS_PENDING"
+      ],
+      "actual": "LOGISTICS_PENDING",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。政策要求先进行物流调查或拦截，已提交建议等待管理员处理，未退款。"
+    },
+    {
+      "name": "破损证据审批",
+      "passed": true,
+      "expected": [
+        "WAITING_APPROVAL"
+      ],
+      "actual": "WAITING_APPROVAL",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。拟退款金额为 47.07 元，需人工审批，尚未执行。"
+    },
+    {
+      "name": "错发换货",
+      "passed": true,
+      "expected": [
+        "WAITING_APPROVAL"
+      ],
+      "actual": "WAITING_APPROVAL",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。商品价值为 47.07 元，需人工审批，尚未执行。"
+    },
+    {
+      "name": "少件退款",
+      "passed": true,
+      "expected": [
+        "WAITING_APPROVAL"
+      ],
+      "actual": "WAITING_APPROVAL",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 5,
+      "forbidden_side_effects": 0,
+      "reply": "工单 4 的售后申请已记录。拟退款金额为 47.07 元，需人工审批，尚未执行。"
+    },
+    {
+      "name": "缺订单号",
+      "passed": true,
+      "expected": [
+        "NEED_MORE_INFO"
+      ],
+      "actual": "NEED_MORE_INFO",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "forbidden_side_effects": 0,
+      "reply": "请提供需要处理的订单号，或先选择您自己的订单。"
+    },
+    {
+      "name": "缺商品信息",
+      "passed": true,
+      "expected": [
+        "NEED_MORE_INFO"
+      ],
+      "actual": "NEED_MORE_INFO",
+      "error_type": null,
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "forbidden_side_effects": 0,
+      "reply": "请提供需要售后的具体商品或商品编号。"
+    },
+    {
+      "name": "模型企图调用审批",
+      "passed": true,
+      "expected": [
+        "FAILED"
+      ],
+      "actual": "FAILED",
+      "error_type": "TOOL_NOT_ALLOWED",
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "forbidden_side_effects": 0,
+      "reply": "本轮处理暂未完成。未提交退款申请。请稍后重试或联系人工客服。"
+    },
+    {
+      "name": "模型企图读取其他用户订单",
+      "passed": true,
+      "expected": [
+        "FAILED"
+      ],
+      "actual": "FAILED",
+      "error_type": "FORBIDDEN",
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "forbidden_side_effects": 0,
+      "reply": "本轮处理暂未完成。未提交退款申请。请稍后重试或联系人工客服。"
+    }
+  ]
+}

@@ -1,0 +1,775 @@
+{
+  "suite": "Stage 2 deterministic demo policy",
+  "base_time": "2026-09-08T12:00:00+00:00",
+  "policy_version": "demo-v1:r7:q30:h1000.00",
+  "total": 28,
+  "passed": 28,
+  "failed": 0,
+  "pass_rate": 1.0,
+  "llm_calls": 0,
+  "cases": [
+    {
+      "name": "未发货取消",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "ALLOW",
+        "expected_action": "CANCEL_AND_REFUND",
+        "expected_amount": "112.97",
+        "expected_rule": "UNSHIPPED_CANCELLATION"
+      },
+      "actual": {
+        "decision": "ALLOW",
+        "authorized_action": "CANCEL_AND_REFUND",
+        "amount": "112.97",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "UNSHIPPED_CANCELLATION"
+        ],
+        "explanation": "符合模拟售后政策",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "已发货取消转物流",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "ALLOW",
+        "expected_action": "CREATE_LOGISTICS_TICKET",
+        "expected_amount": "0.00",
+        "expected_rule": "LOGISTICS_FIRST"
+      },
+      "actual": {
+        "decision": "ALLOW",
+        "authorized_action": "CREATE_LOGISTICS_TICKET",
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "LOGISTICS_FIRST"
+        ],
+        "explanation": "先建立物流调查或拦截工单，不直接退款",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "七天内部分退货",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "ALLOW",
+        "expected_action": "RETURN_AND_REFUND",
+        "expected_amount": "33.33",
+        "expected_rule": "WITHIN_RETURN_WINDOW"
+      },
+      "actual": {
+        "decision": "ALLOW",
+        "authorized_action": "RETURN_AND_REFUND",
+        "amount": "33.33",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "WITHIN_RETURN_WINDOW"
+        ],
+        "explanation": "符合模拟售后政策",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "超过七天",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "RETURN_WINDOW_EXPIRED"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "RETURN_WINDOW_EXPIRED"
+        ],
+        "explanation": "已超过模拟无理由退货申请期限",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "清仓无理由拒绝",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "ITEM_NOT_RETURNABLE"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "ITEM_NOT_RETURNABLE"
+        ],
+        "explanation": "该商品不支持模拟政策中的无理由退货",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "高金额取消审批",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "REQUIRE_APPROVAL",
+        "expected_action": "CANCEL_AND_REFUND",
+        "expected_amount": "2512.98",
+        "expected_rule": "HIGH_AMOUNT"
+      },
+      "actual": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "CANCEL_AND_REFUND",
+        "amount": "2512.98",
+        "risk_level": "HIGH",
+        "rule_codes": [
+          "UNSHIPPED_CANCELLATION",
+          "HIGH_AMOUNT"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "已成功退款防重复",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "QUANTITY_EXCEEDED"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "QUANTITY_EXCEEDED"
+        ],
+        "explanation": "申请数量超过剩余可售后数量",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "处理中退款占额度",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "QUANTITY_EXCEEDED"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "QUANTITY_EXCEEDED"
+        ],
+        "explanation": "申请数量超过剩余可售后数量",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "物流异常调查",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "ALLOW",
+        "expected_action": "CREATE_LOGISTICS_TICKET",
+        "expected_amount": "0.00",
+        "expected_rule": "LOGISTICS_FIRST"
+      },
+      "actual": {
+        "decision": "ALLOW",
+        "authorized_action": "CREATE_LOGISTICS_TICKET",
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "LOGISTICS_FIRST"
+        ],
+        "explanation": "先建立物流调查或拦截工单，不直接退款",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "签收未收到不能直接退款",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "ALLOW",
+        "expected_action": "CREATE_LOGISTICS_TICKET",
+        "expected_amount": "0.00",
+        "expected_rule": "LOGISTICS_FIRST"
+      },
+      "actual": {
+        "decision": "ALLOW",
+        "authorized_action": "CREATE_LOGISTICS_TICKET",
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "LOGISTICS_FIRST"
+        ],
+        "explanation": "先建立物流调查或拦截工单，不直接退款",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "破损缺证据",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "NEED_MORE_INFO",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "EVIDENCE_REQUIRED"
+      },
+      "actual": {
+        "decision": "NEED_MORE_INFO",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "EVIDENCE_REQUIRED"
+        ],
+        "explanation": "请提供破损、错发或少件证据",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "破损人工核验",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "REQUIRE_APPROVAL",
+        "expected_action": "RETURN_AND_REFUND",
+        "expected_amount": "47.07",
+        "expected_rule": "EVIDENCE_REQUIRES_REVIEW"
+      },
+      "actual": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "RETURN_AND_REFUND",
+        "amount": "47.07",
+        "risk_level": "MEDIUM",
+        "rule_codes": [
+          "QUALITY_CLAIM",
+          "EVIDENCE_REQUIRES_REVIEW"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "错发换货人工核验",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "REQUIRE_APPROVAL",
+        "expected_action": "REPLACE_ITEM",
+        "expected_amount": "47.07",
+        "expected_rule": "QUALITY_CLAIM"
+      },
+      "actual": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "REPLACE_ITEM",
+        "amount": "47.07",
+        "risk_level": "MEDIUM",
+        "rule_codes": [
+          "QUALITY_CLAIM",
+          "EVIDENCE_REQUIRES_REVIEW"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "少件直接补偿审批",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "REQUIRE_APPROVAL",
+        "expected_action": "REFUND_MISSING_ITEM",
+        "expected_amount": "47.07",
+        "expected_rule": "QUALITY_CLAIM"
+      },
+      "actual": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "REFUND_MISSING_ITEM",
+        "amount": "47.07",
+        "risk_level": "MEDIUM",
+        "rule_codes": [
+          "QUALITY_CLAIM",
+          "EVIDENCE_REQUIRES_REVIEW"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "待支付不能退款",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "ORDER_NOT_REFUNDABLE"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "ORDER_NOT_REFUNDABLE"
+        ],
+        "explanation": "订单未支付、已取消或没有实付金额",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "完成订单可在期内退货",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "ALLOW",
+        "expected_action": "RETURN_AND_REFUND",
+        "expected_amount": "47.07",
+        "expected_rule": "WITHIN_RETURN_WINDOW"
+      },
+      "actual": {
+        "decision": "ALLOW",
+        "authorized_action": "RETURN_AND_REFUND",
+        "amount": "47.07",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "WITHIN_RETURN_WINDOW"
+        ],
+        "explanation": "符合模拟售后政策",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "清仓质量问题仍送审",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "REQUIRE_APPROVAL",
+        "expected_action": "RETURN_AND_REFUND",
+        "expected_amount": "47.07",
+        "expected_rule": "EVIDENCE_REQUIRES_REVIEW"
+      },
+      "actual": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "RETURN_AND_REFUND",
+        "amount": "47.07",
+        "risk_level": "MEDIUM",
+        "rule_codes": [
+          "QUALITY_CLAIM",
+          "EVIDENCE_REQUIRES_REVIEW"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "高金额退货",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "REQUIRE_APPROVAL",
+        "expected_action": "RETURN_AND_REFUND",
+        "expected_amount": "2493.04",
+        "expected_rule": "HIGH_AMOUNT"
+      },
+      "actual": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "RETURN_AND_REFUND",
+        "amount": "2493.04",
+        "risk_level": "HIGH",
+        "rule_codes": [
+          "WITHIN_RETURN_WINDOW",
+          "HIGH_AMOUNT"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "质量期限边界",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "REQUIRE_APPROVAL",
+        "expected_action": "REPLACE_ITEM",
+        "expected_amount": "47.07",
+        "expected_rule": "QUALITY_CLAIM"
+      },
+      "actual": {
+        "decision": "REQUIRE_APPROVAL",
+        "authorized_action": "REPLACE_ITEM",
+        "amount": "47.07",
+        "risk_level": "MEDIUM",
+        "rule_codes": [
+          "QUALITY_CLAIM",
+          "EVIDENCE_REQUIRES_REVIEW"
+        ],
+        "explanation": "需人工核验证据或高金额申请",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "质量期限超时",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "QUALITY_WINDOW_EXPIRED"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "QUALITY_WINDOW_EXPIRED"
+        ],
+        "explanation": "已超过模拟质量售后申请期限",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "已取消订单不能再退款",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "ORDER_NOT_REFUNDABLE"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "ORDER_NOT_REFUNDABLE"
+        ],
+        "explanation": "订单未支付、已取消或没有实付金额",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "七天期限精确边界",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "ALLOW",
+        "expected_action": "RETURN_AND_REFUND",
+        "expected_amount": "47.07",
+        "expected_rule": "WITHIN_RETURN_WINDOW"
+      },
+      "actual": {
+        "decision": "ALLOW",
+        "authorized_action": "RETURN_AND_REFUND",
+        "amount": "47.07",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "WITHIN_RETURN_WINDOW"
+        ],
+        "explanation": "符合模拟售后政策",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "七天超过一秒",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "RETURN_WINDOW_EXPIRED"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "RETURN_WINDOW_EXPIRED"
+        ],
+        "explanation": "已超过模拟无理由退货申请期限",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "不支持无理由退货商品",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "ITEM_NOT_RETURNABLE"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "ITEM_NOT_RETURNABLE"
+        ],
+        "explanation": "该商品不支持模拟政策中的无理由退货",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "缺订单号",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "NEED_MORE_INFO",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "ORDER_REQUIRED"
+      },
+      "actual": {
+        "decision": "NEED_MORE_INFO",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "ORDER_REQUIRED"
+        ],
+        "explanation": "请补充订单信息",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "缺商品信息",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "NEED_MORE_INFO",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "ITEM_REQUIRED"
+      },
+      "actual": {
+        "decision": "NEED_MORE_INFO",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "ITEM_REQUIRED"
+        ],
+        "explanation": "请补充具体商品和数量",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "请求数量超过购买量",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "QUANTITY_EXCEEDED"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "QUANTITY_EXCEEDED"
+        ],
+        "explanation": "申请数量超过剩余可售后数量",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    },
+    {
+      "name": "无理由请求换货动作不匹配",
+      "passed": true,
+      "checks": {
+        "decision": true,
+        "action": true,
+        "amount": true,
+        "rule": true
+      },
+      "expected": {
+        "expected_decision": "DENY",
+        "expected_action": null,
+        "expected_amount": "0.00",
+        "expected_rule": "ACTION_ISSUE_MISMATCH"
+      },
+      "actual": {
+        "decision": "DENY",
+        "authorized_action": null,
+        "amount": "0.00",
+        "risk_level": "LOW",
+        "rule_codes": [
+          "ACTION_ISSUE_MISMATCH"
+        ],
+        "explanation": "无理由退货只支持退货退款",
+        "policy_version": "demo-v1:r7:q30:h1000.00"
+      }
+    }
+  ]
+}

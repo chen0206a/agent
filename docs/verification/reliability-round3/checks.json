@@ -1,0 +1,40 @@
+{
+  "verified_at": "2026-09-30T08:54:24.943235+00:00",
+  "base_commit": "22b74ff21ff0ef11dd1fb99fda135caf6e3496dc",
+  "working_file_sha256": {
+    "backend/app/agent/contracts.py": "52238c6b3a831054a76c7c21cdc5f56ba8a0f87b2433854e07070e9126764f8d",
+    "backend/app/agent/runtime.py": "26408b6fff6dc40c2a32a83285504f5234aa3c6fa1da04e1b581976f0ca9e95f",
+    "backend/tests/test_recovery.py": "193877b759d99622d981be14558b07d80180819078240fc9490828b0c03006dc",
+    "frontend/src/components/customer.tsx": "bb69d53f06272ea7b0e826c2870e6231d7de64c774bb957dc428526ab47548af",
+    "frontend/src/components/admin.tsx": "49270f971cf48645a917dda8120bb06bf4ddd53a59b4b44a981ebfafaf7aab14",
+    "frontend/src/lib/pending-request.ts": "9e9c1b2d3551b39091b1e119080dd0022befce049a41250ffe51a922b0573159",
+    "frontend/src/components/product.test.tsx": "b0c5a4080b8707b404282a740cdc7b4bb07ea9941090b85529687c40aa1e947f",
+    "frontend/e2e/portal.spec.ts": "321ba1628248ecff102abd12e5a9e95c61c9c227dc450216da56f5b304f62970"
+  },
+  "backend_tests": {
+    "passed": 209,
+    "new": 8,
+    "warnings": [
+      "existing Starlette/AnyIO deprecation"
+    ]
+  },
+  "frontend_tests": {
+    "passed": 13,
+    "new": 3
+  },
+  "browser_tests": {
+    "passed": 11,
+    "new": 1,
+    "model": "scripted-fixture"
+  },
+  "policy_cases": 28,
+  "offline_agent_cases": 16,
+  "http_smoke_requests": 31,
+  "ruff_check": "passed",
+  "modified_python_format": "passed",
+  "frontend_lint": "passed",
+  "frontend_build": "passed",
+  "live_api_calls": 0,
+  "frozen_test_rerun": false,
+  "historical_files_unchanged": true
+}

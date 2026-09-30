@@ -3914,6 +3914,23 @@
             ],
             "title": "Error Type"
           },
+          "failure_stage": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "model",
+                  "tool",
+                  "runtime",
+                  "recovery"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Stage"
+          },
           "parent_run_id": {
             "anyOf": [
               {

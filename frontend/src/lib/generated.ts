@@ -796,6 +796,8 @@ export interface components {
             latency_ms: number;
             /** Error Type */
             error_type: string | null;
+            /** Failure Stage */
+            failure_stage?: ("model" | "tool" | "runtime" | "recovery") | null;
             /** Parent Run Id */
             parent_run_id: number | null;
             /**

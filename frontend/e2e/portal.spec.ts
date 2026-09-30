@@ -2,6 +2,42 @@ import { test, expect, Page } from "@playwright/test";
 import path from "node:path";
 const screenshots = path.resolve("../docs/verification/stage4/screenshots");
 
+test("服务端完成但响应丢失，刷新后恢复原请求且不重复运行", async ({ page }) => {
+  await login(page, "customer8");
+  const before = (await (await page.request.get("/api/portal/runs")).json())
+    .length;
+  await page.goto("/chat?order=1008");
+  await page.getByRole("checkbox", { name: "仅咨询，不提交申请" }).check();
+  const bodies: unknown[] = [];
+  page.on("request", (r) => {
+    if (r.url().endsWith("/api/agent/runs") && r.method() === "POST")
+      bodies.push(r.postDataJSON());
+  });
+  await page.route("**/api/agent/runs", async (route) => {
+    await route.fetch();
+    await route.abort("failed");
+  });
+  await page.getByLabel("售后消息").fill("查询退款进度，验证断线恢复");
+  await page.getByRole("button", { name: "发送消息" }).click();
+  await expect(page.getByText(/原请求结果尚未确认/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "新对话" })).toBeDisabled();
+  await expect(page.getByLabel("关联订单")).toBeDisabled();
+  await page.unroute("**/api/agent/runs");
+  await page.reload();
+  await page.getByRole("button", { name: "恢复待确认请求" }).click();
+  await expect(page.getByLabel("售后消息")).toHaveValue("");
+  await expect(page.getByText(/退款处理中，尚未确认成功/)).toBeVisible();
+  expect(bodies).toHaveLength(2);
+  expect(bodies[0]).toEqual(bodies[1]);
+  const after = await (await page.request.get("/api/portal/runs")).json();
+  expect(after).toHaveLength(before + 1);
+  await expect(page.getByRole("button", { name: "新对话" })).toBeEnabled();
+  await page.screenshot({
+    path: path.join(screenshots, "12-recovered-request.png"),
+    fullPage: true,
+  });
+});
+
 test("刷新需显式续聊，切换订单清除旧上下文", async ({ page }) => {
   await login(page, "customer5");
   await page.goto("/chat?order=1005");

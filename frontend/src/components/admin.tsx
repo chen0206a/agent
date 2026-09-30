@@ -580,6 +580,8 @@ function Runs() {
 }
 
 function Trace({ id }: { id: string }) {
+  const [recovering, setRecovering] = useState(false);
+  const [recoveryError, setRecoveryError] = useState("");
   const { data, error, refresh } = useData<Model<"AgentTrace">>(
     `/agent/runs/${id}/trace`,
   );
@@ -609,6 +611,17 @@ function Trace({ id }: { id: string }) {
             ["Output Tokens", run.output_tokens ?? "未知"],
             ["Latency", `${run.latency_ms} ms`],
             ["模型", run.model],
+            [
+              "失败阶段",
+              run.failure_stage
+                ? {
+                    model: "模型调用",
+                    tool: "工具调用",
+                    runtime: "运行编排",
+                    recovery: "中断恢复",
+                  }[run.failure_stage]
+                : "无",
+            ],
           ].map(([k, v]) => (
             <div key={k}>
               <span>{k}</span>
@@ -617,6 +630,31 @@ function Trace({ id }: { id: string }) {
           ))}
         </div>
         {run.error_type && <ErrorBox message={run.error_type} />}
+        {recoveryError && <ErrorBox message={recoveryError} />}
+        {run.status === "RUNNING" && (
+          <div>
+            <p>
+              恢复前请确认原工作进程已停止。此操作仅核对已有记录，不重放工具、不执行退款，也不会取消仍在执行的调用。近期运行由后端拒绝恢复。
+            </p>
+            <Button
+              disabled={recovering}
+              onClick={async () => {
+                setRecovering(true);
+                setRecoveryError("");
+                try {
+                  await api(`/agent/runs/${id}/recover`, {});
+                  refresh();
+                } catch (e) {
+                  setRecoveryError((e as Error).message);
+                } finally {
+                  setRecovering(false);
+                }
+              }}
+            >
+              核对并恢复中断记录
+            </Button>
+          </div>
+        )}
       </section>
       {run.action && <ActionDetail action={run.action} refresh={refresh} />}
       <section className="card section-gap">

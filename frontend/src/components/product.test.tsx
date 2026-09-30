@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { ActionCard, Customer } from "./customer";
 import Portal from "./portal";
+import { Admin } from "./admin";
 import { api, setCsrf } from "@/lib/api";
 import type { Model } from "@/lib/api";
 import { useData } from "./shared";
@@ -12,6 +13,7 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 afterEach(() => {
+  sessionStorage.clear();
   vi.unstubAllGlobals();
   vi.clearAllMocks();
   setCsrf("");
@@ -222,9 +224,105 @@ it("咨询模式发送后端约束，失败重试保留原请求", async () => {
   const calls = fetcher.mock.calls.filter((c) => c[1]?.method === "POST");
   expect(JSON.parse(calls[0][1].body).read_only).toBe(true);
   expect(calls[0][1].body).toBe(calls[1][1].body);
+  expect(screen.getByRole("button", { name: "新对话" })).toBeDisabled();
+  expect(screen.getByLabelText("售后消息")).toBeDisabled();
+  expect(screen.getByLabelText("关联订单")).toBeDisabled();
+});
+
+it("已获得运行编号时断线重试只查询原运行，不重复POST", async () => {
+  let queries = 0;
+  const fetcher = vi.fn().mockImplementation(async (url, init) => {
+    if (init?.method === "POST")
+      return {
+        ok: true,
+        json: async () => ({ run_id: 77, status: "RUNNING" }),
+      };
+    if (url === "/api/agent/runs/77") {
+      if (++queries === 1) throw new Error("查询连接中断");
+      return {
+        ok: true,
+        json: async () => ({
+          run_id: 77,
+          status: "SUCCESS",
+          reply: "已完成查询",
+        }),
+      };
+    }
+    return { ok: true, json: async () => [] };
+  });
+  vi.stubGlobal("fetch", fetcher);
+  render(<Customer path="/chat" me={{ user_id: 1 } as Model<"AccountRead">} />);
+  fireEvent.change(screen.getByLabelText("售后消息"), {
+    target: { value: "查进度" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "发送消息" }));
+  await screen.findByText("查询连接中断", {}, { timeout: 3000 });
+  fireEvent.click(screen.getByRole("button", { name: "发送消息" }));
   await waitFor(() =>
-    expect(screen.getByRole("button", { name: "新对话" })).toBeEnabled(),
+    expect(screen.getByLabelText("售后消息")).toHaveValue(""),
   );
-  fireEvent.click(screen.getByRole("button", { name: "新对话" }));
-  expect(mode).toBeEnabled();
+  expect(
+    fetcher.mock.calls.filter((c) => c[1]?.method === "POST"),
+  ).toHaveLength(1);
+  expect(queries).toBe(2);
+  expect(screen.getByRole("button", { name: "新对话" })).toBeEnabled();
+});
+
+it("运行失败但申请已落库时保留申请卡片，不把失败当成未提交", async () => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockImplementation(async (_url, init) => ({
+      ok: true,
+      json: async () =>
+        init?.method === "POST" ? { run_id: 99, status: "FAILED", action } : [],
+    })),
+  );
+  render(<Customer path="/chat" me={{ user_id: 1 } as Model<"AccountRead">} />);
+  fireEvent.change(screen.getByLabelText("售后消息"), {
+    target: { value: "取消退款" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "发送消息" }));
+  await screen.findByText(/已有售后申请已保留/);
+  expect(screen.getByText("申请已通过，等待处理，尚未退款")).toBeVisible();
+  expect(sessionStorage.getItem("aftersale:pending:1")).toBeNull();
+});
+
+it("管理员恢复操作遵守后端活跃运行保护，不调用执行接口", async () => {
+  const fetcher = vi
+    .fn()
+    .mockImplementation(async (_url, init) =>
+      init?.method === "POST"
+        ? {
+            ok: false,
+            status: 409,
+            json: async () => ({
+              error: {
+                code: "RUN_STILL_ACTIVE",
+                message: "运行仍可能活跃，暂不能恢复",
+              },
+            }),
+          }
+        : {
+            ok: true,
+            json: async () => ({
+              run: {
+                run_id: 8,
+                status: "RUNNING",
+                outcome: "RUNNING",
+                action: null,
+              },
+              tool_calls: [],
+              model_calls: [],
+            }),
+          },
+    );
+  vi.stubGlobal("fetch", fetcher);
+  render(<Admin path="/admin/runs/8" />);
+  fireEvent.click(
+    await screen.findByRole("button", { name: "核对并恢复中断记录" }),
+  );
+  await screen.findByText("运行仍可能活跃，暂不能恢复");
+  expect(
+    fetcher.mock.calls.filter((c) => c[1]?.method === "POST").map((c) => c[0]),
+  ).toEqual(["/api/agent/runs/8/recover"]);
 });

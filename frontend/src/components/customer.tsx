@@ -13,6 +13,11 @@ import {
 } from "lucide-react";
 import { api, ApiError, Model } from "@/lib/api";
 import {
+  usePending,
+  savePending,
+  type PendingRequest,
+} from "@/lib/pending-request";
+import {
   actionHint,
   date,
   issueLabels,
@@ -328,6 +333,10 @@ function Chat({ userId }: { userId: number }) {
   const [parent, setParent] = useState<number | null | undefined>();
   const [latest, setLatest] = useState<Model<"ChatResult">>();
   const pending = useRef<Model<"ChatRequest"> | null>(null);
+  const pendingRun = useRef<number | null>(null);
+  const submitting = useRef(false);
+  const saved = usePending(userId);
+  const unresolved = retryPending || saved !== null;
   const orders = useData<Model<"OrderRead">[]>(`/users/${userId}/orders`);
   const history = useData<Model<"RunRead">[]>(
     `/portal/runs?limit=100${order ? `&order_id=${order}` : ""}`,
@@ -347,26 +356,41 @@ function Chat({ userId }: { userId: number }) {
       id = run.parent_run_id;
     }
   }
-  async function send(e: React.FormEvent) {
+  async function send(e: React.FormEvent, restored?: PendingRequest) {
     e.preventDefault();
-    if (!message.trim() || busy) return;
+    if (!(restored?.request.message || message).trim() || submitting.current)
+      return;
+    if (restored) {
+      pending.current = restored.request;
+      pendingRun.current = restored.runId;
+      setMessage(restored.request.message);
+      setOrder(restored.request.order_id?.toString() || "");
+      setParent(restored.request.parent_run_id);
+      setReadOnly(restored.request.read_only || false);
+    }
+    submitting.current = true;
     setBusy(true);
     setError("");
-    const body: Model<"ChatRequest"> =
-      pending.current?.message === message
-        ? pending.current
-        : {
-            message,
-            order_id: order ? Number(order) : null,
-            parent_run_id: parent ?? null,
-            idempotency_key: crypto.randomUUID(),
-            evidence_provided: false,
-            read_only: readOnly,
-          };
+    const body: Model<"ChatRequest"> = pending.current
+      ? pending.current
+      : {
+          message,
+          order_id: order ? Number(order) : null,
+          parent_run_id: parent ?? null,
+          idempotency_key: crypto.randomUUID(),
+          evidence_provided: false,
+          read_only: readOnly,
+        };
     pending.current = body;
     setRetryPending(true);
+    savePending(userId, { request: body, runId: pendingRun.current });
     try {
-      let result = await api<Model<"ChatResult">>("/agent/runs", body);
+      let result =
+        pendingRun.current === null
+          ? await api<Model<"ChatResult">>("/agent/runs", body)
+          : await api<Model<"ChatResult">>(`/agent/runs/${pendingRun.current}`);
+      pendingRun.current = result.run_id;
+      savePending(userId, { request: body, runId: result.run_id });
       for (let i = 0; result.status === "RUNNING" && i < 100; i++) {
         await new Promise((r) => setTimeout(r, 1000));
         result = await api<Model<"ChatResult">>(`/agent/runs/${result.run_id}`);
@@ -379,23 +403,26 @@ function Chat({ userId }: { userId: number }) {
       setParent(result.run_id);
       setMessage("");
       pending.current = null;
+      pendingRun.current = null;
+      savePending(userId, null);
       setRetryPending(false);
       history.refresh();
     } catch (e) {
       setError((e as Error).message);
       if (
         e instanceof ApiError &&
-        ["STALE_PARENT_RUN", "CONVERSATION_ORDER_MISMATCH"].includes(
-          e.code || "",
-        )
+        pendingRun.current === null &&
+        [400, 401, 403, 404, 409, 422].includes(e.status)
       ) {
         pending.current = null;
+        savePending(userId, null);
         setRetryPending(false);
         setParent(undefined);
         setLatest(undefined);
         history.refresh();
       }
     } finally {
+      submitting.current = false;
       setBusy(false);
     }
   }
@@ -421,7 +448,7 @@ function Chat({ userId }: { userId: number }) {
             </div>
             <Button
               variant="ghost"
-              disabled={busy}
+              disabled={busy || unresolved}
               onClick={() => {
                 setParent(null);
                 setLatest(undefined);
@@ -444,7 +471,7 @@ function Chat({ userId }: { userId: number }) {
                 <Button
                   variant="outline"
                   disabled={
-                    busy || retryPending || history.data[0].status === "RUNNING"
+                    busy || unresolved || history.data[0].status === "RUNNING"
                   }
                   onClick={() => {
                     const recent = history.data?.[0];
@@ -481,15 +508,35 @@ function Chat({ userId }: { userId: number }) {
               </div>
             )}
             {latest?.action && <ActionCard action={latest.action} />}
+            {latest?.status === "FAILED" && (
+              <div role="status" className="error">
+                本轮处理未完成。
+                {latest.action
+                  ? "已有售后申请已保留，请查看申请状态，勿重复提交。"
+                  : "请核对售后记录，必要时联系人工客服。"}
+              </div>
+            )}
           </div>
           <div className="composer">
+            {saved && !retryPending && (
+              <div role="status">
+                <p>发现待确认请求：{saved.request.message}</p>
+                <Button disabled={busy} onClick={(e) => send(e, saved)}>
+                  恢复待确认请求
+                </Button>
+              </div>
+            )}
             <div className="suggestions">
               {[
                 "我想取消订单并退款",
                 "物流签收了，但我没收到",
                 "我需要申请退货",
               ].map((s) => (
-                <button key={s} disabled={busy} onClick={() => setMessage(s)}>
+                <button
+                  key={s}
+                  disabled={busy || unresolved}
+                  onClick={() => setMessage(s)}
+                >
                   {s}
                 </button>
               ))}
@@ -498,13 +545,15 @@ function Chat({ userId }: { userId: number }) {
               <input
                 type="checkbox"
                 checked={readOnly}
-                disabled={busy || retryPending}
+                disabled={busy || unresolved}
                 onChange={(e) => setReadOnly(e.target.checked)}
               />
               仅咨询，不提交申请
             </label>
             {retryPending && error && (
-              <p>重试沿用原请求和咨询模式；如需切换，请先开始新对话。</p>
+              <p role="status">
+                原请求结果尚未确认。请查询原请求结果，确认前暂不能修改消息、换单或新建对话。
+              </p>
             )}
             {error && <ErrorBox message={error} />}
             <form onSubmit={send}>
@@ -514,16 +563,18 @@ function Chat({ userId }: { userId: number }) {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="请描述您的售后问题…"
                 maxLength={4000}
-                disabled={busy}
+                disabled={busy || unresolved}
                 required
               />
               <Button
                 type="submit"
                 aria-label="发送消息"
-                disabled={busy || !message.trim()}
+                disabled={
+                  busy || !message.trim() || (saved !== null && !retryPending)
+                }
               >
                 <Send size={18} />
-                发送
+                {retryPending && !busy ? "查询原请求结果" : "发送"}
               </Button>
             </form>
             <small>
@@ -541,7 +592,7 @@ function Chat({ userId }: { userId: number }) {
               <select
                 aria-label="关联订单"
                 value={order}
-                disabled={busy}
+                disabled={busy || unresolved}
                 onChange={(e) => {
                   setOrder(e.target.value);
                   setParent(null);
