@@ -178,6 +178,7 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
+- [Conversation Reliability](docs/RELIABILITY_ROUND2.md)：显式续聊、订单隔离与并发消息保护。
 - [Reliability Improvements](docs/RELIABILITY_ROUND1.md)：退款进度、仅咨询保护与新增回归；新版本尚未重新测量真实模型成绩。
 - [Evaluation Report](docs/STAGE5_EVALUATION.md)：指标、对照实验与统计口径。
 - [Failure Analysis](docs/STAGE5_FAILURE_ANALYSIS.md)：完整失败与归因。

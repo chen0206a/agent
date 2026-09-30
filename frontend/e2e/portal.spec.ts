@@ -2,6 +2,42 @@ import { test, expect, Page } from "@playwright/test";
 import path from "node:path";
 const screenshots = path.resolve("../docs/verification/stage4/screenshots");
 
+test("刷新需显式续聊，切换订单清除旧上下文", async ({ page }) => {
+  await login(page, "customer5");
+  await page.goto("/chat?order=1005");
+  await page.getByRole("checkbox", { name: "仅咨询，不提交申请" }).check();
+  await page.getByLabel("售后消息").fill("先查询退款记录");
+  await page.getByRole("button", { name: "发送消息" }).click();
+  await expect(page.getByText(/订单 1005 当前没有退款记录/)).toBeVisible();
+  const first = (await (await page.request.get("/api/portal/runs")).json())[0];
+  await page.reload();
+  await expect(
+    page.getByText("以下是历史记录。发送新消息不会自动延续旧诉求。"),
+  ).toBeVisible();
+  await page.screenshot({
+    path: path.join(screenshots, "11-explicit-resume.png"),
+    fullPage: true,
+  });
+  await page.getByRole("button", { name: "继续最近对话" }).click();
+  await page.getByRole("checkbox", { name: "仅咨询，不提交申请" }).check();
+  await page.getByLabel("售后消息").fill("不办理，只再查进度");
+  await page.getByRole("button", { name: "发送消息" }).click();
+  await expect(page.getByLabel("售后消息")).toHaveValue("");
+  const second = (await (await page.request.get("/api/portal/runs")).json())[0];
+  expect(second.parent_run_id).toBe(first.id);
+  await page.getByLabel("关联订单").selectOption("1015");
+  await page.getByLabel("售后消息").fill("查询这笔订单的退款记录");
+  await page.getByRole("button", { name: "发送消息" }).click();
+  await expect(page.getByText(/订单 1015 当前没有退款记录/)).toBeVisible();
+  await expect(page.getByText(/订单 1005 当前没有退款记录/)).not.toBeVisible();
+  const third = (await (await page.request.get("/api/portal/runs")).json())[0];
+  expect(third.parent_run_id).toBeNull();
+  expect(third.order_id).toBe(1015);
+  expect(await (await page.request.get("/api/portal/actions")).json()).toEqual(
+    [],
+  );
+});
+
 test("咨询模式查询真实数据库退款状态，不产生新申请", async ({ page }) => {
   await login(page, "customer8");
   const before = await (await page.request.get("/api/portal/actions")).json();

@@ -11,7 +11,7 @@ import {
   Sparkles,
   Truck,
 } from "lucide-react";
-import { api, Model } from "@/lib/api";
+import { api, ApiError, Model } from "@/lib/api";
 import {
   actionHint,
   date,
@@ -332,6 +332,21 @@ function Chat({ userId }: { userId: number }) {
   const history = useData<Model<"RunRead">[]>(
     `/portal/runs?limit=100${order ? `&order_id=${order}` : ""}`,
   );
+  const transcript: Model<"RunRead">[] = [];
+  if (parent === undefined) {
+    transcript.push(...(history.data || []));
+  } else {
+    const byId = new Map(history.data?.map((r) => [r.id, r]));
+    let id = parent;
+    const seen = new Set<number>();
+    while (id != null && !seen.has(id)) {
+      seen.add(id);
+      const run = byId.get(id);
+      if (!run) break;
+      transcript.push(run);
+      id = run.parent_run_id;
+    }
+  }
   async function send(e: React.FormEvent) {
     e.preventDefault();
     if (!message.trim() || busy) return;
@@ -343,8 +358,7 @@ function Chat({ userId }: { userId: number }) {
         : {
             message,
             order_id: order ? Number(order) : null,
-            parent_run_id:
-              parent === undefined ? history.data?.[0]?.id : parent,
+            parent_run_id: parent ?? null,
             idempotency_key: crypto.randomUUID(),
             evidence_provided: false,
             read_only: readOnly,
@@ -369,6 +383,18 @@ function Chat({ userId }: { userId: number }) {
       history.refresh();
     } catch (e) {
       setError((e as Error).message);
+      if (
+        e instanceof ApiError &&
+        ["STALE_PARENT_RUN", "CONVERSATION_ORDER_MISMATCH"].includes(
+          e.code || "",
+        )
+      ) {
+        pending.current = null;
+        setRetryPending(false);
+        setParent(undefined);
+        setLatest(undefined);
+        history.refresh();
+      }
     } finally {
       setBusy(false);
     }
@@ -412,12 +438,34 @@ function Chat({ userId }: { userId: number }) {
             <div className="bubble assistant">
               欢迎来到售后服务中心。您可以查询物流、取消未发货订单，或申请退换货。请告诉我订单和具体情况。
             </div>
+            {parent === undefined && !!history.data?.length && (
+              <div className="conversation-notice">
+                <p>以下是历史记录。发送新消息不会自动延续旧诉求。</p>
+                <Button
+                  variant="outline"
+                  disabled={
+                    busy || retryPending || history.data[0].status === "RUNNING"
+                  }
+                  onClick={() => {
+                    const recent = history.data?.[0];
+                    if (!recent || recent.status === "RUNNING") return;
+                    setParent(recent.id);
+                    setReadOnly(true);
+                    setOrder(recent.order_id?.toString() || "");
+                    setLatest(undefined);
+                    setError("");
+                  }}
+                >
+                  继续最近对话
+                </Button>
+              </div>
+            )}
             {history.error ? (
               <ErrorBox message={history.error} retry={history.refresh} />
             ) : !history.data ? (
               <Loading />
             ) : parent === null ? null : (
-              [...history.data].reverse().map((r) => (
+              [...transcript].reverse().map((r) => (
                 <div key={r.id}>
                   <div className="bubble user">{r.user_query}</div>
                   <div className="bubble assistant">

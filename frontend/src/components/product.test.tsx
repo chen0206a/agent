@@ -4,6 +4,7 @@ import { ActionCard, Customer } from "./customer";
 import Portal from "./portal";
 import { api, setCsrf } from "@/lib/api";
 import type { Model } from "@/lib/api";
+import { useData } from "./shared";
 const navigation = vi.hoisted(() => ({ replace: vi.fn() }));
 vi.mock("next/navigation", () => ({
   usePathname: () => "/login",
@@ -15,6 +16,79 @@ afterEach(() => {
   vi.clearAllMocks();
   setCsrf("");
 });
+
+const pastRuns = [
+  {
+    id: 10,
+    order_id: 1001,
+    user_query: "最新的补问",
+    reply: "请说明诉求",
+    parent_run_id: 8,
+    status: "SUCCESS",
+  },
+  {
+    id: 9,
+    order_id: 1011,
+    user_query: "无关的另一段对话",
+    reply: "历史回复",
+    parent_run_id: null,
+    status: "SUCCESS",
+  },
+  {
+    id: 8,
+    order_id: 1001,
+    user_query: "原始咨询",
+    reply: "请提供订单",
+    parent_run_id: null,
+    status: "SUCCESS",
+  },
+];
+
+it.each(["new", "resume", "switch"])(
+  "历史上下文需显式续聊：%s",
+  async (mode) => {
+    const fetcher = vi.fn().mockImplementation(async (url, init) => {
+      if (init?.method === "POST") throw new Error("请求中断");
+      return {
+        ok: true,
+        json: async () =>
+          url.includes("/users/")
+            ? [
+                { id: 1001, status: "PAID", paid_amount: "112.97" },
+                { id: 1011, status: "DELIVERED", paid_amount: "112.97" },
+              ]
+            : pastRuns,
+      };
+    });
+    vi.stubGlobal("fetch", fetcher);
+    render(
+      <Customer path="/chat" me={{ user_id: 1 } as Model<"AccountRead">} />,
+    );
+    const resume = await screen.findByRole("button", { name: "继续最近对话" });
+    if (mode !== "new") {
+      fireEvent.click(resume);
+      await waitFor(() =>
+        expect(screen.queryByText("无关的另一段对话")).not.toBeInTheDocument(),
+      );
+    }
+    if (mode === "switch")
+      fireEvent.change(screen.getByLabelText("关联订单"), {
+        target: { value: "1011" },
+      });
+    fireEvent.change(screen.getByLabelText("售后消息"), {
+      target: { value: "先查一下" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "发送消息" }));
+    await screen.findByText("请求中断");
+    const body = JSON.parse(
+      fetcher.mock.calls.find((c) => c[1]?.method === "POST")![1].body,
+    );
+    expect(body.parent_run_id).toBe(mode === "resume" ? 10 : null);
+    expect(body.order_id).toBe(
+      mode === "resume" ? 1001 : mode === "switch" ? 1011 : null,
+    );
+  },
+);
 const action = {
   id: 1,
   order_id: 1001,
@@ -23,6 +97,32 @@ const action = {
   authorized_action: "CANCEL_AND_REFUND",
   created_at: "2026-09-09T12:00:00Z",
 } as Model<"ActionRead">;
+
+function DataProbe({ path }: { path: string }) {
+  const { data } = useData<string>(path);
+  return <div>{data ?? "等待新订单数据"}</div>;
+}
+
+it("切换查询路径时不会把上一订单的数据当成当前结果", async () => {
+  let resolve!: (value: unknown) => void;
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockImplementation(async (url) => {
+      if (url === "/api/order-a")
+        return { ok: true, json: async () => "订单A数据" };
+      return new Promise((r) => {
+        resolve = r;
+      });
+    }),
+  );
+  const view = render(<DataProbe path="/order-a" />);
+  await screen.findByText("订单A数据");
+  view.rerender(<DataProbe path="/order-b" />);
+  expect(screen.queryByText("订单A数据")).not.toBeInTheDocument();
+  expect(screen.getByText("等待新订单数据")).toBeVisible();
+  resolve({ ok: true, json: async () => "订单B数据" });
+  await screen.findByText("订单B数据");
+});
 describe("真实业务状态文案", () => {
   it("申请通过不能展示退款成功", () => {
     render(<ActionCard action={action} />);

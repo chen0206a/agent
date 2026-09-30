@@ -5,30 +5,34 @@ import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 
 export function useData<T>(path: string) {
-  const [data, setData] = useState<T>();
-  const [error, setError] = useState("");
+  const [snapshot, setSnapshot] = useState<{
+    path: string;
+    data?: T;
+    error: string;
+  }>();
   const [version, setVersion] = useState(0);
   useEffect(() => {
     let active = true;
     api<T>(path)
       .then((v) => {
         if (active) {
-          setData(v);
-          setError("");
+          setSnapshot({ path, data: v, error: "" });
         }
       })
       .catch((e) => {
-        if (active) setError(e.message);
+        if (active) setSnapshot({ path, error: e.message });
       });
     return () => {
       active = false;
     };
   }, [path, version]);
   return {
-    data,
-    error,
+    data: snapshot?.path === path ? snapshot.data : undefined,
+    error: snapshot?.path === path ? snapshot.error : "",
     refresh: () => {
-      setError("");
+      setSnapshot((current) =>
+        current?.path === path ? { ...current, error: "" } : current,
+      );
       setVersion((v) => v + 1);
     },
   };

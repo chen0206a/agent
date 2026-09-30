@@ -74,6 +74,7 @@ class ToolContext:
     user_id: int
     run_id: int
     request: ChatRequest
+    verified_order_ids: set[int] = field(default_factory=set)
     observed_orders: dict[int, dict] = field(default_factory=dict)
     observed_items: dict[int, list[dict]] = field(default_factory=dict)
     observed_refunds: dict[int, list[dict]] = field(default_factory=dict)
@@ -99,6 +100,7 @@ class AgentTools:
         order = self.business.get_order(order_id)
         if order.user_id != self.context.user_id:
             raise DomainError("FORBIDDEN", "不能查询或处理其他用户的订单", 403)
+        self.context.verified_order_ids.add(order.id)
         return order
 
     def invoke(self, name: str, raw_arguments: str) -> dict:

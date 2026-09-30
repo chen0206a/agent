@@ -9,6 +9,7 @@ export class ApiError extends Error {
   constructor(
     message: string,
     public status: number,
+    public code?: string,
   ) {
     super(message);
   }
@@ -29,13 +30,18 @@ export async function api<T>(
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   if (!response.ok) {
-    if (response.status === 401 && path !== "/auth/login" && typeof window !== "undefined") {
+    if (
+      response.status === 401 &&
+      path !== "/auth/login" &&
+      typeof window !== "undefined"
+    ) {
       window.dispatchEvent(new Event("asc:session-expired"));
     }
     const error = await response.json().catch(() => null);
     throw new ApiError(
       error?.error?.message || "请求未完成，请重试",
       response.status,
+      error?.error?.code,
     );
   }
   return response.status === 204 ? (undefined as T) : response.json();

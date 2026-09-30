@@ -1,0 +1,40 @@
+{
+  "verified_at": "2026-09-30T08:39:33.151288+00:00",
+  "base_commit": "b43857cc8c9c7d73c28e4bdff7ed5b51f309c37b",
+  "working_file_sha256": {
+    "backend/app/agent/runtime.py": "2e2c27a4032764fafd27b35b5ebbfbe95d380c7dda3de864de3082073c07f243",
+    "backend/app/agent/tools.py": "e0a3e6a8cc1653158b127001ef03dfced94b3149a969b7cbbc77bac04fee0909",
+    "backend/tests/test_conversation.py": "08ba0b41444a2e84e363aa2f1d1d7f5a84a443880868e7c046d73fc4e2f58a00",
+    "frontend/src/components/customer.tsx": "531ab4d0e293d40cb62f2c0e46d12dc5fa7957fcf04113924bf18092fdd5e4c1",
+    "frontend/src/components/shared.tsx": "95b73ae48ef55d68bd65833182ee528088f87df96f8e3fa2a0bff18add5a277d",
+    "frontend/src/components/product.test.tsx": "9a154c90717a7b53de7138955dcd30b11834e5dfb228b1071b31f27d6992d65f",
+    "frontend/src/lib/api.ts": "cdf2144804d3df561b3560444b99425c47b505133f642e51c61e5d9d8b4ee4ad",
+    "frontend/e2e/portal.spec.ts": "5ba54cc9c2a464d844b8237069b2e0d24d738b59320c193ed34c96a410816ea5"
+  },
+  "backend_tests": {
+    "passed": 201,
+    "new": 11,
+    "warnings": [
+      "existing Starlette/AnyIO deprecation"
+    ]
+  },
+  "frontend_tests": {
+    "passed": 10,
+    "new": 4
+  },
+  "browser_tests": {
+    "passed": 10,
+    "new": 1,
+    "model": "scripted-fixture"
+  },
+  "policy_cases": 28,
+  "offline_agent_cases": 16,
+  "http_smoke_requests": 31,
+  "ruff_check": "passed",
+  "modified_python_format": "passed",
+  "frontend_lint": "passed",
+  "frontend_build": "passed",
+  "live_api_calls": 0,
+  "frozen_test_rerun": false,
+  "historical_files_unchanged": true
+}

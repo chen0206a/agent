@@ -36,6 +36,10 @@ SYSTEM_PROMPT = (
     "咨询与申请分开：询问政策、能否退款、查询进度不代表要求提交。咨询只查询并结束，"
     "不得 create_ticket 或 submit_action。只有明确要求办理的请求才可提交。\n"
     "本轮 read_only=true 时，即使历史中要求申请也只能查询。\n"
+    "多轮规则：历史是背景，不是本轮办理授权。最新消息中的否定、纠正和诉求变更优先于旧诉求；"
+    "用户说暂不办理或改为查询时不得沿用旧申请。变更不明确时 ASK_INTENT。\n"
+    "结构化订单范围由服务器锁定；文字要求换另一订单时应提示用户切换关联订单并开始新对话。"
+    "历史回复中的金额、政策、证据和审批状态不能替代本轮工具查询及校验。\n"
     "仅查退款进度时 get_refunds 后以 REFUNDS 结束；退款记录状态不能用订单状态代替。\n"
     "重复退款咨询可查询记录并解释，不必为形成拒绝记录而提交新申请；明确再次申请时仍走政策校验。\n"
     "先确定本轮分支，按以下优先级处理：\n"
@@ -99,7 +103,9 @@ class AgentService:
         self.provider_factory = provider_factory or (lambda: DeepSeekProvider(settings))
         self.secrets = (settings.llm_api_key.get_secret_value(), settings.demo_api_token.get_secret_value())
 
-    def _history(self, user_id: int, parent: int | None) -> list[dict]:
+    def _history(
+        self, user_id: int, parent: int | None, order_id: int | None
+    ) -> tuple[list[dict], int | None]:
         history = []
         with self.sessions() as session:
             store = Store(session)
@@ -111,6 +117,12 @@ class AgentService:
                     raise DomainError("FORBIDDEN", "不能使用其他用户的对话上下文", 403)
                 if run.status == RunStatus.RUNNING:
                     raise DomainError("PARENT_RUN_ACTIVE", "上一轮尚未结束")
+                if run.order_id is not None:
+                    if order_id is not None and run.order_id != order_id:
+                        raise DomainError(
+                            "CONVERSATION_ORDER_MISMATCH", "切换订单请开始新对话，不要沿用原订单的上下文"
+                        )
+                    order_id = run.order_id
                 history.append(
                     [
                         {"role": "user", "content": run.user_query},
@@ -118,7 +130,7 @@ class AgentService:
                     ]
                 )
                 parent = detail.parent_run_id
-        return [message for turn in reversed(history) for message in turn]
+        return [message for turn in reversed(history) for message in turn], order_id
 
     def chat(self, user_id: int, data: ChatRequest) -> ChatResult:
         self.business.get_user(user_id)
@@ -127,7 +139,7 @@ class AgentService:
         # Preserve hashes for pre-consultation requests while binding the new restriction.
         payload = data.model_dump_json(exclude={"read_only"} if not data.read_only else set())
         payload_hash = hashlib.sha256(payload.encode()).hexdigest()
-        history = self._history(user_id, data.parent_run_id)
+        history, order_id = [], data.order_id
         provider = self.provider_factory()
         with write_transaction(self.sessions) as session:
             existing = session.scalar(
@@ -140,10 +152,27 @@ class AgentService:
                     raise DomainError("IDEMPOTENCY_CONFLICT", "同一会话幂等键不能用于不同请求")
                 run_id, is_new = existing.run_id, False
             else:
-                run = Store(session).add(
-                    AgentRun(
-                        user_id=user_id, order_id=data.order_id, user_query=scrub(data.message, self.secrets)
+                # Validate new continuations after deduplication: historical completed
+                # requests remain replayable even if their old conversation branched.
+                history, order_id = self._history(user_id, data.parent_run_id, data.order_id)
+                if order_id is not None and self.business.get_order(order_id).user_id != user_id:
+                    raise DomainError("FORBIDDEN", "不能使用其他用户的订单上下文", 403)
+                # BEGIN IMMEDIATE serializes this check and insert across SQLite connections.
+                # Same-key retries are handled above, even after the child has completed.
+                if (
+                    data.parent_run_id is not None
+                    and session.scalar(
+                        select(AgentRunDetail.run_id)
+                        .where(AgentRunDetail.parent_run_id == data.parent_run_id)
+                        .limit(1)
                     )
+                    is not None
+                ):
+                    raise DomainError(
+                        "STALE_PARENT_RUN", "这轮对话已有后续消息，请刷新后继续最新对话或开始新对话"
+                    )
+                run = Store(session).add(
+                    AgentRun(user_id=user_id, order_id=order_id, user_query=scrub(data.message, self.secrets))
                 )
                 run_id, is_new = run.id, True
                 Store(session).add(
@@ -159,13 +188,15 @@ class AgentService:
                 )
         if not is_new:
             return self.get_run(run_id, user_id)
-        clean_data = data.model_copy(update={"message": scrub(data.message, self.secrets)})
+        clean_data = data.model_copy(
+            update={"message": scrub(data.message, self.secrets), "order_id": order_id}
+        )
         context = ToolContext(user_id=user_id, run_id=run_id, request=clean_data)
         tools = AgentTools(context, self.business, self.workflow, self.knowledge)
         start = time.monotonic()
         deadline = start + self.settings.agent_timeout_seconds
         hint = (
-            f"当前业务时间：{self.workflow.clock().isoformat()}。用户选择的订单：{data.order_id}。"
+            f"当前业务时间：{self.workflow.clock().isoformat()}。用户选择的订单：{order_id}。"
             f"本轮仅咨询 read_only={str(data.read_only).lower()}。"
             f"本轮服务端证据存在标记：{data.evidence_provided}，不能由模型改写。"
         )
@@ -356,6 +387,10 @@ class AgentService:
             run.ticket_id, run.error_type, run.latency_ms = context.ticket_id, error_code, latency_ms
             detail.outcome, detail.reply, detail.finished_at = outcome, reply, utcnow()
             detail.sources_json = [doc.model_dump() for doc in context.citations.values()]
+            # A single verified lookup can anchor a text-selected order for subsequent turns.
+            observed = context.verified_order_ids
+            if run.order_id is None and len(observed) == 1:
+                run.order_id = next(iter(observed))
             if context.action:
                 detail.action_request_id = context.action.id
                 run.order_id, run.proposed_action = context.action.order_id, context.action.proposed_action
