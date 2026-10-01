@@ -120,6 +120,8 @@ flowchart TD
 
 [完整评测](docs/STAGE5_EVALUATION.md) · [Failure Analysis](docs/STAGE5_FAILURE_ANALYSIS.md) · [冻结数据集](eval/stage5/manifest.json) · [原始结果](docs/verification/stage5/stage5-final-v1-test/summary.json)
 
+新增可靠性专项评测：39 个合成 episode，Dev **13/13**，单次冻结 Holdout **25/26（96.15%）**；保留 1 个任务失败与 2 个工具选择偏差。[专项结果](docs/RELIABILITY_HOLDOUT_EVALUATION.md) · [失败归因](docs/RELIABILITY_FAILURE_ANALYSIS.md)。专项样本与版本不同，不能将其与上面的历史 Test 直接作提升对照。
+
 ## Safety by Design
 
 | Capability | LLM Agent | Deterministic Backend |
@@ -180,12 +182,14 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
-- [Reliability Dev Evaluation](docs/RELIABILITY_DEV_EVALUATION.md)：13 条真实 Dev 全部通过，峰时未命中保守成本 ¥0.1634；26 条 Holdout 尚未执行。
-- [Budgeted Evaluation Runner](docs/RELIABILITY_RUNNER_HANDOFF.md)：持久预算账本、单次 Holdout 与批次中断核对；仅完成模拟验证，尚未调用真实模型。
-- [Reliability Evaluation Preparation](docs/RELIABILITY_EVALUATION_HANDOFF.md)：新增 39 个合成 episode，Dev 离线契约验证与保留集冻结；尚未产生新真实模型成绩。
+- [Reliability Holdout Evaluation](docs/RELIABILITY_HOLDOUT_EVALUATION.md)：单次真实 Holdout 25/26；Dev + Holdout 保守成本 ¥0.4997。
+- [Reliability Failure Analysis](docs/RELIABILITY_FAILURE_ANALYSIS.md)：自由文本终止导致运行失败，以及两次额外订单列表读取。
+- [Reliability Dev Evaluation](docs/RELIABILITY_DEV_EVALUATION.md)：先行 Dev 13/13 与成本估算，保留批次当时的完整证据。
+- [Budgeted Evaluation Runner](docs/RELIABILITY_RUNNER_HANDOFF.md)：持久预算账本、单次 Holdout、人民币预算与中断核对。
+- [Reliability Evaluation Preparation](docs/RELIABILITY_EVALUATION_HANDOFF.md)：39 个合成 episode 的初始离线契约验证与冻结记录。
 - [Request Recovery](docs/RELIABILITY_ROUND3.md)：断线重试、刷新恢复、已提交申请核对与失败阶段。
 - [Conversation Reliability](docs/RELIABILITY_ROUND2.md)：显式续聊、订单隔离与并发消息保护。
-- [Reliability Improvements](docs/RELIABILITY_ROUND1.md)：退款进度、仅咨询保护与新增回归；新版本尚未重新测量真实模型成绩。
+- [Reliability Improvements](docs/RELIABILITY_ROUND1.md)：退款进度、仅咨询保护与新增工程回归。
 - [Evaluation Report](docs/STAGE5_EVALUATION.md)：指标、对照实验与统计口径。
 - [Failure Analysis](docs/STAGE5_FAILURE_ANALYSIS.md)：完整失败与归因。
 - [Product & Auth Design](docs/STAGE4_HANDOFF.md)：页面、权限和 API 设计。

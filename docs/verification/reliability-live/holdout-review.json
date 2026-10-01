@@ -1,0 +1,32 @@
+{
+  "reviewed_at_utc": "2026-10-01T12:33:47.810115+00:00",
+  "formal_holdout_runs": 1,
+  "episodes": 26,
+  "turns": 30,
+  "passed": 25,
+  "failed": 1,
+  "failure_case_ids": [
+    "REL-13-2"
+  ],
+  "tool_selection_deviation_case_ids": [
+    "REL-09-2",
+    "REL-10-1"
+  ],
+  "idempotent_repeats_passed": 30,
+  "holdout_http_attempts": 62,
+  "unknown_usage_attempts": 0,
+  "holdout_cost_peak_uncached_CNY": "0.336324",
+  "total_cost_peak_uncached_CNY": "0.499700",
+  "budget_CNY": "2.50",
+  "budget_expanded": false,
+  "remaining_budget_CNY": "2.000300",
+  "product_prompt_tool_data_scorer_changed": false,
+  "holdout_repeated": false,
+  "summary_sha256": "7812e7e456a94f8fcde32c0d5818fc544e41727d7a9ee17e6ef88b373b5e7c3f",
+  "root_cause": "REL-13-2 turn 2: finish_response omitted after get_order; UNVERIFIED_RESPONSE",
+  "ledger_retry_label_defect": "attempt_index/is_retry denote per-turn HTTP ordinal; original fields unchanged",
+  "actual_provider_retries": 0,
+  "retry_validation": "92 runtime model calls SUCCESS; 92 distinct request hashes; HTTPTransport retries=0",
+  "secret_scan": "no API key in new evidence",
+  "cost_scope": "Conservative proxy, not actual debit"
+}
