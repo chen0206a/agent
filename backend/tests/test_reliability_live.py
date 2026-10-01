@@ -335,3 +335,38 @@ def test_explicit_freeze_check_rejects_changed_source_without_asserts(monkeypatc
     monkeypatch.setattr(live.contract, "source_hashes", lambda: {})
     with pytest.raises(ValueError, match="Frozen product source changed"):
         live.verify_product()
+
+
+def test_cny_budget_is_priced_and_reported_in_yuan(tmp_path):
+    cny = {
+        "currency": "CNY",
+        "budget_amount": "2.50",
+        "input_per_million": "2",
+        "output_per_million": "8",
+        "price_source": "mock",
+        "price_checked_at": "mock",
+    }
+    ledger = live.BudgetLedger(tmp_path / "budget.db", cny)
+    identifier = ledger.reserve(payload(), {})
+    ledger.settle(identifier, {"usage": {"prompt_tokens": 100000, "completion_tokens": 1000}}, latency_ms=1)
+    state = ledger.state()
+    assert state["currency"] == "CNY" and state["committed_amount_proxy"] == "0.208"
+    assert state["remaining_amount_proxy"] == "2.292"
+    assert "committed_usd_proxy" not in state
+
+
+def test_reject_relabelling_usd_ledger_as_cny(tmp_path):
+    with pytest.raises(ValueError, match="USD terms"):
+        live.BudgetLedger(tmp_path / "budget.db", {**terms(), "currency": "CNY"})
+
+
+def test_currency_cannot_change_after_persistent_reservation(tmp_path):
+    original = {
+        "currency": "CNY",
+        "budget_amount": "2.50",
+        "input_per_million": "2",
+        "output_per_million": "8",
+    }
+    live.BudgetLedger(tmp_path / "budget.db", original)
+    with pytest.raises(ValueError, match="cannot change"):
+        live.BudgetLedger(tmp_path / "budget.db", {**original, "currency": "USD"})

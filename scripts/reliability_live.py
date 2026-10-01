@@ -67,8 +67,17 @@ class BudgetLedger:
 
     def __init__(self, path, terms):
         self.path, self.terms = path, terms
-        for key in ("budget_usd", "input_usd_per_million", "output_usd_per_million"):
-            value = Decimal(terms[key])
+        self.currency = terms.get("currency", "USD")
+        if self.currency not in {"USD", "CNY"}:
+            raise ValueError("Unsupported ledger currency")
+        if self.currency != "USD" and any("usd" in key for key in terms):
+            raise ValueError("USD terms cannot be labelled as CNY")
+        self.budget = Decimal(terms.get("budget_amount", terms.get("budget_usd", "NaN")))
+        self.input_rate = Decimal(terms.get("input_per_million", terms.get("input_usd_per_million", "NaN")))
+        self.output_rate = Decimal(
+            terms.get("output_per_million", terms.get("output_usd_per_million", "NaN"))
+        )
+        for value in (self.budget, self.input_rate, self.output_rate):
             if not value.is_finite() or value <= 0:
                 raise ValueError("Budget and rates must be positive finite decimals")
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -107,7 +116,10 @@ class BudgetLedger:
         for attempt in attempts:
             attempt["metadata"] = json.loads(attempt["metadata"])
         return {
-            "committed_usd_proxy": str(amount),
+            "currency": self.currency,
+            "committed_amount_proxy": str(amount),
+            "remaining_amount_proxy": str(self.budget - amount),
+            **({"committed_usd_proxy": str(amount)} if self.currency == "USD" else {}),
             "blocked": blocked,
             "attempts": attempts,
             "terms": self.terms,
@@ -119,15 +131,14 @@ class BudgetLedger:
         input_bound = len(json.dumps(payload, ensure_ascii=False).encode("utf-8")) + 4096
         output_bound = payload["max_tokens"]
         reserved = (
-            Decimal(input_bound) * Decimal(self.terms["input_usd_per_million"])
-            + Decimal(output_bound) * Decimal(self.terms["output_usd_per_million"])
+            Decimal(input_bound) * self.input_rate + Decimal(output_bound) * self.output_rate
         ) / MILLION
         with closing(sqlite3.connect(self.path)) as connection:
             connection.execute("BEGIN IMMEDIATE")
             committed, blocked = self._state(connection)
             if blocked:
                 raise ProviderError("BUDGET_UNRESOLVED_ATTEMPT")
-            if committed + reserved > Decimal(self.terms["budget_usd"]):
+            if committed + reserved > self.budget:
                 raise ProviderError("EVALUATION_BUDGET_LIMIT")
             metadata = {
                 **metadata,
@@ -149,11 +160,7 @@ class BudgetLedger:
         input_tokens, output_tokens = usage.get("prompt_tokens"), usage.get("completion_tokens")
         valid = all(type(value) is int and value >= 0 for value in (input_tokens, output_tokens))
         cost = (
-            (
-                Decimal(input_tokens) * Decimal(self.terms["input_usd_per_million"])
-                + Decimal(output_tokens) * Decimal(self.terms["output_usd_per_million"])
-            )
-            / MILLION
+            (Decimal(input_tokens) * self.input_rate + Decimal(output_tokens) * self.output_rate) / MILLION
             if valid
             else None
         )
@@ -574,10 +581,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     setup = sub.add_parser("prepare")
+    setup.add_argument("--currency", choices=["USD", "CNY"], default="USD")
     for name in (
-        "budget-usd",
-        "input-usd-per-million",
-        "output-usd-per-million",
+        "budget-amount",
+        "input-per-million",
+        "output-per-million",
         "price-source",
         "price-checked-at",
     ):

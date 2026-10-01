@@ -1,5 +1,7 @@
 # 真实模型评测运行器交接
 
+后续人民币预算适配：CLI `prepare` 使用 `--currency CNY --budget-amount 2.50 --input-per-million 2 --output-per-million 8`，并提供 `--price-source` / `--price-checked-at`。原 USD CLI 参数已改为通用金额参数；旧 USD 账本格式仍可读取，禁止将其改标为 CNY。下文“不授权真实执行”描述的是运行器最初交接时的状态，后续执行授权、成本与 Dev 证据另行记录。
+
 已新增 `scripts/reliability_live.py`。本轮按用户明确选择**只完成运行器，暂不运行真实评测**；没有调用真实 DeepSeek API，也没有创建生产评测的 release、预算账本、开始标记或 Holdout seal。
 
 产品代码、Prompt、Tool、数据集和既有 `reliability-v1` manifest 均保持冻结。新运行器复用冻结的评分器、ChatRequest、AgentService、PolicyEngine 与业务服务；新增测试仅使用临时数据库和模拟 HTTP。
@@ -42,7 +44,7 @@
 
 未来获得预算和实际运行授权后：
 
-1. `prepare`：必须传 `--budget-usd`、`--input-usd-per-million`、`--output-usd-per-million`、`--price-source`、`--price-checked-at`。检查源码、数据和本地非敏感配置后排他创建 release，不能覆盖。
+1. `prepare`：必须传 `--budget-amount`、`--input-per-million`、`--output-per-million`、`--price-source`、`--price-checked-at`，`--currency` 支持 USD（默认）/ CNY。检查源码、数据和本地非敏感配置后排他创建 release，不能覆盖。
 2. `verify`：核对产品和运行器版本。`run dev` 发起真实 Dev；在 `docs/verification/reliability-live/` 保存证据、账本和不可覆盖开始标记。
 3. 人工复核所有失败及安全轨迹，检查预算，读取 Dev summary 文件 SHA-256。`seal-holdout --reviewed-dev-hash HASH` 明确固定已复核的结果。此参数记录复核声明，程序不能代替人工判断。
 4. `run holdout` 正式执行一次。开始标记持久保留；即使中途失败或未完成，也不能删标记重跑后只报告好成绩。
