@@ -105,3 +105,29 @@ def test_provider_url_does_not_allow_insecure_or_embedded_credentials(url):
             [], tool_definitions(), 1
         )
     assert error.value.code == "INVALID_PROVIDER_URL"
+
+
+def test_finish_only_repair_forces_function_choice_without_sending_transport_metadata():
+    from app.agent.provider import MODEL_ATTEMPT
+
+    def handler(request):
+        payload = json.loads(request.content)
+        assert payload["tool_choice"] == {"type": "function", "function": {"name": "finish_response"}}
+        assert [tool["function"]["name"] for tool in payload["tools"]] == ["finish_response"]
+        assert "logical_call_id" not in payload and "agent_model_attempt" not in payload
+        assert request.extensions["agent_model_attempt"]["attempt_index"] == 1
+        body = response_body()
+        body["choices"][0]["message"]["tool_calls"][0]["function"] = {
+            "name": "finish_response",
+            "arguments": '{"kind":"ASK_ORDER"}',
+        }
+        return httpx.Response(200, json=body)
+
+    token = MODEL_ATTEMPT.set({"logical_call_id": "test:1", "attempt_index": 1, "is_retry": False})
+    try:
+        reply = provider(handler).complete(
+            [], [t for t in tool_definitions() if t["function"]["name"] == "finish_response"], 1
+        )
+        assert reply.tool_calls[0].name == "finish_response"
+    finally:
+        MODEL_ATTEMPT.reset(token)

@@ -1,0 +1,50 @@
+{
+  "verified_at": "2026-10-01T13:12:35.272607+00:00",
+  "base_commit": "bd64bc6a717cbaad712694afd5739b9b5dc7f2ac",
+  "tests": 270,
+  "failures": 0,
+  "errors": 0,
+  "checks": [
+    {
+      "name": "ruff-check",
+      "exit_code": 0
+    },
+    {
+      "name": "changed-format",
+      "exit_code": 0
+    },
+    {
+      "name": "pip-check",
+      "exit_code": 0
+    }
+  ],
+  "real_model_api_calls": 0,
+  "frontend_modified": false,
+  "historical_data_results_and_scorer_unchanged": true,
+  "protected_paths": [
+    "eval/stage5",
+    "eval/reliability-v1",
+    "docs/verification/stage5",
+    "docs/verification/reliability-live",
+    "scripts/reliability_eval.py",
+    "scripts/build_reliability_dataset.py",
+    "backend/tests/test_reliability_evaluation.py",
+    "docs/RELIABILITY_HOLDOUT_EVALUATION.md",
+    "docs/RELIABILITY_FAILURE_ANALYSIS.md"
+  ],
+  "modified_source_sha256": {
+    "backend/app/agent/provider.py": "d2d395b962ed24ecb9d26f758cef74efd0ad9cd0fbb45b033045916115b5fb3b",
+    "backend/app/agent/runtime.py": "c53e1de661126f2e927dd7cb7f4661246f1c661d5dd105e5990b16f38e99364e",
+    "backend/app/agent/tools.py": "a65d29f49be84698632cf97db72c35c7b752d86ada1291cd44fa8d5edfce1f01",
+    "scripts/reliability_live.py": "70a5f51f8054de25fbe420d36a54e0174ead8c6408e63db9e57776c374ed7bfa",
+    "backend/tests/test_agent.py": "670a44c1bbc4b8e4219bc3383b8026e852e7502fe2a0be55928c1d757c9fa2df",
+    "backend/tests/test_agent_provider.py": "29ac1b80efe378d294b6c89d876c201966b9246fa2b322b5302ec3e4244cab51",
+    "backend/tests/test_reliability_live.py": "0f472c6ac441f3e276530e34b6e88d97cbea4cc6774d55a882586f3fad3e23f0",
+    "backend/tests/test_protocol_repair.py": "259ace28858840e23a0f64ef8138fb29d412f33eeb9ca9c3540eafd2ce7e070b"
+  },
+  "whole_repo_format_check": {
+    "exit_code": 1,
+    "unmodified_local_file": "scripts/stage5_reports.py",
+    "note": "Local mixed line endings; Git content unchanged. Changed files format check passed."
+  }
+}

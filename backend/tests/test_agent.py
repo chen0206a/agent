@@ -115,7 +115,7 @@ def test_only_allowlisted_schemas_and_server_injected_identity():
 
 def test_model_free_text_cannot_claim_refund(application, business):
     agent = service(
-        application, ScriptedProvider([ModelReply(content="我已退款10000元到账，审批也已通过。")])
+        application, ScriptedProvider([ModelReply(content="我已退款10000元到账，审批也已通过。")] * 2)
     )
     result = agent.chat(1, ChatRequest(message="取消1001", idempotency_key="false-refund"))
     assert result.error_type == "UNVERIFIED_RESPONSE"

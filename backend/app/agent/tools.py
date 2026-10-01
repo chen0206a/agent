@@ -28,7 +28,10 @@ from app.services.business import BusinessService
 from app.services.workflow import WorkflowService
 
 TOOL_MODELS = {
-    "list_my_orders": (EmptyArgs, "列出当前会话用户的订单，不能选择其他用户。"),
+    "list_my_orders": (
+        EmptyArgs,
+        "仅在用户要求列出或帮助选择自己的订单时查询；补问意图或订单号不需要先列订单。不能选择其他用户。",
+    ),
     "get_order": (OrderArgs, "查询当前用户的一张订单，金额为实付人民币字符串。"),
     "get_order_items": (OrderArgs, "商品退换/少件时查明细；整单取消不需要。不得猜商品或数量。"),
     "get_shipment": (OrderArgs, "已发货取消、物流异常或未收到时查物流；未发货不需要。签收不证明收到。"),

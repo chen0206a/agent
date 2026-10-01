@@ -28,16 +28,16 @@ def payload():
 
 
 def test_reservation_survives_restart_and_blocks_unknown_attempt(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     ledger.reserve(payload(), {"case_id": "mock"})
-    restarted = live.BudgetLedger(tmp_path / "budget.db", terms())
+    restarted = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     assert restarted.state()["blocked"]
     with pytest.raises(live.ProviderError, match="BUDGET_UNRESOLVED_ATTEMPT"):
         restarted.reserve(payload(), {})
 
 
 def test_usage_settlement_releases_unused_reservation(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     identifier = ledger.reserve(payload(), {})
     ledger.settle(
         identifier,
@@ -61,7 +61,7 @@ def test_usage_settlement_releases_unused_reservation(tmp_path):
     ],
 )
 def test_invalid_usage_retains_reserved_budget(tmp_path, usage):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     identifier = ledger.reserve(payload(), {})
     held = ledger.state()["committed_usd_proxy"]
     ledger.settle(identifier, {"usage": usage}, latency_ms=10)
@@ -70,7 +70,7 @@ def test_invalid_usage_retains_reserved_budget(tmp_path, usage):
 
 
 def test_over_reservation_settles_real_proxy_and_stops(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     identifier = ledger.reserve(payload(), {})
     ledger.settle(
         identifier, {"usage": {"prompt_tokens": 1000000, "completion_tokens": 1000000}}, latency_ms=1
@@ -80,7 +80,7 @@ def test_over_reservation_settles_real_proxy_and_stops(tmp_path):
 
 
 def test_budget_limit_prevents_delegate_call(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms("0.000001"))
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms("0.000001"), create=True)
     calls = []
     transport = live.MeteredTransport(ledger, {}, httpx.MockTransport(lambda request: calls.append(request)))
     with pytest.raises(live.ProviderError, match="EVALUATION_BUDGET_LIMIT"):
@@ -89,9 +89,9 @@ def test_budget_limit_prevents_delegate_call(tmp_path):
 
 
 def test_terms_cannot_be_changed(tmp_path):
-    live.BudgetLedger(tmp_path / "budget.db", terms())
+    live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     with pytest.raises(ValueError, match="cannot change"):
-        live.BudgetLedger(tmp_path / "budget.db", terms("5"))
+        live.BudgetLedger(tmp_path / "budget.db", terms("5"), create=True)
 
 
 def test_single_marker_and_checkpoint_are_durable(tmp_path):
@@ -107,7 +107,7 @@ def test_single_marker_and_checkpoint_are_durable(tmp_path):
 
 
 def test_parallel_reservations_are_serialized(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms("0.004"))
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms("0.004"), create=True)
 
     def reserve():
         try:
@@ -121,7 +121,7 @@ def test_parallel_reservations_are_serialized(tmp_path):
 
 
 def test_transport_records_metadata_without_secrets(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     delegate = httpx.MockTransport(
         lambda request: httpx.Response(
             200,
@@ -147,7 +147,7 @@ def test_transport_timeout_retains_reservation(tmp_path):
     def timeout(request):
         raise httpx.ReadTimeout("sensitive-canary")
 
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     transport = live.MeteredTransport(ledger, {}, httpx.MockTransport(timeout))
     with pytest.raises(httpx.ReadTimeout):
         transport.handle_request(httpx.Request("POST", "https://example.invalid", json=payload()))
@@ -167,11 +167,11 @@ def test_holdout_requires_dev_summary_and_final_seal(tmp_path, monkeypatch):
 @pytest.mark.parametrize("budget", ["NaN", "Infinity", "-1", "0"])
 def test_nonfinite_or_invalid_budget_is_rejected(tmp_path, budget):
     with pytest.raises(ValueError):
-        live.BudgetLedger(tmp_path / "budget.db", terms(budget))
+        live.BudgetLedger(tmp_path / "budget.db", terms(budget), create=True)
 
 
 def test_double_settlement_cannot_reset_spent_budget(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     identifier = ledger.reserve(payload(), {})
     body = {"usage": {"prompt_tokens": 100, "completion_tokens": 20}}
     ledger.settle(identifier, body, latency_ms=1)
@@ -187,6 +187,7 @@ def setup_mock_batch(tmp_path, monkeypatch, budget="2"):
     monkeypatch.setattr(live, "Settings", lambda: cfg)
     release = {"terms": terms(budget), "runner_sources": {}, "product_manifest_hash": "mock-hash"}
     monkeypatch.setattr(live, "verify_release", lambda: release)
+    live.BudgetLedger(output / "budget.db", release["terms"], create=True)
     live.atomic_json(output / "release.json", release)
     cases = [
         {
@@ -317,8 +318,8 @@ def test_holdout_without_seal_is_blocked_before_network(tmp_path, monkeypatch):
     assert not calls
 
 
-def test_provider_retry_attempts_are_explicitly_recorded(tmp_path):
-    ledger = live.BudgetLedger(tmp_path / "budget.db", terms())
+def test_transport_without_runtime_metadata_does_not_guess_retries(tmp_path):
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
     delegate = httpx.MockTransport(
         lambda request: httpx.Response(200, json={"usage": {"prompt_tokens": 10, "completion_tokens": 2}})
     )
@@ -326,9 +327,10 @@ def test_provider_retry_attempts_are_explicitly_recorded(tmp_path):
     for _ in range(2):
         transport.handle_request(httpx.Request("POST", "https://example.invalid", json=payload()))
     attempts = ledger.state()["attempts"]
-    assert attempts[0]["metadata"]["attempt_index"] == 1
-    assert attempts[1]["metadata"]["attempt_index"] == 2
-    assert attempts[1]["metadata"]["is_retry"]
+    assert attempts[0]["metadata"]["http_index_in_turn"] == 1
+    assert attempts[1]["metadata"]["http_index_in_turn"] == 2
+    assert attempts[1]["metadata"]["is_retry"] is None
+    assert not attempts[1]["metadata"]["retry_metadata_complete"]
 
 
 def test_explicit_freeze_check_rejects_changed_source_without_asserts(monkeypatch):
@@ -346,7 +348,7 @@ def test_cny_budget_is_priced_and_reported_in_yuan(tmp_path):
         "price_source": "mock",
         "price_checked_at": "mock",
     }
-    ledger = live.BudgetLedger(tmp_path / "budget.db", cny)
+    ledger = live.BudgetLedger(tmp_path / "budget.db", cny, create=True)
     identifier = ledger.reserve(payload(), {})
     ledger.settle(identifier, {"usage": {"prompt_tokens": 100000, "completion_tokens": 1000}}, latency_ms=1)
     state = ledger.state()
@@ -357,7 +359,7 @@ def test_cny_budget_is_priced_and_reported_in_yuan(tmp_path):
 
 def test_reject_relabelling_usd_ledger_as_cny(tmp_path):
     with pytest.raises(ValueError, match="USD terms"):
-        live.BudgetLedger(tmp_path / "budget.db", {**terms(), "currency": "CNY"})
+        live.BudgetLedger(tmp_path / "budget.db", {**terms(), "currency": "CNY"}, create=True)
 
 
 def test_currency_cannot_change_after_persistent_reservation(tmp_path):
@@ -367,6 +369,117 @@ def test_currency_cannot_change_after_persistent_reservation(tmp_path):
         "input_per_million": "2",
         "output_per_million": "8",
     }
-    live.BudgetLedger(tmp_path / "budget.db", original)
+    live.BudgetLedger(tmp_path / "budget.db", original, create=True)
     with pytest.raises(ValueError, match="cannot change"):
-        live.BudgetLedger(tmp_path / "budget.db", {**original, "currency": "USD"})
+        live.BudgetLedger(tmp_path / "budget.db", {**original, "currency": "USD"}, create=True)
+
+
+@pytest.mark.parametrize("artifact", ["release.json", "budget-export.json", "dev.started.json"])
+def test_missing_ledger_cannot_reset_spend_even_with_explicit_create(tmp_path, artifact):
+    live.atomic_json(tmp_path / artifact, {})
+    with pytest.raises(ValueError, match="ledger missing"):
+        live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
+    assert not (tmp_path / "budget.db").exists()
+
+
+def test_resume_requires_existing_ledger_and_rejects_empty_file(tmp_path):
+    with pytest.raises(ValueError, match="ledger missing"):
+        live.BudgetLedger(tmp_path / "budget.db", terms())
+    assert not (tmp_path / "budget.db").exists()
+    (tmp_path / "budget.db").touch()
+    with pytest.raises(ValueError, match="ledger empty"):
+        live.BudgetLedger(tmp_path / "budget.db", terms())
+
+
+def test_export_detects_ledger_rollback_and_modified_attempt(tmp_path):
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
+    identifier = ledger.reserve(payload(), {})
+    ledger.settle(identifier, {"usage": {"prompt_tokens": 10, "completion_tokens": 2}}, latency_ms=1)
+    checkpoint = ledger.state()
+    live.atomic_json(tmp_path / "budget-export.json", checkpoint)
+    assert live.validate_ledger_continuity(ledger)["attempts"] == checkpoint["attempts"]
+    checkpoint["attempts"][0]["charged"] = "0"
+    live.atomic_json(tmp_path / "budget-export.json", checkpoint)
+    with pytest.raises(ValueError, match="mismatch"):
+        live.validate_ledger_continuity(ledger)
+
+
+def test_missing_database_blocks_batch_without_creating_or_calling(tmp_path, monkeypatch):
+    output, calls = setup_mock_batch(tmp_path, monkeypatch)
+    (output / "budget.db").unlink()
+    with pytest.raises(ValueError, match="ledger missing"):
+        live.run("dev")
+    assert not calls and not (output / "budget.db").exists()
+    assert not (output / "dev.started.json").exists()
+
+
+def test_real_runtime_planning_steps_are_distinct_from_503_retry(tmp_path, application):
+    from app.agent.provider import MODEL_ATTEMPT
+
+    ledger = live.BudgetLedger(tmp_path / "budget.db", terms(), create=True)
+    requests = []
+
+    def respond(request):
+        requests.append(live.json.loads(request.content))
+        if len(requests) == 2:
+            return httpx.Response(503, json={"usage": {"prompt_tokens": 0, "completion_tokens": 0}})
+        name, args = (
+            ("get_order", {"order_id": 1001})
+            if len(requests) == 1
+            else ("finish_response", {"kind": "ORDER"})
+        )
+        return httpx.Response(
+            200,
+            json={
+                "model": "mock",
+                "usage": {"prompt_tokens": 100, "completion_tokens": 10},
+                "choices": [
+                    {
+                        "finish_reason": "tool_calls",
+                        "message": {
+                            "tool_calls": [
+                                {
+                                    "id": "call",
+                                    "type": "function",
+                                    "function": {
+                                        "name": name,
+                                        "arguments": live.json.dumps(args),
+                                    },
+                                }
+                            ]
+                        },
+                    }
+                ],
+            },
+        )
+
+    transport = live.MeteredTransport(ledger, {"turn_index": 0}, httpx.MockTransport(respond))
+    cfg = application.state.settings.model_copy(
+        update={
+            "llm_model": "mock",
+            "llm_api_key": live.Settings(_env_file=None, llm_api_key="mock-key").llm_api_key,
+        }
+    )
+    service = live.AgentService(
+        application.state.sessions,
+        cfg,
+        application.state.business,
+        application.state.workflow,
+        lambda: live.DeepSeekProvider(cfg, transport=transport),
+    )
+    result = service.chat(
+        1,
+        live.ChatRequest(
+            message="查1001订单", order_id=1001, read_only=True, idempotency_key="telemetry-503"
+        ),
+    )
+    assert result.error_type is None
+    metadata = [row["metadata"] for row in ledger.state()["attempts"]]
+    assert [row["http_index_in_turn"] for row in metadata] == [1, 2, 3]
+    assert [row["attempt_index"] for row in metadata] == [1, 1, 2]
+    assert [row["is_retry"] for row in metadata] == [False, False, True]
+    assert metadata[0]["logical_call_id"] != metadata[1]["logical_call_id"] == metadata[2]["logical_call_id"]
+    assert requests[1] == requests[2] and requests[0] != requests[1]
+    trace = service.trace(result.run_id)
+    assert [row["request"]["is_retry"] for row in trace.model_calls] == [False, False, True]
+    assert MODEL_ATTEMPT.get() is None

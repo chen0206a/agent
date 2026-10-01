@@ -1,5 +1,6 @@
 import json
 import time
+from contextvars import ContextVar
 from typing import Protocol
 from urllib.parse import urlsplit
 
@@ -8,6 +9,9 @@ from pydantic import ValidationError
 
 from app.agent.contracts import ModelReply, ToolInvocation
 from app.core.config import Settings
+
+# Local transport metadata only; never sent as model input or HTTP headers.
+MODEL_ATTEMPT: ContextVar[dict | None] = ContextVar("model_attempt", default=None)
 
 
 class ProviderError(Exception):
@@ -48,7 +52,11 @@ class DeepSeekProvider:
             "model": cfg.llm_model,
             "messages": messages,
             "tools": tools,
-            "tool_choice": "auto",
+            "tool_choice": (
+                {"type": "function", "function": {"name": "finish_response"}}
+                if len(tools) == 1 and tools[0]["function"]["name"] == "finish_response"
+                else "auto"
+            ),
             "max_tokens": cfg.llm_max_output_tokens,
             "thinking": {"type": "disabled"},
             "stream": False,
@@ -63,6 +71,7 @@ class DeepSeekProvider:
                     cfg.llm_base_url.rstrip("/") + "/chat/completions",
                     headers={"Authorization": "Bearer " + cfg.llm_api_key.get_secret_value()},
                     json=payload,
+                    extensions={"agent_model_attempt": MODEL_ATTEMPT.get()},
                 ) as response:
                     if response.status_code != 200:
                         raise ProviderError(

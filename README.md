@@ -182,6 +182,7 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
+- [Reliability Fixes & UX Plan](docs/RELIABILITY_FIXES.md)：受限结束协议纠正、真实重试统计与预算恢复保护；后续交互优化计划。
 - [Reliability Holdout Evaluation](docs/RELIABILITY_HOLDOUT_EVALUATION.md)：单次真实 Holdout 25/26；Dev + Holdout 保守成本 ¥0.4997。
 - [Reliability Failure Analysis](docs/RELIABILITY_FAILURE_ANALYSIS.md)：自由文本终止导致运行失败，以及两次额外订单列表读取。
 - [Reliability Dev Evaluation](docs/RELIABILITY_DEV_EVALUATION.md)：先行 Dev 13/13 与成本估算，保留批次当时的完整证据。

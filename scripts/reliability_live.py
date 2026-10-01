@@ -1,4 +1,4 @@
-"""Budgeted live evaluation. Frozen product code and gold labels are never edited."""
+"""Budgeted evaluation runner v2. Historical releases/results remain immutable."""
 
 import argparse
 import hashlib
@@ -65,7 +65,7 @@ def exclusive_json(path, value):
 class BudgetLedger:
     """One shared SQLite ledger for ALL Dev/Holdout batches of this release."""
 
-    def __init__(self, path, terms):
+    def __init__(self, path, terms, *, create=False):
         self.path, self.terms = path, terms
         self.currency = terms.get("currency", "USD")
         if self.currency not in {"USD", "CNY"}:
@@ -80,8 +80,27 @@ class BudgetLedger:
         for value in (self.budget, self.input_rate, self.output_rate):
             if not value.is_finite() or value <= 0:
                 raise ValueError("Budget and rates must be positive finite decimals")
+        exists = path.exists()
+        if not exists and (
+            not create
+            or (path.parent / "release.json").exists()
+            or (path.parent / "budget-export.json").exists()
+            or any(path.parent.glob("*.started.json"))
+        ):
+            raise ValueError("Budget ledger missing: restore the original backup; never reset spent budget")
+        if exists and path.stat().st_size == 0:
+            raise ValueError("Budget ledger empty: restore the original backup")
         path.parent.mkdir(parents=True, exist_ok=True)
-        with closing(sqlite3.connect(path)) as connection:
+        # Existing ledgers must contain the schema and terms. Do not initialize damaged files.
+        with closing(
+            sqlite3.connect(path.as_uri() + "?mode=rw", uri=True) if exists else sqlite3.connect(path)
+        ) as connection:
+            if exists:
+                stored = connection.execute("SELECT value FROM terms WHERE id=1").fetchone()
+                if not stored or json.loads(stored[0]) != terms:
+                    raise ValueError("Existing ledger terms cannot change or disappear")
+                connection.execute("SELECT id FROM attempts LIMIT 1")
+                return
             connection.execute(
                 "CREATE TABLE IF NOT EXISTS terms (id INTEGER PRIMARY KEY, value TEXT NOT NULL)"
             )
@@ -200,23 +219,27 @@ class MeteredTransport(httpx.BaseTransport):
     def __init__(self, ledger, metadata, delegate=None):
         self.ledger, self.metadata = ledger, metadata
         self.delegate = delegate if delegate is not None else httpx.HTTPTransport(retries=0)
-        self.attempt_counts = {}
+        self.http_counts = {}
 
     def handle_request(self, request):
         payload = json.loads(request.content)
         turn = self.metadata.get("turn_index")
-        attempt_index = self.attempt_counts.get(turn, 0) + 1
+        http_index = self.http_counts.get(turn, 0) + 1
+        attempt = request.extensions.get("agent_model_attempt") or {}
         identifier = self.ledger.reserve(
             payload,
             {
                 **self.metadata,
                 "requested_model": payload.get("model"),
                 "request_hash": hashlib.sha256(request.content).hexdigest(),
-                "attempt_index": attempt_index,
-                "is_retry": attempt_index > 1,
+                "http_index_in_turn": http_index,
+                "logical_call_id": attempt.get("logical_call_id"),
+                "attempt_index": attempt.get("attempt_index"),
+                "is_retry": attempt.get("is_retry"),
+                "retry_metadata_complete": bool(attempt),
             },
         )
-        self.attempt_counts[turn] = attempt_index
+        self.http_counts[turn] = http_index
         start, body, error = time.monotonic(), {}, None
         try:
             response = self.delegate.handle_request(request)
@@ -286,7 +309,7 @@ def prepare(terms):
         "base_git_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
     }
     # Validate terms without consuming API credits.
-    ledger = BudgetLedger(OUT / "budget.db", terms)
+    ledger = BudgetLedger(OUT / "budget.db", terms, create=True)
     if ledger.state()["attempts"]:
         raise ValueError("Release preparation requires an unused ledger")
     exclusive_json(OUT / "release.json", release)
@@ -361,6 +384,20 @@ def metrics(cases, rows, state):
     }
 
 
+def validate_ledger_continuity(ledger):
+    """Reject rollback or replacement against the last durable export before HTTP."""
+    state = ledger.state()
+    exported = ledger.path.parent / "budget-export.json"
+    if exported.exists():
+        checkpoint = contract.read(exported)
+        expected = checkpoint["attempts"]
+        if checkpoint["terms"] != state["terms"] or state["attempts"][: len(expected)] != expected:
+            raise ValueError("Budget ledger/export mismatch: manual reconciliation required")
+    elif any(ledger.path.parent.glob("*.started.json")):
+        raise ValueError("Started batch without budget export: audit and reconcile before continuation")
+    return state
+
+
 def run(split):
     if split not in {"dev", "holdout"}:
         raise ValueError("Unknown split")
@@ -369,7 +406,7 @@ def run(split):
     if not settings.llm_model or not settings.llm_api_key.get_secret_value():
         raise ValueError("Model credentials are not configured")
     ledger = BudgetLedger(OUT / "budget.db", release["terms"])
-    if ledger.state()["blocked"]:
+    if validate_ledger_continuity(ledger)["blocked"]:
         raise ValueError("Unresolved ledger attempt: stop and reconcile before any new call")
     if split == "holdout":
         final = contract.read(OUT / "holdout-final.json")

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "ruff-check",
+    "exit_code": 0
+  },
+  {
+    "name": "changed-format",
+    "exit_code": 0
+  },
+  {
+    "name": "pip-check",
+    "exit_code": 0
+  }
+]
