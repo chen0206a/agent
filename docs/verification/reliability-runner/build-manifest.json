@@ -1,0 +1,20 @@
+{
+  "built_at_utc": "2026-10-01T11:42:46.692541+00:00",
+  "status": "implementation-only; real API execution not authorized",
+  "real_api_calls": 0,
+  "formal_holdout_agent_executions": 0,
+  "runner_sources": {
+    "scripts/reliability_live.py": "f4d88f7e04e4a6acccbdf5fb94d49caacfc8316c2c25be449f412338724d8ad2",
+    "backend/tests/test_reliability_live.py": "f77927e69eecac1204c53b396d24db5d5ed105401652e5de92f186fd95d9ef68"
+  },
+  "product_manifest_hash": "e4e8358e13c497e5564baa4c8c88622bcd54ce8cfb139e5e68d7b24e13608161",
+  "pricing_reference": {
+    "checked_date": "2026-09-30",
+    "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "peak_uncached_input_usd_per_million": "0.30",
+    "peak_output_usd_per_million": "1.20",
+    "recommended_budget_usd": "2",
+    "budget_authorized": false
+  },
+  "implementation_changes": "new runner and tests only; frozen product and evaluation untouched"
+}

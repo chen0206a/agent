@@ -51,3 +51,6 @@ pyproject.toml text eol=lf
 requirements.lock text eol=crlf
 scripts/build_reliability_dataset.py text eol=lf
 scripts/reliability_eval.py text eol=lf
+
+scripts/reliability_live.py text eol=lf
+backend/tests/test_reliability_live.py text eol=lf

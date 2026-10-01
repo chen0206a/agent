@@ -180,6 +180,7 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
+- [Budgeted Evaluation Runner](docs/RELIABILITY_RUNNER_HANDOFF.md)：持久预算账本、单次 Holdout 与批次中断核对；仅完成模拟验证，尚未调用真实模型。
 - [Reliability Evaluation Preparation](docs/RELIABILITY_EVALUATION_HANDOFF.md)：新增 39 个合成 episode，Dev 离线契约验证与保留集冻结；尚未产生新真实模型成绩。
 - [Request Recovery](docs/RELIABILITY_ROUND3.md)：断线重试、刷新恢复、已提交申请核对与失败阶段。
 - [Conversation Reliability](docs/RELIABILITY_ROUND2.md)：显式续聊、订单隔离与并发消息保护。

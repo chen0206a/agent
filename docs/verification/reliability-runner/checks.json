@@ -1,0 +1,21 @@
+{
+  "verified_at_utc": "2026-10-01T11:46:18.494810+00:00",
+  "backend_tests": {
+    "passed": 250,
+    "new_runner_tests": 29,
+    "warnings": 1,
+    "output": "backend-tests.txt"
+  },
+  "ruff_check": "passed",
+  "ruff_format_check": "2 files already formatted",
+  "freeze_check_under_python_O": "passed",
+  "updated_documentation_links": "passed",
+  "real_deepseek_api_calls": 0,
+  "frozen_holdout_agent_executions": 0,
+  "formal_release_created": false,
+  "execution_budget_authorized": false,
+  "frozen_product_and_previous_evaluation_changed": false,
+  "build_manifest": "build-manifest.json",
+  "scope": "Mock HTTP and temporary databases only; not model evaluation",
+  "known_warning": "Existing Starlette/AnyIO deprecation warning"
+}
