@@ -1,0 +1,12 @@
+{
+  "split": "dev",
+  "requested_model": "deepseek-v4-flash",
+  "configuration_hash": "c284ac9d3ad205565f2a7f97f4f4eb579e3e0b532a24be9d00c86da8f2c6893a",
+  "prompt_hash": "dbfb5b62eb6c9125093df5d66597bf1aceb54e310062e00cd6248a3ac7b4c7f2",
+  "tool_schema_hash": "dcf3b621ebe5ca3afc211d07264dd89f13bd06596c13bb4f542c1c31c605e485",
+  "dataset_hash": "45dce66908b0a60f705302b0a8fbba057665ad7aa873a5e9f1dd2c3d23bb3622",
+  "product_manifest_hash": "e4e8358e13c497e5564baa4c8c88622bcd54ce8cfb139e5e68d7b24e13608161",
+  "runner_sources_hash": "e28d4a433ab7398675ba96d5da6ccbabd1cd17a8c17e5ec7976dc76a1f6d088d",
+  "code_commit": "c128e7fe57cb38cf6fa5540dd18015cf2b64ed4d",
+  "started_at": "2026-10-01T12:11:47.617164+00:00"
+}

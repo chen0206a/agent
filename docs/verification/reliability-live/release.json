@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-10-01T12:11:08.473046+00:00",
+  "product_manifest_hash": "e4e8358e13c497e5564baa4c8c88622bcd54ce8cfb139e5e68d7b24e13608161",
+  "runner_sources": {
+    "scripts/reliability_live.py": "6f9a36e178ffcca9b4f4e4c3aeae1373dd5b16d25263f206f46e5dc8b93553af",
+    "backend/tests/test_reliability_live.py": "36e7d22ad70e10614dbf6d188f8d319722bb544111a40124c18622193130ab69"
+  },
+  "terms": {
+    "currency": "CNY",
+    "budget_amount": "2.50",
+    "input_per_million": "2",
+    "output_per_million": "8",
+    "price_source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+    "price_checked_at": "2026-10-01"
+  },
+  "base_git_commit": "c128e7fe57cb38cf6fa5540dd18015cf2b64ed4d"
+}

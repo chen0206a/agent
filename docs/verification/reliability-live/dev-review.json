@@ -1,0 +1,26 @@
+{
+  "verified_at_utc": "2026-10-01T12:16:15.170782+00:00",
+  "currency_tests": {
+    "passed": 32,
+    "command": ".venv/Scripts/python.exe -X utf8 -m pytest backend/tests/test_reliability_live.py -q"
+  },
+  "ruff_check": "passed",
+  "product_freeze": "passed; no product/prompt/tool/dataset/scorer change",
+  "authorized_budget_CNY": "2.50",
+  "authorized_model_execution_this_turn": "Dev 13 only; no Holdout execution",
+  "dev_episodes": 13,
+  "dev_turns": 15,
+  "live_model_http_attempts": 30,
+  "all_usage_complete": true,
+  "committed_peak_uncached_proxy_CNY": "0.163376",
+  "remaining_shared_budget_CNY": "2.336624",
+  "holdout_projection_same_mix_CNY": "0.326752",
+  "holdout_projection_50_percent_buffer_CNY": "0.4901280",
+  "holdout_executions": 0,
+  "holdout_sealed": false,
+  "secret_scan": "No API key in new JSON evidence",
+  "dev_summary_sha256": "242d62d24addf7da1eddc48d97ab825249e94af4256a7edcaa09c2960488058b",
+  "pricing_source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+  "cost_scope": "Conservative token cost proxy, not account debit or invoice",
+  "balance_check": "Read-only account endpoint checked; personal balance not published"
+}
