@@ -92,7 +92,7 @@ Set-Location ..
 .\.venv\Scripts\python.exe scripts/run_stage4_e2e.py
 ```
 
-前端交互优化版本的回归结果：后端 270 项测试、前端 23 项测试和 17 项浏览器 E2E 均通过，见 [验证报告](FRONTEND_UX_HANDOFF.md)。更早的 173 / 5 / 8 是原产品交接版本的历史记录，不代表当前覆盖数量。另有 28 个政策案例、16 个离线 Agent 案例及两组 HTTP 冒烟。浏览器脚本临时创建数据库，在 8014/3810 启动测试服务，结束后停止服务；脚本模型标识 `NOT-A-REAL-MODEL`，不读取日常 API 密钥，也不改日常订单。它验证产品集成，不代表模型理解能力。需要保存新验证证据时设置 `E2E_OUTPUT_DIR`，避免覆盖历史记录。
+前端交互优化版本的回归结果：后端 270 项测试、前端 23 项测试和 17 项浏览器 E2E 均通过，见 [验证报告](FRONTEND_UX_HANDOFF.md)。后续独立评测入口新增 8 项运行器保护测试，全量后端现为 278 passed，见 [修复后验收](RELIABILITY_POSTFIX_EVALUATION.md)。更早的 173 / 5 / 8 是原产品交接版本的历史记录，不代表当前覆盖数量。另有 28 个政策案例、16 个离线 Agent 案例及两组 HTTP 冒烟。浏览器脚本临时创建数据库，在 8014/3810 启动测试服务，结束后停止服务；脚本模型标识 `NOT-A-REAL-MODEL`，不读取日常 API 密钥，也不改日常订单。它验证产品集成，不代表模型理解能力。需要保存新验证证据时设置 `E2E_OUTPUT_DIR`，避免覆盖历史记录。
 
 
 接口契约变动后同时更新 `frontend/openapi.json` 与 `frontend/src/lib/generated.ts`。

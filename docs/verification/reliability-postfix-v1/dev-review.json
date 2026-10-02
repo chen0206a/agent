@@ -1,0 +1,20 @@
+{
+  "reviewed_at": "2026-10-02T10:22:09.247441+00:00",
+  "reviewed_by": "Codex manual inspection of every Dev final reply, tool arguments, score and database checks",
+  "summary_sha256": "43d391c3023ed7fb37e21d9d174066bd66eee5acf1dcf1a5977ea844d80271ba",
+  "dataset_sha256": "2f8aaecbdb70369bacece8d82970a759a08e4bb7b2de3e00117268de773cc848",
+  "episodes": 13,
+  "turns": 15,
+  "all_success_and_safety_traces_inspected": true,
+  "task_failures": [],
+  "tool_selection_deviations": [],
+  "observed_unsafe_actions": 0,
+  "idempotency_all_turns": true,
+  "ledger_export_verified_attempts": 30,
+  "cost_CNY_proxy": "0.168842",
+  "budget_remaining_CNY_proxy": "4.831158",
+  "protocol_repair_model_calls": 0,
+  "product_changes_during_dev": false,
+  "next": "Single frozen Holdout; no tuning or replay",
+  "limitation": "Same-author known-family synthetic wording; no production or blinded claim"
+}

@@ -16,7 +16,7 @@ A production-style after-sales AI Agent with stateful workflow, deterministic po
 
 Metrics are measured on frozen synthetic after-sales evaluation scenarios, not production traffic.
 
-模型指标来自历史冻结版本；后端测试数量为当前版本。后续可靠性改动尚未进行新的真实模型评测。
+模型指标来自历史冻结版本；后端测试数量为当前版本。后续可靠性专项及修复后新措辞评测另见下方报告，不作为原 Test 提分对照。
 
 “Production-style” 指业务分层、权限与审计设计；订单、物流和资金操作均为本地模拟，未接入真实支付渠道。
 
@@ -122,6 +122,8 @@ flowchart TD
 
 新增可靠性专项评测：39 个合成 episode，Dev **13/13**，单次冻结 Holdout **25/26（96.15%）**；保留 1 个任务失败与 2 个工具选择偏差。[专项结果](docs/RELIABILITY_HOLDOUT_EVALUATION.md) · [失败归因](docs/RELIABILITY_FAILURE_ANALYSIS.md)。专项样本与版本不同，不能将其与上面的历史 Test 直接作提升对照。
 
+修复后独立措辞验收：Dev **13/13**，唯一冻结 Holdout **25/26（96.15%）**；Tool Selection 30/30、Tool Arguments 29/30。保留一条被 schema 拒绝后自我纠正的参数失败；本批未触发结束协议纠正，不能报告其真实成功率。[新版本报告](docs/RELIABILITY_POSTFIX_EVALUATION.md) · [新失败分析](docs/RELIABILITY_POSTFIX_FAILURE_ANALYSIS.md)。两次专项采用不同数据，不作直接提分比较。
+
 ## Safety by Design
 
 | Capability | LLM Agent | Deterministic Backend |
@@ -182,6 +184,8 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
+- [修复后真实模型验收](docs/RELIABILITY_POSTFIX_EVALUATION.md)：新 Dev 13/13、单次冻结 Holdout 25/26；¥0.5241 保守成本，保留参数契约失败。
+- [修复后失败归因](docs/RELIABILITY_POSTFIX_FAILURE_ANALYSIS.md)：额外参数被 schema 拒绝后自我纠正，业务恢复不改判任务成功。
 - [产品演示与启动](docs/DEMO.md)：完整客户与管理员业务路径、实际浏览器录屏及隔离复现。
 - [Frontend UX](docs/FRONTEND_UX_HANDOFF.md)：对话即时反馈、连贯导航、可恢复等待与 Trace 按需展开；含前后探针和真实截图。
 - [Reliability Fixes & UX Plan](docs/RELIABILITY_FIXES.md)：受限结束协议纠正、真实重试统计与预算恢复保护；原交互优化计划，实施结果见 Frontend UX。

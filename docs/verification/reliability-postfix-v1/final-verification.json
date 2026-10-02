@@ -1,0 +1,99 @@
+{
+  "verified_at": "2026-10-02T10:26:08.538341+00:00",
+  "version": "reliability-postfix-v1",
+  "approved_budget_CNY": "5.00",
+  "cost_CNY_proxy": "0.524078",
+  "remaining_budget_CNY_proxy": "4.475922",
+  "balance_not_queried": true,
+  "splits": {
+    "dev": {
+      "episodes": 13,
+      "passed": 13,
+      "turns": 15,
+      "model_requests": 30,
+      "cost_CNY_proxy": "0.168842",
+      "LLM_calls": 30,
+      "tool_calls": 35,
+      "required_hits": 35,
+      "required_total": 35,
+      "protocol_repair_model_calls": 0,
+      "provider_retries": 0,
+      "clarification_extra_query": [],
+      "failure_case_ids": [],
+      "metrics": {
+        "task_success": 1.0,
+        "planned_turns": 15,
+        "observed_turns": 15,
+        "tool_selection_accuracy": 1.0,
+        "tool_arguments_accuracy": 1.0,
+        "required_tool_recall": 1.0,
+        "unsafe_action_observed_turns": 0,
+        "database_failure_episodes": 0,
+        "policy_compliant_episodes": 13,
+        "average_llm_calls_observed_turns": 2,
+        "average_tool_calls_observed_turns": 2.3333333333333335,
+        "average_latency_ms_observed_turns": 1951.4,
+        "all_attempt_usage_complete": true,
+        "input_tokens": 74925,
+        "output_tokens": 2374
+      },
+      "requested_models": [
+        "deepseek-v4-flash"
+      ],
+      "returned_models": [
+        "deepseek-flash"
+      ],
+      "started_at": "2026-10-02T10:20:01.856760+00:00",
+      "finished_at": "2026-10-02T10:20:40.971873+00:00",
+      "code_commit": "45a825fad5d292a62c954eea0eba1f066cdc7e1e"
+    },
+    "holdout": {
+      "episodes": 26,
+      "passed": 25,
+      "turns": 30,
+      "model_requests": 62,
+      "cost_CNY_proxy": "0.355236",
+      "LLM_calls": 62,
+      "tool_calls": 74,
+      "required_hits": 70,
+      "required_total": 70,
+      "protocol_repair_model_calls": 0,
+      "provider_retries": 0,
+      "clarification_extra_query": [],
+      "failure_case_ids": [
+        "FIX-08-1"
+      ],
+      "metrics": {
+        "task_success": 0.9615384615384616,
+        "planned_turns": 30,
+        "observed_turns": 30,
+        "tool_selection_accuracy": 1.0,
+        "tool_arguments_accuracy": 0.9666666666666667,
+        "required_tool_recall": 1.0,
+        "unsafe_action_observed_turns": 0,
+        "database_failure_episodes": 0,
+        "policy_compliant_episodes": 26,
+        "average_llm_calls_observed_turns": 2.066666666666667,
+        "average_tool_calls_observed_turns": 2.466666666666667,
+        "average_latency_ms_observed_turns": 1958.2666666666667,
+        "all_attempt_usage_complete": true,
+        "input_tokens": 156974,
+        "output_tokens": 5161
+      },
+      "requested_models": [
+        "deepseek-v4-flash"
+      ],
+      "returned_models": [
+        "deepseek-flash"
+      ],
+      "started_at": "2026-10-02T10:22:13.086287+00:00",
+      "finished_at": "2026-10-02T10:23:32.379796+00:00",
+      "code_commit": "45a825fad5d292a62c954eea0eba1f066cdc7e1e"
+    }
+  },
+  "formal_holdout_runs": 1,
+  "product_unchanged_since_preparation": true,
+  "original_experiments_unchanged": true,
+  "completed_and_stop": true,
+  "scope": "Same-author new wording, known families/fixtures. No tuning, no direct score-improvement comparison."
+}
