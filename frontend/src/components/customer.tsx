@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
+  ArrowDown,
   Headset,
   Package,
   Send,
@@ -12,6 +13,7 @@ import {
   Truck,
 } from "lucide-react";
 import { api, ApiError, Model } from "@/lib/api";
+import { waitForRun } from "@/lib/run-polling";
 import {
   usePending,
   savePending,
@@ -26,7 +28,15 @@ import {
   stages,
 } from "@/lib/labels";
 import { Button } from "./ui/button";
-import { Badge, Empty, ErrorBox, Loading, PageTitle, useData } from "./shared";
+import {
+  Badge,
+  Empty,
+  ErrorBox,
+  Loading,
+  PageTitle,
+  RefreshStatus,
+  useData,
+} from "./shared";
 
 export function ActionCard({ action }: { action: Model<"ActionRead"> }) {
   const label = stages[action.execution_status];
@@ -61,42 +71,52 @@ function Orders({
   userId: number;
   preview?: boolean;
 }) {
-  const { data, error, refresh } = useData<Model<"OrderRead">[]>(
-    `/users/${userId}/orders`,
-  );
+  const { data, error, refresh, refreshing, refreshError } = useData<
+    Model<"OrderRead">[]
+  >(`/users/${userId}/orders`);
   if (error) return <ErrorBox message={error} retry={refresh} />;
   if (!data) return <Loading />;
-  if (!data.length) return <Empty>还没有订单，您的订单将显示在这里。</Empty>;
   return (
-    <div className={preview ? "order-list" : "order-grid"}>
-      {(preview ? data.slice(0, 3) : data).map((order) => (
-        <Link
-          className="order-card"
-          href={`/orders/${order.id}`}
-          key={order.id}
-        >
-          <div className="row between">
-            <span className="small muted">订单 #{order.id}</span>
-            <Badge tone={order.status === "PAID" ? "mint" : "neutral"}>
-              {orderLabels[order.status]}
-            </Badge>
-          </div>
-          <div className="row">
-            <div className="product-icon">
-              <Package />
+    <>
+      <div className="row between list-toolbar">
+        <RefreshStatus refreshing={refreshing} error={refreshError} />
+        {!preview && (
+          <Button variant="outline" disabled={refreshing} onClick={refresh}>
+            更新订单
+          </Button>
+        )}
+      </div>
+      {!data.length && <Empty>还没有订单，您的订单将显示在这里。</Empty>}
+      <div className={preview ? "order-list" : "order-grid"}>
+        {(preview ? data.slice(0, 3) : data).map((order) => (
+          <Link
+            className="order-card"
+            href={`/orders/${order.id}`}
+            key={order.id}
+          >
+            <div className="row between">
+              <span className="small muted">订单 #{order.id}</span>
+              <Badge tone={order.status === "PAID" ? "mint" : "neutral"}>
+                {orderLabels[order.status]}
+              </Badge>
             </div>
-            <div>
-              <strong>订单商品</strong>
-              <p>{date(order.created_at)}</p>
+            <div className="row">
+              <div className="product-icon">
+                <Package />
+              </div>
+              <div>
+                <strong>订单商品</strong>
+                <p>{date(order.created_at)}</p>
+              </div>
+              <span className="price">{money(order.paid_amount)}</span>
             </div>
-            <span className="price">{money(order.paid_amount)}</span>
-          </div>
-          <div className="order-bottom">
-            查看商品与物流详情 <ArrowRight size={16} />
-          </div>
-        </Link>
-      ))}
-    </div>
+            <div className="order-bottom">
+              查看商品与物流详情 <ArrowRight size={16} />
+            </div>
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }
 
@@ -118,10 +138,35 @@ function OrderDetail({ id }: { id: string }) {
         title={`订单 #${id}`}
         description="商品、物流与退款记录，在这里一目了然。"
       >
-        <Link className="primary-link" href={`/chat?order=${id}`}>
-          申请售后 <ArrowRight size={16} />
-        </Link>
+        <div className="operations">
+          <Button
+            variant="outline"
+            disabled={[order, items, shipment, refunds].some(
+              (data) => data.refreshing,
+            )}
+            onClick={() => {
+              order.refresh();
+              items.refresh();
+              shipment.refresh();
+              refunds.refresh();
+            }}
+          >
+            更新进度
+          </Button>
+          <Link className="primary-link" href={`/chat?order=${id}`}>
+            申请售后 <ArrowRight size={16} />
+          </Link>
+        </div>
       </PageTitle>
+      <RefreshStatus
+        refreshing={[order, items, shipment, refunds].some(
+          (data) => data.refreshing,
+        )}
+        error={[order, items, shipment, refunds]
+          .map((data) => data.refreshError)
+          .filter(Boolean)
+          .join("；")}
+      />
       <div className="detail-grid">
         <section className="card">
           <div className="row between">
@@ -244,6 +289,23 @@ function Requests() {
         eyebrow="AFTER-SALES PROGRESS"
         title="每一步进度，都清晰可见"
         description="申请已受理、等待审核和退款成功，是不同的处理阶段。"
+      >
+        <Button
+          variant="outline"
+          disabled={actions.refreshing || tickets.refreshing}
+          onClick={() => {
+            actions.refresh();
+            tickets.refresh();
+          }}
+        >
+          更新进度
+        </Button>
+      </PageTitle>
+      <RefreshStatus
+        refreshing={actions.refreshing || tickets.refreshing}
+        error={[actions.refreshError, tickets.refreshError]
+          .filter(Boolean)
+          .join("；")}
       />
       <section>
         <h2>售后申请</h2>
@@ -332,6 +394,25 @@ function Chat({ userId }: { userId: number }) {
   const [error, setError] = useState("");
   const [parent, setParent] = useState<number | null | undefined>();
   const [latest, setLatest] = useState<Model<"ChatResult">>();
+  type Turn = Pick<
+    Model<"RunRead">,
+    | "id"
+    | "order_id"
+    | "user_query"
+    | "reply"
+    | "parent_run_id"
+    | "status"
+    | "created_at"
+  >;
+  const [localTurns, setLocalTurns] = useState<Turn[]>([]);
+  const [outgoing, setOutgoing] = useState<PendingRequest | null>(null);
+  const [showJump, setShowJump] = useState(false);
+  const messages = useRef<HTMLDivElement>(null);
+  const textarea = useRef<HTMLTextAreaElement>(null);
+  const form = useRef<HTMLFormElement>(null);
+  const nearBottom = useRef(true);
+  const requestController = useRef<AbortController | null>(null);
+  useEffect(() => () => requestController.current?.abort(), []);
   const pending = useRef<Model<"ChatRequest"> | null>(null);
   const pendingRun = useRef<number | null>(null);
   const submitting = useRef(false);
@@ -341,11 +422,15 @@ function Chat({ userId }: { userId: number }) {
   const history = useData<Model<"RunRead">[]>(
     `/portal/runs?limit=100${order ? `&order_id=${order}` : ""}`,
   );
-  const transcript: Model<"RunRead">[] = [];
+  const merged = new Map<number, Turn>(
+    history.data?.map((run) => [run.id, run]),
+  );
+  for (const turn of localTurns) merged.set(turn.id, turn);
+  const transcript: Turn[] = [];
   if (parent === undefined) {
-    transcript.push(...(history.data || []));
+    transcript.push(...merged.values());
   } else {
-    const byId = new Map(history.data?.map((r) => [r.id, r]));
+    const byId = merged;
     let id = parent;
     const seen = new Set<number>();
     while (id != null && !seen.has(id)) {
@@ -356,6 +441,22 @@ function Chat({ userId }: { userId: number }) {
       id = run.parent_run_id;
     }
   }
+  const contentKey = `${parent}:${transcript.length}:${transcript[0]?.id}:${transcript[0]?.reply}:${outgoing?.request.idempotency_key}:${busy}`;
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (!messages.current) return;
+      if (nearBottom.current)
+        messages.current.scrollTop = messages.current.scrollHeight;
+      else setShowJump(true);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [contentKey]);
+  useEffect(() => {
+    const input = textarea.current;
+    if (!input) return;
+    input.style.height = "auto";
+    input.style.height = `${Math.min(input.scrollHeight, 160)}px`;
+  }, [message]);
   async function send(e: React.FormEvent, restored?: PendingRequest) {
     e.preventDefault();
     if (!(restored?.request.message || message).trim() || submitting.current)
@@ -369,6 +470,10 @@ function Chat({ userId }: { userId: number }) {
       setReadOnly(restored.request.read_only || false);
     }
     submitting.current = true;
+    const controller = new AbortController();
+    requestController.current = controller;
+    nearBottom.current = true;
+    setShowJump(false);
     setBusy(true);
     setError("");
     const body: Model<"ChatRequest"> = pending.current
@@ -382,23 +487,40 @@ function Chat({ userId }: { userId: number }) {
           read_only: readOnly,
         };
     pending.current = body;
+    setOutgoing({ request: body, runId: pendingRun.current });
     setRetryPending(true);
     savePending(userId, { request: body, runId: pendingRun.current });
     try {
       let result =
         pendingRun.current === null
-          ? await api<Model<"ChatResult">>("/agent/runs", body)
-          : await api<Model<"ChatResult">>(`/agent/runs/${pendingRun.current}`);
+          ? await api<Model<"ChatResult">>("/agent/runs", body, "POST", {
+              signal: controller.signal,
+            })
+          : await api<Model<"ChatResult">>(
+              `/agent/runs/${pendingRun.current}`,
+              undefined,
+              "GET",
+              { signal: controller.signal },
+            );
+      if (controller.signal.aborted) return;
       pendingRun.current = result.run_id;
+      setOutgoing({ request: body, runId: result.run_id });
       savePending(userId, { request: body, runId: result.run_id });
-      for (let i = 0; result.status === "RUNNING" && i < 100; i++) {
-        await new Promise((r) => setTimeout(r, 1000));
-        result = await api<Model<"ChatResult">>(`/agent/runs/${result.run_id}`);
-      }
-      if (result.status === "RUNNING")
-        throw new Error(
-          "服务仍在处理中，请稍后使用相同内容重试，系统不会重复提交。",
-        );
+      result = await waitForRun(result, controller.signal);
+      if (controller.signal.aborted) return;
+      setLocalTurns((turns) => [
+        ...turns,
+        {
+          id: result.run_id,
+          order_id: result.action?.order_id ?? body.order_id ?? null,
+          user_query: body.message,
+          reply: result.reply || "",
+          parent_run_id: result.parent_run_id ?? null,
+          status: result.status,
+          created_at: result.created_at,
+        },
+      ]);
+      setOutgoing(null);
       setLatest(result);
       setParent(result.run_id);
       setMessage("");
@@ -407,7 +529,9 @@ function Chat({ userId }: { userId: number }) {
       savePending(userId, null);
       setRetryPending(false);
       history.refresh();
+      orders.refresh();
     } catch (e) {
+      if (controller.signal.aborted) return;
       setError((e as Error).message);
       if (
         e instanceof ApiError &&
@@ -419,11 +543,24 @@ function Chat({ userId }: { userId: number }) {
         setRetryPending(false);
         setParent(undefined);
         setLatest(undefined);
+        setOutgoing(null);
         history.refresh();
       }
     } finally {
       submitting.current = false;
-      setBusy(false);
+      if (!controller.signal.aborted) {
+        setBusy(false);
+        requestAnimationFrame(() => {
+          const input = textarea.current;
+          if (
+            input &&
+            !input.disabled &&
+            (document.activeElement === document.body ||
+              form.current?.contains(document.activeElement))
+          )
+            input.focus({ preventScroll: true });
+        });
+      }
     }
   }
   return (
@@ -456,12 +593,28 @@ function Chat({ userId }: { userId: number }) {
                 setRetryPending(false);
                 setError("");
                 setMessage("");
+                setLocalTurns([]);
+                setOutgoing(null);
+                nearBottom.current = true;
               }}
             >
               新对话
             </Button>
           </div>
-          <div className="messages" aria-live="polite">
+          <div
+            className="messages"
+            ref={messages}
+            role="log"
+            aria-label="售后对话"
+            aria-live="polite"
+            aria-relevant="additions text"
+            onScroll={(e) => {
+              const box = e.currentTarget;
+              nearBottom.current =
+                box.scrollHeight - box.scrollTop - box.clientHeight < 72;
+              if (nearBottom.current) setShowJump(false);
+            }}
+          >
             <div className="bubble assistant">
               欢迎来到售后服务中心。您可以查询物流、取消未发货订单，或申请退换货。请告诉我订单和具体情况。
             </div>
@@ -487,20 +640,32 @@ function Chat({ userId }: { userId: number }) {
                 </Button>
               </div>
             )}
-            {history.error ? (
+            {history.error && !localTurns.length ? (
               <ErrorBox message={history.error} retry={history.refresh} />
-            ) : !history.data ? (
+            ) : !history.data && !localTurns.length ? (
               <Loading />
             ) : parent === null ? null : (
-              [...transcript].reverse().map((r) => (
-                <div key={r.id}>
-                  <div className="bubble user">{r.user_query}</div>
-                  <div className="bubble assistant">
-                    <div>{r.reply || "正在处理…"}</div>
-                    <small>{date(r.created_at)}</small>
+              [...transcript]
+                .reverse()
+                .filter((r) => r.id !== outgoing?.runId)
+                .map((r) => (
+                  <div key={r.id}>
+                    <div className="bubble user">{r.user_query}</div>
+                    <div className="bubble assistant">
+                      <div>{r.reply || "正在处理…"}</div>
+                      <small>{date(r.created_at)}</small>
+                    </div>
                   </div>
-                </div>
-              ))
+                ))
+            )}
+            {history.error && !!localTurns.length && (
+              <ErrorBox message={history.error} retry={history.refresh} />
+            )}
+            {outgoing && (
+              <div className="bubble user pending-bubble">
+                {outgoing.request.message}
+                <small>{busy ? "正在处理" : "结果待确认"}</small>
+              </div>
             )}
             {busy && (
               <div className="bubble assistant">
@@ -517,7 +682,37 @@ function Chat({ userId }: { userId: number }) {
               </div>
             )}
           </div>
+          {showJump && (
+            <div className="jump-row">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  nearBottom.current = true;
+                  setShowJump(false);
+                  const box = messages.current;
+                  if (!box) return;
+                  if (typeof box.scrollTo === "function")
+                    box.scrollTo({
+                      top: box.scrollHeight,
+                      behavior: window.matchMedia?.(
+                        "(prefers-reduced-motion: reduce)",
+                      ).matches
+                        ? "auto"
+                        : "smooth",
+                    });
+                  else box.scrollTop = box.scrollHeight;
+                }}
+              >
+                <ArrowDown size={15} />
+                查看最新消息
+              </Button>
+            </div>
+          )}
           <div className="composer">
+            <RefreshStatus
+              refreshing={history.refreshing && !!history.data}
+              error={history.refreshError}
+            />
             {saved && !retryPending && (
               <div role="status">
                 <p>发现待确认请求：{saved.request.message}</p>
@@ -556,11 +751,22 @@ function Chat({ userId }: { userId: number }) {
               </p>
             )}
             {error && <ErrorBox message={error} />}
-            <form onSubmit={send}>
+            <form onSubmit={send} ref={form}>
               <textarea
+                ref={textarea}
                 aria-label="售后消息"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (
+                    e.key === "Enter" &&
+                    (e.ctrlKey || e.metaKey) &&
+                    !e.nativeEvent.isComposing
+                  ) {
+                    e.preventDefault();
+                    form.current?.requestSubmit();
+                  }
+                }}
                 placeholder="请描述您的售后问题…"
                 maxLength={4000}
                 disabled={busy || unresolved}
@@ -579,7 +785,7 @@ function Chat({ userId }: { userId: number }) {
             </form>
             <small>
               <ShieldCheck size={12} />
-              退款金额与处理结果，以实际售后记录为准。
+              Ctrl / ⌘ + Enter 发送 · 退款结果以实际记录为准。
             </small>
           </div>
         </section>
@@ -600,6 +806,9 @@ function Chat({ userId }: { userId: number }) {
                   pending.current = null;
                   setRetryPending(false);
                   setError("");
+                  setOutgoing(null);
+                  setLocalTurns([]);
+                  nearBottom.current = true;
                 }}
               >
                 <option value="">暂未选择</option>
@@ -613,6 +822,10 @@ function Chat({ userId }: { userId: number }) {
             {orders.error && (
               <ErrorBox message={orders.error} retry={orders.refresh} />
             )}
+            <RefreshStatus
+              refreshing={orders.refreshing}
+              error={orders.refreshError}
+            />
           </section>
           <section className="care-steps">
             <h3>售后处理流程</h3>

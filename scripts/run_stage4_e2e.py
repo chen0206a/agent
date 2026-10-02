@@ -15,7 +15,7 @@ from app.core.config import PROJECT_ROOT
 
 
 def main():
-    out = PROJECT_ROOT / "docs/verification/stage4"
+    out = Path(os.environ.get("E2E_OUTPUT_DIR", PROJECT_ROOT / "docs/verification/stage4")).resolve()
     (out / "screenshots").mkdir(parents=True, exist_ok=True)
     for port in (8014, 3810):
         with socket.socket() as sock:
@@ -27,6 +27,7 @@ def main():
             "BACKEND_URL": "http://127.0.0.1:8014",
             "NEXT_TELEMETRY_DISABLED": "1",
             "PYTHONUTF8": "1",
+            "E2E_OUTPUT_DIR": str(out),
         }
         backend = [
             sys._base_executable,
@@ -77,7 +78,12 @@ def main():
                         else:
                             raise RuntimeError("Test server startup timeout")
                 result = subprocess.run(
-                    [node, "node_modules/@playwright/test/cli.js", "test"],
+                    [
+                        node,
+                        "node_modules/@playwright/test/cli.js",
+                        "test",
+                        *([os.environ["E2E_SPEC"]] if os.environ.get("E2E_SPEC") else []),
+                    ],
                     cwd=PROJECT_ROOT / "frontend",
                     env=env,
                     timeout=600,

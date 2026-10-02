@@ -1,0 +1,90 @@
+/* Motion is short and limited to opacity/transform; business results are never optimistic. */
+.page-enter {
+  animation: page-arrive 160ms ease-out;
+}
+@keyframes page-arrive {
+  from {
+    opacity: 0.65;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.messages {
+  height: clamp(280px, 50dvh, 470px);
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  overflow-anchor: none;
+}
+.pending-bubble {
+  animation: page-arrive 140ms ease-out;
+}
+.pending-bubble small {
+  color: inherit;
+  opacity: 0.8;
+}
+.jump-row {
+  display: flex;
+  justify-content: center;
+  padding: 6px 14px;
+  border-top: 1px solid #f0f0f4;
+}
+.jump-row button {
+  border-radius: 999px;
+  font-size: 12px;
+  gap: 6px;
+}
+.refresh-status {
+  color: #6e6e73;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.refresh-status:not(:empty) {
+  padding: 4px 0 10px;
+}
+.composer textarea {
+  resize: none;
+  max-height: 160px;
+  overflow-y: auto;
+}
+.order-card,
+.quick-links a {
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+.sidebar nav a,
+.suggestions button {
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+.trace-step summary {
+  cursor: pointer;
+}
+.trace-step summary:focus-visible {
+  outline: 2px solid #0071e3;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+@media (max-width: 800px) {
+  .messages {
+    height: clamp(280px, 45dvh, 420px);
+    padding: 18px 14px;
+  }
+  .composer small {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

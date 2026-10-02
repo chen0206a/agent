@@ -1,0 +1,6 @@
+{
+  "mode": "baseline",
+  "synthetic_tool_calls": 80,
+  "initially_rendered_json_blocks": 160,
+  "after_last_expand_json_blocks": 160
+}

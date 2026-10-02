@@ -7,7 +7,12 @@ export default defineConfig({
   expect: { timeout: 10000 },
   reporter: [
     ["list"],
-    ["json", { outputFile: "../docs/verification/stage4/e2e.json" }],
+    [
+      "json",
+      {
+        outputFile: `${process.env.E2E_OUTPUT_DIR || "../docs/verification/stage4"}/e2e.json`,
+      },
+    ],
   ],
   use: {
     baseURL: "http://127.0.0.1:3810",

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { LoaderCircle, AlertCircle, PackageOpen } from "lucide-react";
-import { api } from "@/lib/api";
+import { acquireRead } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 
 export function useData<T>(path: string) {
@@ -9,26 +9,53 @@ export function useData<T>(path: string) {
     path: string;
     data?: T;
     error: string;
+    version: number;
   }>();
   const [version, setVersion] = useState(0);
   useEffect(() => {
     let active = true;
-    api<T>(path)
+    const read = acquireRead<T>(path);
+    read.promise
       .then((v) => {
         if (active) {
-          setSnapshot({ path, data: v, error: "" });
+          setSnapshot({ path, data: v, error: "", version });
         }
       })
       .catch((e) => {
-        if (active) setSnapshot({ path, error: e.message });
+        if (active && e.name !== "AbortError")
+          setSnapshot((current) => ({
+            path,
+            data: current?.path === path ? current.data : undefined,
+            error: e.message,
+            version,
+          }));
       });
     return () => {
       active = false;
+      read.release();
     };
   }, [path, version]);
+  useEffect(() => {
+    const refresh = () => {
+      if (document.visibilityState !== "hidden") setVersion((v) => v + 1);
+    };
+    window.addEventListener("asc:data-changed", refresh);
+    window.addEventListener("online", refresh);
+    window.addEventListener("focus", refresh);
+    document.addEventListener("visibilitychange", refresh);
+    return () => {
+      window.removeEventListener("asc:data-changed", refresh);
+      window.removeEventListener("online", refresh);
+      window.removeEventListener("focus", refresh);
+      document.removeEventListener("visibilitychange", refresh);
+    };
+  }, []);
+  const current = snapshot?.path === path ? snapshot : undefined;
   return {
-    data: snapshot?.path === path ? snapshot.data : undefined,
-    error: snapshot?.path === path ? snapshot.error : "",
+    data: current?.data,
+    error: current?.data === undefined ? current?.error || "" : "",
+    refreshError: current?.data !== undefined ? current.error : "",
+    refreshing: !current || current.version !== version,
     refresh: () => {
       setSnapshot((current) =>
         current?.path === path ? { ...current, error: "" } : current,
@@ -36,6 +63,23 @@ export function useData<T>(path: string) {
       setVersion((v) => v + 1);
     },
   };
+}
+export function RefreshStatus({
+  refreshing,
+  error,
+}: {
+  refreshing: boolean;
+  error?: string;
+}) {
+  return (
+    <div className="refresh-status" role="status">
+      {error
+        ? `更新未完成，当前显示上次记录：${error}`
+        : refreshing
+          ? "正在更新记录…"
+          : ""}
+    </div>
+  );
 }
 export function Loading() {
   return (

@@ -1,0 +1,146 @@
+{
+  "verified_at_utc": "2026-10-02T02:45:27.547534+00:00",
+  "base_commit": "603889bfef1b944146fc96806076881346ccdc97",
+  "build_id": "t8bMqEFRVkEbx3YVbaOtr",
+  "real_model_api_calls": 0,
+  "backend": {
+    "passed": 270,
+    "failed": 0
+  },
+  "frontend": {
+    "passed": 23,
+    "failed": 0
+  },
+  "browser": {
+    "startTime": "2026-10-02T02:37:51.892Z",
+    "duration": 42149.944,
+    "expected": 17,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "checks": [
+    {
+      "name": "typecheck",
+      "exit_code": 0
+    },
+    {
+      "name": "lint",
+      "exit_code": 0
+    },
+    {
+      "name": "components",
+      "exit_code": 0
+    },
+    {
+      "name": "build",
+      "exit_code": 0
+    }
+  ],
+  "format_checks": {
+    "changed_frontend_files_prettier": "passed",
+    "scripts/run_stage4_e2e.py_ruff": "passed"
+  },
+  "protected_paths_unchanged": [
+    "backend",
+    "eval",
+    "docs/verification/stage5",
+    "docs/verification/reliability-live",
+    "scripts/reliability_live.py",
+    "scripts/reliability_eval.py"
+  ],
+  "source_sha256_verified": true,
+  "controlled_browser_comparison": {
+    "navigation": {
+      "baseline": {
+        "mode": "baseline",
+        "auth_me_requests": 5,
+        "samples": [
+          {
+            "name": "我的订单",
+            "heading_latency_ms": 70.47589999999991
+          },
+          {
+            "name": "售后进度",
+            "heading_latency_ms": 90.29370000000017
+          },
+          {
+            "name": "服务中心",
+            "heading_latency_ms": 85.94079999999985
+          },
+          {
+            "name": "售后咨询",
+            "heading_latency_ms": 78.93039999999974
+          },
+          {
+            "name": "我的订单",
+            "heading_latency_ms": 85.8425000000002
+          }
+        ]
+      },
+      "optimized": {
+        "mode": "optimized",
+        "auth_me_requests": 0,
+        "samples": [
+          {
+            "name": "我的订单",
+            "heading_latency_ms": 76.83740000000034
+          },
+          {
+            "name": "售后进度",
+            "heading_latency_ms": 74.03700000000026
+          },
+          {
+            "name": "服务中心",
+            "heading_latency_ms": 75.6242999999995
+          },
+          {
+            "name": "售后咨询",
+            "heading_latency_ms": 81.03949999999895
+          },
+          {
+            "name": "我的订单",
+            "heading_latency_ms": 57.93739999999889
+          }
+        ]
+      }
+    },
+    "chat-feedback": {
+      "baseline": {
+        "mode": "baseline",
+        "visible_after_150ms": false,
+        "textarea_locked": true,
+        "message_feedback_ms": 1551.9942,
+        "injected_response_delay_ms": 1200
+      },
+      "optimized": {
+        "mode": "optimized",
+        "visible_after_150ms": true,
+        "textarea_locked": true,
+        "message_feedback_ms": 210.90529999999853,
+        "injected_response_delay_ms": 1200
+      }
+    },
+    "trace-dom": {
+      "baseline": {
+        "mode": "baseline",
+        "synthetic_tool_calls": 80,
+        "initially_rendered_json_blocks": 160,
+        "after_last_expand_json_blocks": 160
+      },
+      "optimized": {
+        "mode": "optimized",
+        "synthetic_tool_calls": 80,
+        "initially_rendered_json_blocks": 2,
+        "after_last_expand_json_blocks": 4
+      }
+    }
+  },
+  "limits": [
+    "Local scripted model, not production traffic or real model latency.",
+    "80 tool calls are injected stress data, not an actual Agent run.",
+    "Timing probes include Playwright overhead; no FPS or broad speed claim."
+  ],
+  "first_e2e_attempt": "first-e2e-attempt.json",
+  "final_e2e": "optimized/e2e.json"
+}

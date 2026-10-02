@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Activity,
   ArrowRight,
@@ -19,6 +19,7 @@ import {
   JsonView,
   Loading,
   PageTitle,
+  RefreshStatus,
   useData,
 } from "./shared";
 import { Button } from "./ui/button";
@@ -26,15 +27,20 @@ import { Button } from "./ui/button";
 function Operations({
   action,
   refresh,
+  updating = false,
 }: {
   action: Model<"ActionRead">;
   refresh: () => void;
+  updating?: boolean;
 }) {
   const [mode, setMode] = useState("");
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const submitting = useRef(false);
   async function execute() {
+    if (submitting.current || updating) return;
+    submitting.current = true;
     setBusy(true);
     setError("");
     try {
@@ -64,6 +70,7 @@ function Operations({
     } catch (e) {
       setError((e as Error).message);
     } finally {
+      submitting.current = false;
       setBusy(false);
     }
   }
@@ -72,17 +79,33 @@ function Operations({
       <div className="operations">
         {action.execution_status === "WAITING_APPROVAL" && (
           <>
-            <Button onClick={() => setMode("approve")}>批准申请</Button>
-            <Button variant="outline" onClick={() => setMode("reject")}>
+            <Button
+              disabled={updating || busy}
+              onClick={() => setMode("approve")}
+            >
+              批准申请
+            </Button>
+            <Button
+              disabled={updating || busy}
+              variant="outline"
+              onClick={() => setMode("reject")}
+            >
               拒绝申请
             </Button>
           </>
         )}
         {action.execution_status === "WAITING_RETURN" && (
-          <Button onClick={() => setMode("return")}>确认退货收货</Button>
+          <Button disabled={updating || busy} onClick={() => setMode("return")}>
+            确认退货收货
+          </Button>
         )}
         {["READY", "FAILED"].includes(action.execution_status) && (
-          <Button onClick={() => setMode("execute")}>模拟执行</Button>
+          <Button
+            disabled={updating || busy}
+            onClick={() => setMode("execute")}
+          >
+            模拟执行
+          </Button>
         )}
       </div>
       {mode && (
@@ -134,7 +157,9 @@ function Operations({
                 取消
               </Button>
               <Button
-                disabled={busy || (mode !== "execute" && !note.trim())}
+                disabled={
+                  busy || updating || (mode !== "execute" && !note.trim())
+                }
                 onClick={execute}
               >
                 {busy ? "处理中…" : "确认操作"}
@@ -148,7 +173,7 @@ function Operations({
 }
 
 function Dashboard() {
-  const { data, error, refresh } =
+  const { data, error, refresh, refreshing, refreshError } =
     useData<Model<"DashboardRead">>("/portal/dashboard");
   if (error) return <ErrorBox message={error} retry={refresh} />;
   if (!data) return <Loading />;
@@ -175,10 +200,11 @@ function Dashboard() {
         title="售后服务，一览全局"
         description="从真实业务记录出发，关注处理质量与每一次客户体验。"
       >
-        <Button variant="outline" onClick={refresh}>
-          刷新数据
+        <Button variant="outline" onClick={refresh} disabled={refreshing}>
+          {refreshing ? "正在更新…" : "刷新数据"}
         </Button>
       </PageTitle>
+      <RefreshStatus refreshing={refreshing} error={refreshError} />
       <div className="metrics">
         {cards.map(([label, value, Icon, hint]) => (
           <section className="metric" key={label}>
@@ -263,16 +289,21 @@ function Dashboard() {
 
 function Tickets() {
   const [offset, setOffset] = useState(0);
-  const { data, error, refresh } = useData<Model<"TicketRead">[]>(
-    `/tickets?offset=${offset}`,
-  );
+  const { data, error, refresh, refreshing, refreshError } = useData<
+    Model<"TicketRead">[]
+  >(`/tickets?offset=${offset}`);
   return (
     <>
       <PageTitle
         eyebrow="TICKET MANAGEMENT"
         title="工单管理"
         description="查看客户诉求，串联申请、政策与处理过程。"
-      />
+      >
+        <Button variant="outline" disabled={refreshing} onClick={refresh}>
+          刷新列表
+        </Button>
+      </PageTitle>
+      <RefreshStatus refreshing={refreshing} error={refreshError} />
       {error ? (
         <ErrorBox message={error} retry={refresh} />
       ) : !data ? (
@@ -339,9 +370,11 @@ function Tickets() {
 function ActionDetail({
   action,
   refresh,
+  updating = false,
 }: {
   action: Model<"ActionRead">;
   refresh: () => void;
+  updating?: boolean;
 }) {
   return (
     <section className="card section-gap">
@@ -375,7 +408,7 @@ function ActionDetail({
         ))}
         <small>政策版本 {action.policy_version}</small>
       </div>
-      <Operations action={action} refresh={refresh} />
+      <Operations action={action} refresh={refresh} updating={updating} />
       <details>
         <summary>查看政策快照</summary>
         <JsonView value={action.snapshot_json} />
@@ -396,6 +429,25 @@ function TicketDetail({ id }: { id: string }) {
         eyebrow="TICKET DETAILS"
         title={`工单 #${id}`}
         description={`客户 ${ticket.data.user_id} · 订单 ${ticket.data.order_id} · ${issueLabels[ticket.data.issue_type]}`}
+      >
+        <Button
+          variant="outline"
+          disabled={[ticket, actions, runs].some((data) => data.refreshing)}
+          onClick={() => {
+            ticket.refresh();
+            actions.refresh();
+            runs.refresh();
+          }}
+        >
+          刷新记录
+        </Button>
+      </PageTitle>
+      <RefreshStatus
+        refreshing={[ticket, actions, runs].some((data) => data.refreshing)}
+        error={[ticket, actions, runs]
+          .map((data) => data.refreshError)
+          .filter(Boolean)
+          .join("；")}
       />
       <section className="card">
         <h2>客户诉求</h2>
@@ -410,7 +462,12 @@ function TicketDetail({ id }: { id: string }) {
         <Empty>该工单尚未提交售后申请</Empty>
       ) : (
         actions.data.map((a) => (
-          <ActionDetail key={a.id} action={a} refresh={actions.refresh} />
+          <ActionDetail
+            key={a.id}
+            action={a}
+            refresh={actions.refresh}
+            updating={actions.refreshing}
+          />
         ))
       )}
       <section className="card section-gap">
@@ -450,6 +507,18 @@ function Approvals() {
         eyebrow="REVIEW & PROCESS"
         title="审核与处理"
         description="核实依据后再做决定。审批、退货收货与模拟执行分别记录。"
+      >
+        <Button
+          variant="outline"
+          disabled={requests.refreshing}
+          onClick={requests.refresh}
+        >
+          刷新列表
+        </Button>
+      </PageTitle>
+      <RefreshStatus
+        refreshing={requests.refreshing}
+        error={requests.refreshError}
       />
       <div className="tabs">
         {[
@@ -481,7 +550,11 @@ function Approvals() {
             <Link className="small" href={`/admin/tickets/${a.ticket_id}`}>
               查看工单 #{a.ticket_id} →
             </Link>
-            <ActionDetail action={a} refresh={requests.refresh} />
+            <ActionDetail
+              action={a}
+              refresh={requests.refresh}
+              updating={requests.refreshing}
+            />
           </div>
         ))
       )}
@@ -507,16 +580,21 @@ function Approvals() {
 
 function Runs() {
   const [offset, setOffset] = useState(0);
-  const { data, error, refresh } = useData<Model<"RunRead">[]>(
-    `/portal/runs?offset=${offset}`,
-  );
+  const { data, error, refresh, refreshing, refreshError } = useData<
+    Model<"RunRead">[]
+  >(`/portal/runs?offset=${offset}`);
   return (
     <>
       <PageTitle
         eyebrow="AGENT OBSERVABILITY"
         title="Agent 运行记录"
         description="每一次工具选择、政策判断与业务结果，都可追溯。"
-      />
+      >
+        <Button variant="outline" disabled={refreshing} onClick={refresh}>
+          刷新列表
+        </Button>
+      </PageTitle>
+      <RefreshStatus refreshing={refreshing} error={refreshError} />
       {error ? (
         <ErrorBox message={error} retry={refresh} />
       ) : !data ? (
@@ -579,12 +657,48 @@ function Runs() {
   );
 }
 
+function TraceStep({
+  call,
+  index,
+}: {
+  call: Model<"AgentTrace">["tool_calls"][number];
+  index: number;
+}) {
+  const [open, setOpen] = useState(index === 0);
+  return (
+    <details
+      className="trace-step"
+      open={open}
+      onToggle={(event) => setOpen(event.currentTarget.open)}
+    >
+      <summary>
+        <span className="step-number">{index + 1}</span>
+        <strong>{String(call.name)}</strong>
+        <Badge>{String(call.status)}</Badge>
+        <small>{String(call.latency_ms)} ms</small>
+      </summary>
+      {open && (
+        <div className="trace-columns">
+          <div>
+            <h3>Tool Arguments</h3>
+            <JsonView value={call.arguments} />
+          </div>
+          <div>
+            <h3>Tool Results</h3>
+            <JsonView value={call.result} />
+          </div>
+        </div>
+      )}
+    </details>
+  );
+}
+
 function Trace({ id }: { id: string }) {
   const [recovering, setRecovering] = useState(false);
   const [recoveryError, setRecoveryError] = useState("");
-  const { data, error, refresh } = useData<Model<"AgentTrace">>(
-    `/agent/runs/${id}/trace`,
-  );
+  const { data, error, refresh, refreshing, refreshError } = useData<
+    Model<"AgentTrace">
+  >(`/agent/runs/${id}/trace`);
   if (error) return <ErrorBox message={error} retry={refresh} />;
   if (!data) return <Loading />;
   const run = data.run;
@@ -594,7 +708,12 @@ function Trace({ id }: { id: string }) {
         eyebrow="AGENT TRACE"
         title={`运行 #${id}`}
         description="展示工具轨迹与执行证据，不展示内部提示词或模型思考内容。"
-      />
+      >
+        <Button variant="outline" onClick={refresh} disabled={refreshing}>
+          {refreshing ? "正在更新…" : "刷新记录"}
+        </Button>
+      </PageTitle>
+      <RefreshStatus refreshing={refreshing} error={refreshError} />
       <section className="card">
         <div className="row between">
           <h2>运行结果</h2>
@@ -656,31 +775,24 @@ function Trace({ id }: { id: string }) {
           </div>
         )}
       </section>
-      {run.action && <ActionDetail action={run.action} refresh={refresh} />}
+      {run.action && (
+        <ActionDetail
+          action={run.action}
+          refresh={refresh}
+          updating={refreshing}
+        />
+      )}
       <section className="card section-gap">
         <h2>工具调用轨迹</h2>
         {!data.tool_calls.length ? (
           <Empty>没有工具调用</Empty>
         ) : (
           data.tool_calls.map((call, index) => (
-            <details className="trace-step" key={index} open={index === 0}>
-              <summary>
-                <span className="step-number">{index + 1}</span>
-                <strong>{String(call.name)}</strong>
-                <Badge>{String(call.status)}</Badge>
-                <small>{String(call.latency_ms)} ms</small>
-              </summary>
-              <div className="trace-columns">
-                <div>
-                  <h3>Tool Arguments</h3>
-                  <JsonView value={call.arguments} />
-                </div>
-                <div>
-                  <h3>Tool Results</h3>
-                  <JsonView value={call.result} />
-                </div>
-              </div>
-            </details>
+            <TraceStep
+              key={String(call.id ?? index)}
+              call={call}
+              index={index}
+            />
           ))
         )}
       </section>

@@ -1,6 +1,9 @@
 import { test, expect, Page } from "@playwright/test";
 import path from "node:path";
-const screenshots = path.resolve("../docs/verification/stage4/screenshots");
+const screenshots = path.resolve(
+  process.env.E2E_OUTPUT_DIR || "../docs/verification/stage4",
+  "screenshots",
+);
 
 test("服务端完成但响应丢失，刷新后恢复原请求且不重复运行", async ({ page }) => {
   await login(page, "customer8");

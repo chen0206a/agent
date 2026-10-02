@@ -1,5 +1,6 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -15,11 +16,16 @@ import {
   TicketCheck,
   Workflow,
 } from "lucide-react";
-import { api, Model, setCsrf } from "@/lib/api";
+import { api, ApiError, Model, setCsrf } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Badge, ErrorBox, Loading } from "./shared";
-import { Customer } from "./customer";
-import { Admin } from "./admin";
+const Customer = dynamic(
+  () => import("./customer").then((module) => module.Customer),
+  { loading: () => <Loading /> },
+);
+const Admin = dynamic(() => import("./admin").then((module) => module.Admin), {
+  loading: () => <Loading />,
+});
 
 function Login({ onLogin }: { onLogin: (me: Model<"AccountRead">) => void }) {
   const [error, setError] = useState("");
@@ -124,8 +130,11 @@ function Workspace() {
   const path = usePathname();
   const router = useRouter();
   const [me, setMe] = useState<Model<"AccountRead"> | null>();
+  const [error, setError] = useState("");
+  const accountRequest = useRef<AbortController | null>(null);
   useEffect(() => {
     const expired = () => {
+      accountRequest.current?.abort();
       setCsrf("");
       setMe(null);
     };
@@ -133,14 +142,37 @@ function Workspace() {
     return () => window.removeEventListener("asc:session-expired", expired);
   }, []);
 
-  const [error, setError] = useState("");
   useEffect(() => {
-    api<Model<"AccountRead">>("/auth/me")
-      .then((v) => {
-        setCsrf(v.csrf_token);
-        setMe(v);
+    const check = () => {
+      if (document.visibilityState === "hidden") return;
+      accountRequest.current?.abort();
+      const controller = new AbortController();
+      accountRequest.current = controller;
+      api<Model<"AccountRead">>("/auth/me", undefined, "GET", {
+        signal: controller.signal,
       })
-      .catch(() => setMe(null));
+        .then((v) => {
+          if (controller.signal.aborted) return;
+          setCsrf(v.csrf_token);
+          setMe(v);
+          setError("");
+        })
+        .catch((e) => {
+          if (controller.signal.aborted || e.name === "AbortError") return;
+          if (e instanceof ApiError && e.status === 401) setMe(null);
+          else setError("暂时无法核对登录状态，请重试。");
+        });
+    };
+    check();
+    window.addEventListener("focus", check);
+    window.addEventListener("asc:auth-check", check);
+    document.addEventListener("visibilitychange", check);
+    return () => {
+      accountRequest.current?.abort();
+      window.removeEventListener("focus", check);
+      window.removeEventListener("asc:auth-check", check);
+      document.removeEventListener("visibilitychange", check);
+    };
   }, []);
   useEffect(() => {
     if (me === null && path !== "/login") router.replace("/login");
@@ -148,11 +180,20 @@ function Workspace() {
       router.replace(me.role === "admin" ? "/admin" : "/");
   }, [me, path, router]);
   function signedIn(v: Model<"AccountRead">) {
+    accountRequest.current?.abort();
     setCsrf(v.csrf_token);
     setMe(v);
     router.replace(v.role === "admin" ? "/admin" : "/");
   }
-  if (me === undefined) return <Loading />;
+  if (me === undefined)
+    return error ? (
+      <ErrorBox
+        message={error}
+        retry={() => window.dispatchEvent(new Event("asc:auth-check"))}
+      />
+    ) : (
+      <Loading />
+    );
   if (!me) return <Login onLogin={signedIn} />;
   const admin = me.role === "admin";
   const nav = admin
@@ -251,7 +292,10 @@ function Workspace() {
         </header>
         <main>
           {error && <ErrorBox message={error} />}
-          <div key={path}>
+          <div
+            key={`${me.username}:${me.role}:${me.user_id}:${path}`}
+            className="page-enter"
+          >
             {!admin && path.startsWith("/admin") ? (
               <section className="card">
                 <h1>无权访问</h1>
@@ -273,7 +317,22 @@ function Workspace() {
     </div>
   );
 }
-export default function Portal() {
+export default function Portal({ children }: { children?: React.ReactNode }) {
+  const path = usePathname();
+  const known =
+    [
+      "/",
+      "/login",
+      "/chat",
+      "/orders",
+      "/requests",
+      "/admin",
+      "/admin/tickets",
+      "/admin/approvals",
+      "/admin/runs",
+    ].includes(path) ||
+    /^\/(orders\/[^/]+|admin\/(tickets|runs)\/[^/]+)$/.test(path);
+  if (!known) return children;
   return (
     <Suspense fallback={<Loading />}>
       <Workspace />

@@ -1,0 +1,26 @@
+{
+  "mode": "optimized",
+  "auth_me_requests": 0,
+  "samples": [
+    {
+      "name": "我的订单",
+      "heading_latency_ms": 76.83740000000034
+    },
+    {
+      "name": "售后进度",
+      "heading_latency_ms": 74.03700000000026
+    },
+    {
+      "name": "服务中心",
+      "heading_latency_ms": 75.6242999999995
+    },
+    {
+      "name": "售后咨询",
+      "heading_latency_ms": 81.03949999999895
+    },
+    {
+      "name": "我的订单",
+      "heading_latency_ms": 57.93739999999889
+    }
+  ]
+}
