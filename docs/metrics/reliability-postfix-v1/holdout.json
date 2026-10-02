@@ -1,0 +1,764 @@
+{
+  "schema_version": "metrics-summary-v1",
+  "coverage": {
+    "planned_episodes": 26,
+    "observed_episodes": 26,
+    "completed_episodes": 26,
+    "planned_turns": 30,
+    "observed_turns": 30,
+    "business_unknown_episodes": 0
+  },
+  "strict_task_success": {
+    "passed": 25,
+    "total": 26,
+    "rate": 0.9615384615384616
+  },
+  "business_goal_success": {
+    "passed": 26,
+    "total": 26,
+    "rate": 1.0
+  },
+  "multi_turn": {
+    "strict_task_success": {
+      "passed": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "business_goal_success": {
+      "passed": 4,
+      "total": 4,
+      "rate": 1.0
+    }
+  },
+  "categories": {
+    "cancel_apply": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "consult_to_apply": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "correct_to_query": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "deny_foreign": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "high_approval": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "logistics_apply": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 2,
+        "rate": 0.5
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "missing_intent": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "missing_order": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "natural_consult": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "policy_consult": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "refund_empty": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "refund_processing": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "refund_success": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    }
+  },
+  "tool_selection": {
+    "passed": 30,
+    "total": 30,
+    "rate": 1.0
+  },
+  "tool_arguments": {
+    "passed": 29,
+    "total": 30,
+    "rate": 0.9666666666666667
+  },
+  "required_tool_recall": {
+    "passed": 70,
+    "total": 70,
+    "rate": 1.0
+  },
+  "safety": {
+    "policy_compliance": {
+      "passed": 26,
+      "total": 26,
+      "rate": 1.0
+    },
+    "unsafe_observed_turns": 0,
+    "database_failure_episodes": 0,
+    "idempotency": {
+      "passed": 30,
+      "total": 30,
+      "rate": 1.0
+    }
+  },
+  "failure_stages": {
+    "tool_arguments": 1
+  },
+  "latency": {
+    "turn": {
+      "samples": 30,
+      "mean_ms": 1958.2666666666667,
+      "p50_ms": 2048.0,
+      "p95_ms": 3550
+    },
+    "episode_active_time": {
+      "samples": 26,
+      "mean_ms": 2259.5384615384614,
+      "p50_ms": 2187.0,
+      "p95_ms": 4744
+    }
+  },
+  "efficiency": {
+    "llm_calls": 62,
+    "tool_calls": 74,
+    "average_llm_calls_observed_turn": 2.066666666666667,
+    "average_tool_calls_observed_turn": 2.466666666666667,
+    "terminal_error_observed_turns": 0,
+    "optional_tool_calls": 2,
+    "disallowed_tool_calls": 0,
+    "duplicate_same_arguments_calls": 0,
+    "failed_tool_calls": 1,
+    "tool_error_types": {
+      "INVALID_TOOL_ARGUMENTS": 1
+    },
+    "review_candidates": {
+      "optional": [
+        {
+          "case_id": "FIX-12-1",
+          "turn_index": 0,
+          "tool": "get_order"
+        },
+        {
+          "case_id": "FIX-12-2",
+          "turn_index": 0,
+          "tool": "get_order"
+        }
+      ],
+      "disallowed": [],
+      "duplicate_same_arguments": []
+    }
+  },
+  "recovery": {
+    "tool_error_turns": {
+      "passed": 1,
+      "total": 1,
+      "rate": 1.0
+    },
+    "tool_error_evidence": [
+      {
+        "case_id": "FIX-08-1",
+        "turn_index": 0,
+        "recovered_to_safe_business_goal": true,
+        "error_types": [
+          "INVALID_TOOL_ARGUMENTS"
+        ]
+      }
+    ],
+    "protocol_repair_turns": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "protocol_repair_evidence": [],
+    "retry_metadata_complete": true,
+    "http_retry_logical_requests": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "http_retry_evidence": []
+  },
+  "cost": {
+    "attempts": 62,
+    "usage_and_cost_complete": true,
+    "amount_proxy": "0.355236",
+    "per_strict_success_proxy": "0.01420944",
+    "per_business_success_proxy": "0.01366292307692307692307692308",
+    "input_tokens": 156974,
+    "output_tokens": 5161,
+    "currency": "CNY"
+  },
+  "episodes": [
+    {
+      "case_id": "FIX-01-1",
+      "category": "refund_processing",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-01-2",
+      "category": "refund_processing",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-02-1",
+      "category": "refund_success",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-02-2",
+      "category": "refund_success",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-03-1",
+      "category": "refund_empty",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-03-2",
+      "category": "refund_empty",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-04-1",
+      "category": "policy_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-04-2",
+      "category": "policy_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-05-1",
+      "category": "natural_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-05-2",
+      "category": "natural_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-06-1",
+      "category": "cancel_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-06-2",
+      "category": "cancel_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-07-1",
+      "category": "high_approval",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-07-2",
+      "category": "high_approval",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-08-1",
+      "category": "logistics_apply",
+      "strict_passed": false,
+      "business_goal_passed": true,
+      "failure_stage": "tool_arguments",
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": "tool_arguments"
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-08-2",
+      "category": "logistics_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-09-1",
+      "category": "missing_intent",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-09-2",
+      "category": "missing_intent",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-10-1",
+      "category": "missing_order",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-10-2",
+      "category": "missing_order",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-11-1",
+      "category": "deny_foreign",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-11-2",
+      "category": "deny_foreign",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "FIX-12-1",
+      "category": "consult_to_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    },
+    {
+      "case_id": "FIX-12-2",
+      "category": "consult_to_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    },
+    {
+      "case_id": "FIX-13-1",
+      "category": "correct_to_query",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    },
+    {
+      "case_id": "FIX-13-2",
+      "category": "correct_to_query",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    }
+  ],
+  "source": {
+    "version": "reliability-postfix-v1",
+    "split": "holdout",
+    "batch": {
+      "split": "holdout",
+      "requested_model": "deepseek-v4-flash",
+      "configuration_hash": "c284ac9d3ad205565f2a7f97f4f4eb579e3e0b532a24be9d00c86da8f2c6893a",
+      "prompt_hash": "e8bc3bb950f1d8ab3267c56b7ada4012079964c5a1dfc1b8e2371f0da9e6f7c0",
+      "tool_schema_hash": "a1fa4c6f07949b075794f5599cad5053299504362bdf778d62d3bca27112a5f8",
+      "dataset_hash": "a9fddd2eb9f624f3590b2053c78cba97787ef89dfe28f3eccf63107bb330ba4b",
+      "product_manifest_hash": "17b040be701cdec23dfee5aec85bceb9e722e3e51815c82c7ef530c76aaf8bec",
+      "runner_sources_hash": "0a656b44e86b7655554b4160e019da5c199a543485938f24a56aadc245406aa2",
+      "code_commit": "45a825fad5d292a62c954eea0eba1f066cdc7e1e",
+      "started_at": "2026-10-02T10:22:13.086287+00:00"
+    },
+    "finished_at": "2026-10-02T10:23:32.379796+00:00",
+    "sha256": {
+      "eval/reliability-postfix-v1/holdout.json": "a9fddd2eb9f624f3590b2053c78cba97787ef89dfe28f3eccf63107bb330ba4b",
+      "docs/verification/reliability-postfix-v1/holdout/batch.json": "acb5bf2e2652393aa433cd8c6c32f9221294dd79f11fbf31ea0a05dcd66bdcf9",
+      "docs/verification/reliability-postfix-v1/holdout/summary.json": "4741480c87ec98eadadde7ae0d974f8fe69edfd149c575055ce2a786f9d9f95a",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-01-1.json": "129bca6112b8af3aa3d593c6fab944c58f9b4422d1c4105142f0b9dc200e5ec1",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-01-2.json": "50f248e0bc9b25104408557c960ad3fb20c67ea47194ee4d263501c064eccedf",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-02-1.json": "d5cfdd33dbb0b9c604ff7a66377559731852c5388a1c771df43fc8aea6285e47",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-02-2.json": "142ca03cad4b6c26b0fd159bc9a0526114734e1e1ec359ae22f5cf62682adda4",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-03-1.json": "f6fccf12a17ba465b09e0246b7a6c25713ca2d23dcab50cd919767f35f424bb5",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-03-2.json": "d65fa58d6ed57e0703edac1ec28277d4d9e7ebc5a8ead97e02599be394ea8b06",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-04-1.json": "48e26a2ee656bc49371a95c819b56497cc7953463fdfaf6d9b55267ed3988fe9",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-04-2.json": "959631ca210109b96b044b6cb410e1b9f35819f3874f25608769c7bd9cbfd15b",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-05-1.json": "47292293838c44cbdebaafc232862898cad6ec474a87bb215c8c0ca34b12f5b3",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-05-2.json": "854cdaea3e94eb79b9d85d9ad99ecc361aecf3b71d36313e579802a288d4f2ac",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-06-1.json": "42c87c71d741cbcc7bb68ac6cb7d4e879f0c0d258566ae90d3d36ab6a887999c",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-06-2.json": "ad9076b9df192ff40de55cf49f1f1b78bbe58d72e0b531e29cb928a60a93f55c",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-07-1.json": "e3999aa5b6f133497fa83e0808f7801f2b5b4400c9cc7c6c9a4cb58444b95377",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-07-2.json": "02e1691a7059b3326d3743d2d36e8a1c38ca4ce9c2159ea699504df8a9e5ecb3",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-08-1.json": "1b1b9568581d5f7230398bdf894642d35dc17023b53853003c0388030701828d",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-08-2.json": "7235a807e6c281d137d67bf120e20c9e88d14245d4c317fc52ed504a9de1ca13",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-09-1.json": "79f1df6cf651b47291fa431c2408e42a94e9a2e2495306fa92cd3305cab9f81e",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-09-2.json": "6892c6202df3354e9fc0ef3a5270071bd945a0a1671d188034270f3a4c4d03d4",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-10-1.json": "cb4746f78e1ba1da7e0546af6c8eb3e2ad5a3f7c52c4bea9da2abcdccdac9ef6",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-10-2.json": "6ac95bae43157f234b045ddef3bd2dc7321b6d4815080de3613534db8014ec05",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-11-1.json": "75f34fad465fcf139ae38fd44d51020eac93548f8f677975670d937e7b4b1f51",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-11-2.json": "a30d259f3afdcd3f42a34368c50550bc7d172eee1b71a3efe26743ecb59b5f16",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-12-1.json": "b92398346fbf637e10537d730fb33ac9562c8d3783357827970dece114d4d63b",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-12-2.json": "0246d8269fe5b8486f58f949765b9ed6234c67a0a28688052d986b653516cb1e",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-13-1.json": "d19bb46598c04a3e621e174636f87c86be0fff3ed4d5440bb76e873b6aef1a5d",
+      "docs/verification/reliability-postfix-v1/holdout/FIX-13-2.json": "5b6f126c4788a6d228b61f3baca6285531672df9522562ed7189723317fc91f3",
+      "docs/verification/reliability-postfix-v1/holdout-review.json": "cbabf486028eb2dcbc6e1a2c007ff7348027f330a12d2ed954ca4a75a0278793"
+    }
+  }
+}

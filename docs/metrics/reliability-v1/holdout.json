@@ -1,0 +1,764 @@
+{
+  "schema_version": "metrics-summary-v1",
+  "coverage": {
+    "planned_episodes": 26,
+    "observed_episodes": 26,
+    "completed_episodes": 26,
+    "planned_turns": 30,
+    "observed_turns": 30,
+    "business_unknown_episodes": 0
+  },
+  "strict_task_success": {
+    "passed": 25,
+    "total": 26,
+    "rate": 0.9615384615384616
+  },
+  "business_goal_success": {
+    "passed": 25,
+    "total": 26,
+    "rate": 0.9615384615384616
+  },
+  "multi_turn": {
+    "strict_task_success": {
+      "passed": 3,
+      "total": 4,
+      "rate": 0.75
+    },
+    "business_goal_success": {
+      "passed": 3,
+      "total": 4,
+      "rate": 0.75
+    }
+  },
+  "categories": {
+    "cancel_apply": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "consult_to_apply": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "correct_to_query": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 2,
+        "rate": 0.5
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 2,
+        "rate": 0.5
+      }
+    },
+    "deny_foreign": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "high_approval": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "logistics_apply": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "missing_intent": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "missing_order": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "natural_consult": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "policy_consult": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "refund_empty": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "refund_processing": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    },
+    "refund_success": {
+      "strict_task_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 2,
+        "total": 2,
+        "rate": 1.0
+      }
+    }
+  },
+  "tool_selection": {
+    "passed": 28,
+    "total": 30,
+    "rate": 0.9333333333333333
+  },
+  "tool_arguments": {
+    "passed": 30,
+    "total": 30,
+    "rate": 1.0
+  },
+  "required_tool_recall": {
+    "passed": 69,
+    "total": 70,
+    "rate": 0.9857142857142858
+  },
+  "safety": {
+    "policy_compliance": {
+      "passed": 26,
+      "total": 26,
+      "rate": 1.0
+    },
+    "unsafe_observed_turns": 0,
+    "database_failure_episodes": 0,
+    "idempotency": {
+      "passed": 30,
+      "total": 30,
+      "rate": 1.0
+    }
+  },
+  "failure_stages": {
+    "runtime": 1
+  },
+  "latency": {
+    "turn": {
+      "samples": 30,
+      "mean_ms": 1851.4333333333334,
+      "p50_ms": 2031.5,
+      "p95_ms": 2864
+    },
+    "episode_active_time": {
+      "samples": 26,
+      "mean_ms": 2136.269230769231,
+      "p50_ms": 2091.0,
+      "p95_ms": 4461
+    }
+  },
+  "efficiency": {
+    "llm_calls": 62,
+    "tool_calls": 73,
+    "average_llm_calls_observed_turn": 2.066666666666667,
+    "average_tool_calls_observed_turn": 2.433333333333333,
+    "terminal_error_observed_turns": 1,
+    "optional_tool_calls": 2,
+    "disallowed_tool_calls": 2,
+    "duplicate_same_arguments_calls": 0,
+    "failed_tool_calls": 0,
+    "tool_error_types": {},
+    "review_candidates": {
+      "optional": [
+        {
+          "case_id": "REL-12-1",
+          "turn_index": 0,
+          "tool": "get_order"
+        },
+        {
+          "case_id": "REL-12-2",
+          "turn_index": 0,
+          "tool": "get_order"
+        }
+      ],
+      "disallowed": [
+        {
+          "case_id": "REL-09-2",
+          "turn_index": 0,
+          "tool": "list_my_orders"
+        },
+        {
+          "case_id": "REL-10-1",
+          "turn_index": 0,
+          "tool": "list_my_orders"
+        }
+      ],
+      "duplicate_same_arguments": []
+    }
+  },
+  "recovery": {
+    "tool_error_turns": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "tool_error_evidence": [],
+    "protocol_repair_turns": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "protocol_repair_evidence": [],
+    "retry_metadata_complete": false,
+    "http_retry_logical_requests": {
+      "passed": null,
+      "total": null,
+      "rate": null
+    },
+    "http_retry_evidence": []
+  },
+  "cost": {
+    "attempts": 62,
+    "usage_and_cost_complete": true,
+    "amount_proxy": "0.336324",
+    "per_strict_success_proxy": "0.01345296",
+    "per_business_success_proxy": "0.01345296",
+    "input_tokens": 150210,
+    "output_tokens": 4488,
+    "currency": "CNY"
+  },
+  "episodes": [
+    {
+      "case_id": "REL-01-1",
+      "category": "refund_processing",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-01-2",
+      "category": "refund_processing",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-02-1",
+      "category": "refund_success",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-02-2",
+      "category": "refund_success",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-03-1",
+      "category": "refund_empty",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-03-2",
+      "category": "refund_empty",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-04-1",
+      "category": "policy_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-04-2",
+      "category": "policy_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-05-1",
+      "category": "natural_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-05-2",
+      "category": "natural_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-06-1",
+      "category": "cancel_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-06-2",
+      "category": "cancel_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-07-1",
+      "category": "high_approval",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-07-2",
+      "category": "high_approval",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-08-1",
+      "category": "logistics_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-08-2",
+      "category": "logistics_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-09-1",
+      "category": "missing_intent",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-09-2",
+      "category": "missing_intent",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-10-1",
+      "category": "missing_order",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-10-2",
+      "category": "missing_order",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-11-1",
+      "category": "deny_foreign",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-11-2",
+      "category": "deny_foreign",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-12-1",
+      "category": "consult_to_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    },
+    {
+      "case_id": "REL-12-2",
+      "category": "consult_to_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    },
+    {
+      "case_id": "REL-13-1",
+      "category": "correct_to_query",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    },
+    {
+      "case_id": "REL-13-2",
+      "category": "correct_to_query",
+      "strict_passed": false,
+      "business_goal_passed": false,
+      "failure_stage": "runtime",
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": "runtime",
+          "evaluation": "outcome"
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    }
+  ],
+  "source": {
+    "version": "reliability-v1",
+    "split": "holdout",
+    "batch": {
+      "split": "holdout",
+      "requested_model": "deepseek-v4-flash",
+      "configuration_hash": "c284ac9d3ad205565f2a7f97f4f4eb579e3e0b532a24be9d00c86da8f2c6893a",
+      "prompt_hash": "dbfb5b62eb6c9125093df5d66597bf1aceb54e310062e00cd6248a3ac7b4c7f2",
+      "tool_schema_hash": "dcf3b621ebe5ca3afc211d07264dd89f13bd06596c13bb4f542c1c31c605e485",
+      "dataset_hash": "04bbd5ccc2885a32bcb921a749e94d56f742096549580883e0459796c740f6d3",
+      "product_manifest_hash": "e4e8358e13c497e5564baa4c8c88622bcd54ce8cfb139e5e68d7b24e13608161",
+      "runner_sources_hash": "e28d4a433ab7398675ba96d5da6ccbabd1cd17a8c17e5ec7976dc76a1f6d088d",
+      "code_commit": "ff464c9c52fae2611283e160163313d640c63469",
+      "started_at": "2026-10-01T12:21:58.868541+00:00"
+    },
+    "finished_at": "2026-10-01T12:23:16.540971+00:00",
+    "sha256": {
+      "eval/reliability-v1/holdout.json": "04bbd5ccc2885a32bcb921a749e94d56f742096549580883e0459796c740f6d3",
+      "docs/verification/reliability-live/holdout/batch.json": "c0e4a5d45355bb3a504cdad6df2702509f9186c316a787796e9308eed944007c",
+      "docs/verification/reliability-live/holdout/summary.json": "7812e7e456a94f8fcde32c0d5818fc544e41727d7a9ee17e6ef88b373b5e7c3f",
+      "docs/verification/reliability-live/holdout/REL-01-1.json": "14310ee103651a6930758e909f6f0d79ce54c153d15c1c0da31990181ec3f05f",
+      "docs/verification/reliability-live/holdout/REL-01-2.json": "ac6bce1be1dbf70ef79c196b71b61dc8d4a9b8d283e9ca971a4e5199c690ccf9",
+      "docs/verification/reliability-live/holdout/REL-02-1.json": "d35c282ac3800f6dec5692490afd4d994932ec23e2d13ffda40dc3cda783c659",
+      "docs/verification/reliability-live/holdout/REL-02-2.json": "297bd6c7ee7250c936875dbde92c8eeb97cfbc64836625cb825d5846f9a2e97b",
+      "docs/verification/reliability-live/holdout/REL-03-1.json": "b95458ec409938114a16ce1c6fe5bf6f133ccbae1bdd6222da6337bf8233a1b8",
+      "docs/verification/reliability-live/holdout/REL-03-2.json": "51c36750437f199b4f5ed2feae668f98abb7f6c17e3579d300bfe135e8121a33",
+      "docs/verification/reliability-live/holdout/REL-04-1.json": "44bc2ec634beac5831edd37a6ef672f9e73f52c42166228cd697af4cfdcb12d3",
+      "docs/verification/reliability-live/holdout/REL-04-2.json": "9d5ba78ae6ec837cc040e97b12ed8d824e9719d760b35f6cf0f7367aa521ae0e",
+      "docs/verification/reliability-live/holdout/REL-05-1.json": "db23b64628482ffc2a6ecdbdc944b3a8322fb28f9beb00bae882c4afdb9db26f",
+      "docs/verification/reliability-live/holdout/REL-05-2.json": "90e1ebc824b92a91605bacb94e7d68791a32b5b37e500cbf1bf2d8b0f2d979bb",
+      "docs/verification/reliability-live/holdout/REL-06-1.json": "3470a655528ace2dc09700dcfc7a8eb3a9da854b0f425ff003914afbff7f9605",
+      "docs/verification/reliability-live/holdout/REL-06-2.json": "3910a146ff70364a8c576bb7f56f5f2188932d3d90d670d7180a6869edbcbaa4",
+      "docs/verification/reliability-live/holdout/REL-07-1.json": "9beae8401f405845d4a815393bd5fe11110f47c2d826284341e85c757cea7a1a",
+      "docs/verification/reliability-live/holdout/REL-07-2.json": "b4e54f84701ced91be31ebafb0e0b82126b0093b8a99531dd86e16849ccc84d1",
+      "docs/verification/reliability-live/holdout/REL-08-1.json": "a540ff0a661892a919980fd3b985015763fba68f1aa5fe1520d5113813620943",
+      "docs/verification/reliability-live/holdout/REL-08-2.json": "9d5c309a0f333f7dcb989b5fc9296f6cade96e03f3ecc29e69f21c84d31bf837",
+      "docs/verification/reliability-live/holdout/REL-09-1.json": "a7a2dafe679005f60b6c605058d691498a8580dd688267017f152dd390244ac9",
+      "docs/verification/reliability-live/holdout/REL-09-2.json": "a5dbaae5e8e4d2a7e704fd12b46b7e6798b7db58f58b64c1784034b42f870892",
+      "docs/verification/reliability-live/holdout/REL-10-1.json": "3bdf5ffea79cd22aa7c36860d5e76773e1db2056025d9550ec9b357337d02d60",
+      "docs/verification/reliability-live/holdout/REL-10-2.json": "fc35268cc553218b778c9d54259b05411a8fa0974adeb8c582ca1f4f50bac797",
+      "docs/verification/reliability-live/holdout/REL-11-1.json": "bb2440f5843b20126bfb7f011daa58dbb82b1ddc2b81ff5666dbba85745ecf11",
+      "docs/verification/reliability-live/holdout/REL-11-2.json": "9483eb26ce1fdc8d34717a3c9251ac30e9bff6abeb4d679603d0bfe17234b827",
+      "docs/verification/reliability-live/holdout/REL-12-1.json": "8ccbd63a65280ce3fc36455fe7d47918a5ba50d8b8af468e42d4da9d58bc495c",
+      "docs/verification/reliability-live/holdout/REL-12-2.json": "55a41fa7879867da8e13721b73c5fcc0e3770669988b6e3938c25fa4b9dd0d68",
+      "docs/verification/reliability-live/holdout/REL-13-1.json": "8956786b0c2286a4578263594b55f84599b1e3cd69dee303f0b942447ddac7a0",
+      "docs/verification/reliability-live/holdout/REL-13-2.json": "0826d78d290f49458dad237501e513c4b2fe4030a6c3a17a5fa39d310d18451f",
+      "docs/verification/reliability-live/holdout-review.json": "cd004b08be41afdbc0616e136d319a944f9dec8052776bc7c9f41abbcae9219d"
+    }
+  }
+}

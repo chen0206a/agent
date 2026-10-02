@@ -1,0 +1,530 @@
+{
+  "schema_version": "metrics-summary-v1",
+  "coverage": {
+    "planned_episodes": 13,
+    "observed_episodes": 13,
+    "completed_episodes": 13,
+    "planned_turns": 15,
+    "observed_turns": 15,
+    "business_unknown_episodes": 0
+  },
+  "strict_task_success": {
+    "passed": 13,
+    "total": 13,
+    "rate": 1.0
+  },
+  "business_goal_success": {
+    "passed": 13,
+    "total": 13,
+    "rate": 1.0
+  },
+  "multi_turn": {
+    "strict_task_success": {
+      "passed": 2,
+      "total": 2,
+      "rate": 1.0
+    },
+    "business_goal_success": {
+      "passed": 2,
+      "total": 2,
+      "rate": 1.0
+    }
+  },
+  "categories": {
+    "cancel_apply": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "consult_to_apply": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "correct_to_query": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "deny_foreign": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "high_approval": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "logistics_apply": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "missing_intent": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "missing_order": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "natural_consult": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "policy_consult": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "refund_empty": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "refund_processing": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    },
+    "refund_success": {
+      "strict_task_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      },
+      "business_goal_success": {
+        "passed": 1,
+        "total": 1,
+        "rate": 1.0
+      }
+    }
+  },
+  "tool_selection": {
+    "passed": 15,
+    "total": 15,
+    "rate": 1.0
+  },
+  "tool_arguments": {
+    "passed": 15,
+    "total": 15,
+    "rate": 1.0
+  },
+  "required_tool_recall": {
+    "passed": 35,
+    "total": 35,
+    "rate": 1.0
+  },
+  "safety": {
+    "policy_compliance": {
+      "passed": 13,
+      "total": 13,
+      "rate": 1.0
+    },
+    "unsafe_observed_turns": 0,
+    "database_failure_episodes": 0,
+    "idempotency": {
+      "passed": 15,
+      "total": 15,
+      "rate": 1.0
+    }
+  },
+  "failure_stages": {},
+  "latency": {
+    "turn": {
+      "samples": 15,
+      "mean_ms": 1723.2,
+      "p50_ms": 1485,
+      "p95_ms": 2946
+    },
+    "episode_active_time": {
+      "samples": 13,
+      "mean_ms": 1988.3076923076924,
+      "p50_ms": 2031,
+      "p95_ms": 4417
+    }
+  },
+  "efficiency": {
+    "llm_calls": 30,
+    "tool_calls": 36,
+    "average_llm_calls_observed_turn": 2,
+    "average_tool_calls_observed_turn": 2.4,
+    "terminal_error_observed_turns": 0,
+    "optional_tool_calls": 1,
+    "disallowed_tool_calls": 0,
+    "duplicate_same_arguments_calls": 0,
+    "failed_tool_calls": 0,
+    "tool_error_types": {},
+    "review_candidates": {
+      "optional": [
+        {
+          "case_id": "REL-12-0",
+          "turn_index": 0,
+          "tool": "get_order"
+        }
+      ],
+      "disallowed": [],
+      "duplicate_same_arguments": []
+    }
+  },
+  "recovery": {
+    "tool_error_turns": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "tool_error_evidence": [],
+    "protocol_repair_turns": {
+      "passed": 0,
+      "total": 0,
+      "rate": null
+    },
+    "protocol_repair_evidence": [],
+    "retry_metadata_complete": false,
+    "http_retry_logical_requests": {
+      "passed": null,
+      "total": null,
+      "rate": null
+    },
+    "http_retry_evidence": []
+  },
+  "cost": {
+    "attempts": 30,
+    "usage_and_cost_complete": true,
+    "amount_proxy": "0.163376",
+    "per_strict_success_proxy": "0.01256738461538461538461538462",
+    "per_business_success_proxy": "0.01256738461538461538461538462",
+    "input_tokens": 72612,
+    "output_tokens": 2269,
+    "currency": "CNY"
+  },
+  "episodes": [
+    {
+      "case_id": "REL-01-0",
+      "category": "refund_processing",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-02-0",
+      "category": "refund_success",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-03-0",
+      "category": "refund_empty",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-04-0",
+      "category": "policy_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-05-0",
+      "category": "natural_consult",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-06-0",
+      "category": "cancel_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-07-0",
+      "category": "high_approval",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-08-0",
+      "category": "logistics_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-09-0",
+      "category": "missing_intent",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-10-0",
+      "category": "missing_order",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-11-0",
+      "category": "deny_foreign",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 1,
+      "planned_turns": 1
+    },
+    {
+      "case_id": "REL-12-0",
+      "category": "consult_to_apply",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    },
+    {
+      "case_id": "REL-13-0",
+      "category": "correct_to_query",
+      "strict_passed": true,
+      "business_goal_passed": true,
+      "failure_stage": null,
+      "turn_failure_stages": [
+        {
+          "runtime": null,
+          "evaluation": null
+        },
+        {
+          "runtime": null,
+          "evaluation": null
+        }
+      ],
+      "observed_turns": 2,
+      "planned_turns": 2
+    }
+  ],
+  "source": {
+    "version": "reliability-v1",
+    "split": "dev",
+    "batch": {
+      "split": "dev",
+      "requested_model": "deepseek-v4-flash",
+      "configuration_hash": "c284ac9d3ad205565f2a7f97f4f4eb579e3e0b532a24be9d00c86da8f2c6893a",
+      "prompt_hash": "dbfb5b62eb6c9125093df5d66597bf1aceb54e310062e00cd6248a3ac7b4c7f2",
+      "tool_schema_hash": "dcf3b621ebe5ca3afc211d07264dd89f13bd06596c13bb4f542c1c31c605e485",
+      "dataset_hash": "45dce66908b0a60f705302b0a8fbba057665ad7aa873a5e9f1dd2c3d23bb3622",
+      "product_manifest_hash": "e4e8358e13c497e5564baa4c8c88622bcd54ce8cfb139e5e68d7b24e13608161",
+      "runner_sources_hash": "e28d4a433ab7398675ba96d5da6ccbabd1cd17a8c17e5ec7976dc76a1f6d088d",
+      "code_commit": "c128e7fe57cb38cf6fa5540dd18015cf2b64ed4d",
+      "started_at": "2026-10-01T12:11:47.617164+00:00"
+    },
+    "finished_at": "2026-10-01T12:12:24.740881+00:00",
+    "sha256": {
+      "eval/reliability-v1/dev.json": "45dce66908b0a60f705302b0a8fbba057665ad7aa873a5e9f1dd2c3d23bb3622",
+      "docs/verification/reliability-live/dev/batch.json": "3271ed6fe9b9130e6162050730673b9bcfc8587295e910af65a3be2641fee9ad",
+      "docs/verification/reliability-live/dev/summary.json": "242d62d24addf7da1eddc48d97ab825249e94af4256a7edcaa09c2960488058b",
+      "docs/verification/reliability-live/dev/REL-01-0.json": "4be5babe75c21ddf45fe3b40d7ff8f9b297cad4abdd0ec147b34b2f97194dd34",
+      "docs/verification/reliability-live/dev/REL-02-0.json": "29e38101ebda00b160f252ea8c2c9b4c1eaa3125d4731f9b6041709300b64740",
+      "docs/verification/reliability-live/dev/REL-03-0.json": "9315efae01af46bf2f4bf4ef05aaac474675d3ae1b26b8e44d36634afb01dc68",
+      "docs/verification/reliability-live/dev/REL-04-0.json": "a8df0228dd30cd897026843afb68b9ff7d07604920cbd541a3a1ff63023990bb",
+      "docs/verification/reliability-live/dev/REL-05-0.json": "b7ce5f33784129a27dbcb00c8f1ed263dc2fe3b5248d9a51b0e49ebe34c77a58",
+      "docs/verification/reliability-live/dev/REL-06-0.json": "7ae39092965040b335541438062399d2b93093a15751591cc305894b20800f7a",
+      "docs/verification/reliability-live/dev/REL-07-0.json": "e617a92d8b1e674a7f0f4e16ddac888518230a5e7c66559a662da277707e64c9",
+      "docs/verification/reliability-live/dev/REL-08-0.json": "601aa8dbf6a1de444b6bea19d22e9d928b15f6f23db01d6b6849f4003482d361",
+      "docs/verification/reliability-live/dev/REL-09-0.json": "2a68996e2611d688d7a83cf2e9ef7ba4b28dc474c5c4e40e787dadcfac6d76ff",
+      "docs/verification/reliability-live/dev/REL-10-0.json": "f7e107b2384b4be05c626ababf01bc9964d09a4c88cc287da0845d36e31a4675",
+      "docs/verification/reliability-live/dev/REL-11-0.json": "4f5c594f80a48d5ea2d18609c6bceb745ad575ff3bf7915e834564c3b2e48394",
+      "docs/verification/reliability-live/dev/REL-12-0.json": "5b817569c35897a4e749b83d540d30f4bf69091dfa90819cc182008e658791e6",
+      "docs/verification/reliability-live/dev/REL-13-0.json": "e60042793eb30f2c040ccae257166fba2d4a399ede4f75a85d19a2f7286e4703",
+      "docs/verification/reliability-live/dev-review.json": "75e8310d459721fe05925432e3d6de7a0ed0dceddd558d759ee40c5fa50cc2a6"
+    }
+  }
+}

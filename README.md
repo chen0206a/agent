@@ -184,6 +184,7 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
+- [离线指标汇总器](docs/METRICS_SUMMARY.md)：只读生成业务/严格成功率、分类结果、P50/P95、成本与恢复统计；保留冻结成绩，不调用模型。
 - [修复后真实模型验收](docs/RELIABILITY_POSTFIX_EVALUATION.md)：新 Dev 13/13、单次冻结 Holdout 25/26；¥0.5241 保守成本，保留参数契约失败。
 - [修复后失败归因](docs/RELIABILITY_POSTFIX_FAILURE_ANALYSIS.md)：额外参数被 schema 拒绝后自我纠正，业务恢复不改判任务成功。
 - [产品演示与启动](docs/DEMO.md)：完整客户与管理员业务路径、实际浏览器录屏及隔离复现。

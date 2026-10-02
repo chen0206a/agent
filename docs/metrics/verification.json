@@ -1,0 +1,28 @@
+{
+  "backend_tests_passed": 294,
+  "new_metrics_tests_passed": 16,
+  "network_disabled_reproduction": "4/4 successful",
+  "historical_json_files_unchanged": 1639,
+  "identical_report_regeneration": true,
+  "relative_links_checked": 51,
+  "standard_library_only_imports": true,
+  "summarizer_sha256": "a62418e235ac4b3e57ef43f363466529963430a6cb5e5f373a845c8e52ecf7cf",
+  "derived_report_sha256": {
+    "docs/metrics/reliability-postfix-v1/dev.json": "b38fcc5c86d85135a4fda44ae17d4475974e0621b552007a41e1972dc3f2e799",
+    "docs/metrics/reliability-postfix-v1/holdout.json": "04b25c11d2aab16ab7bad5ae9af6c02ddb9a78ee83a7f03ae58c022a5b9021bf",
+    "docs/metrics/reliability-v1/dev.json": "1064867f7c79149e763028b9c6b22c5e0ea3784f1b41acb167ab9c2bb9fe541a",
+    "docs/metrics/reliability-v1/holdout.json": "17be22041a8b1cd8115d1c08c6d7c048ec970687e7ae53dd6c5a0bec8b37700b",
+    "docs/metrics/reliability-postfix-v1/dev.md": "5874915b0c286054bb7d91d471b923a20f22220e37ba9c2bd317f9fd425baf24",
+    "docs/metrics/reliability-postfix-v1/holdout.md": "b14d30202365d7fef4a9dcd3ea8b777f53ce9383f35139bc27a77a08d4306cf6",
+    "docs/metrics/reliability-v1/dev.md": "1d78c7cdd543402f9c5a469b62e379420e9e858fc61f874689c849243e7af2af",
+    "docs/metrics/reliability-v1/holdout.md": "0ab17c2c7b5a81f1521d9f6574296f957ac4761c07e6275fc5367a5d50f36c37"
+  },
+  "paid_model_calls": 0,
+  "business_frontend_evaluation_sources_modified": false,
+  "limitations": [
+    "synthetic business contracts, not production success",
+    "one real tool recovery sample",
+    "no real protocol repair or retry samples",
+    "stage5 archive schema not adapted"
+  ]
+}
