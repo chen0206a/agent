@@ -82,6 +82,7 @@ def main():
                         node,
                         "node_modules/@playwright/test/cli.js",
                         "test",
+                        *(["--config", os.environ["E2E_CONFIG"]] if os.environ.get("E2E_CONFIG") else []),
                         *([os.environ["E2E_SPEC"]] if os.environ.get("E2E_SPEC") else []),
                     ],
                     cwd=PROJECT_ROOT / "frontend",

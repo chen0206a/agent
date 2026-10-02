@@ -54,3 +54,9 @@ scripts/reliability_eval.py text eol=lf
 
 scripts/reliability_live.py text eol=lf
 backend/tests/test_reliability_live.py text eol=lf
+
+# Separate post-fix experiment; keep raw hash inputs stable on checkout.
+scripts/reliability_followup.py text eol=lf
+backend/tests/test_reliability_followup.py text eol=lf
+docs/RELIABILITY_POSTFIX_PLAN.md text eol=lf
+eval/reliability-postfix-v1/*.json text eol=lf

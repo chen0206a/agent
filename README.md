@@ -12,7 +12,7 @@ A production-style after-sales AI Agent with stateful workflow, deterministic po
 | Tool Selection Accuracy | **98.0%** |
 | Required Tool Recall | **99.3%** |
 | Evaluation Cases | **125 / 25 scenario types** |
-| Backend Regression Tests | **270 passed** |
+| Backend Regression Tests | **278 passed** |
 
 Metrics are measured on frozen synthetic after-sales evaluation scenarios, not production traffic.
 
@@ -182,6 +182,7 @@ scripts/                 # Startup, account setup and evaluation commands
 
 ## Documentation
 
+- [产品演示与启动](docs/DEMO.md)：完整客户与管理员业务路径、实际浏览器录屏及隔离复现。
 - [Frontend UX](docs/FRONTEND_UX_HANDOFF.md)：对话即时反馈、连贯导航、可恢复等待与 Trace 按需展开；含前后探针和真实截图。
 - [Reliability Fixes & UX Plan](docs/RELIABILITY_FIXES.md)：受限结束协议纠正、真实重试统计与预算恢复保护；原交互优化计划，实施结果见 Frontend UX。
 - [Reliability Holdout Evaluation](docs/RELIABILITY_HOLDOUT_EVALUATION.md)：单次真实 Holdout 25/26；Dev + Holdout 保守成本 ¥0.4997。

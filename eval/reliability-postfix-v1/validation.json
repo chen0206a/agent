@@ -1,0 +1,22 @@
+{
+  "episodes": 39,
+  "turns": 45,
+  "dev": 13,
+  "holdout": 26,
+  "categories": 13,
+  "exact_text_overlap": 0,
+  "scope": "Synthetic wording holdout over known contracts; NOT family-disjoint or blinded",
+  "version": "reliability-postfix-v1",
+  "historical_exact_overlap": 0,
+  "historical_dataset_hashes": {
+    "eval/reliability-v1/dev.json": "45dce66908b0a60f705302b0a8fbba057665ad7aa873a5e9f1dd2c3d23bb3622",
+    "eval/reliability-v1/holdout.json": "04bbd5ccc2885a32bcb921a749e94d56f742096549580883e0459796c740f6d3",
+    "eval/reliability-v1/manifest.json": "e4e8358e13c497e5564baa4c8c88622bcd54ce8cfb139e5e68d7b24e13608161",
+    "eval/stage5/dev.draft1.json": "54bfb98b7c8c3e6fddd08ffa4a86067852255f1dbe20a567aef58c77272b78d7",
+    "eval/stage5/dev.json": "d86ffbbae1a53137d276721410cb78bda14345bf3897100f6494a48b700163c3",
+    "eval/stage5/manifest.json": "11c995dbd3f07ac94ad28a1ad6372d4532ca72567b167411bcc7d2e17209c397",
+    "eval/stage5/test.draft1.json": "ea9edb36e949cc5e00273f9cc564f0ca7ddd29caaf2b934ee46df0d17d481462",
+    "eval/stage5/test.json": "33ea116597ea6602914cc8768c8adf5c1022ca57617143301ed549d5dd1d1b69"
+  },
+  "holdout_scope": "New synthetic wording; known families and fixture, NOT blinded or family-disjoint"
+}

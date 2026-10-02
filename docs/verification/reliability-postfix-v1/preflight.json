@@ -1,0 +1,33 @@
+{
+  "verified_at_utc": "2026-10-02T10:19:28.254252+00:00",
+  "backend_tests": {
+    "passed": 278,
+    "failed": 0
+  },
+  "new_adapter_tests": {
+    "passed": 8,
+    "paid_api_calls": 0
+  },
+  "scripted_dev_contract": {
+    "episodes": 13,
+    "passed": 13,
+    "holdout_executions": 0,
+    "paid_api_calls": 0
+  },
+  "browser_walkthrough": {
+    "startTime": "2026-10-02T10:15:52.081Z",
+    "duration": 21399.713,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "frontend_typecheck": "passed",
+  "frontend_lint": "passed",
+  "changed_files_prettier": "passed",
+  "python_ruff_check": "passed",
+  "changed_python_ruff_format": "passed",
+  "frontend_full_regression": "23 component / 17 E2E from 0fc4ea3; not rerun for non-product changes",
+  "product_code_unchanged": true,
+  "historical_evaluation_unchanged": true
+}

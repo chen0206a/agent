@@ -1,0 +1,78 @@
+{
+  "mode": "real-browser-isolated-scripted-demo",
+  "model": "NOT-A-REAL-MODEL",
+  "paid_api_calls": 0,
+  "real_payment": false,
+  "recorded_at": "2026-10-02T10:16:12.509Z",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "steps": [
+    {
+      "name": "01-orders",
+      "elapsed_ms": 1600,
+      "url": "http://127.0.0.1:3810/orders"
+    },
+    {
+      "name": "02-cancel-application",
+      "elapsed_ms": 2728,
+      "url": "http://127.0.0.1:3810/chat?order=1001"
+    },
+    {
+      "name": "03-customer-progress",
+      "elapsed_ms": 3254,
+      "url": "http://127.0.0.1:3810/requests"
+    },
+    {
+      "name": "04-high-amount-pending",
+      "elapsed_ms": 6174,
+      "url": "http://127.0.0.1:3810/chat?order=1006"
+    },
+    {
+      "name": "05-admin-approval",
+      "elapsed_ms": 8069,
+      "url": "http://127.0.0.1:3810/admin/approvals"
+    },
+    {
+      "name": "06-approved-not-refunded",
+      "elapsed_ms": 9517,
+      "url": "http://127.0.0.1:3810/admin/tickets/5"
+    },
+    {
+      "name": "07-simulated-success",
+      "elapsed_ms": 10172,
+      "url": "http://127.0.0.1:3810/admin/tickets/5"
+    },
+    {
+      "name": "08-tool-policy-trace",
+      "elapsed_ms": 10825,
+      "url": "http://127.0.0.1:3810/admin/runs/1"
+    },
+    {
+      "name": "09-logistics-investigation",
+      "elapsed_ms": 13772,
+      "url": "http://127.0.0.1:3810/chat?order=1010"
+    },
+    {
+      "name": "10-clarification",
+      "elapsed_ms": 16437,
+      "url": "http://127.0.0.1:3810/chat"
+    },
+    {
+      "name": "11-access-denied",
+      "elapsed_ms": 18430,
+      "url": "http://127.0.0.1:3810/admin"
+    }
+  ],
+  "assertions": {
+    "cancellation_ready": true,
+    "high_amount_approval": true,
+    "approval_is_not_execution": true,
+    "simulated_execution": true,
+    "clarification": true,
+    "logistics": true,
+    "forbidden_api": true,
+    "admin_only_trace": true
+  }
+}

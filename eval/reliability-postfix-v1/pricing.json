@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-02T10:12:55.861201+00:00",
+  "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+  "verification": "Official pricing page retrieved via web search on 2026-10-02; peak uncached rates, no discount release",
+  "terms": {
+    "currency": "CNY",
+    "budget_amount": "5.00",
+    "input_per_million": "2",
+    "output_per_million": "8",
+    "price_source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+    "price_checked_at": "2026-10-02T10:12:55.861301+00:00"
+  },
+  "billing_scope": "Conservative token cost proxy, not invoice or provider balance",
+  "authorized_by": "User approved CNY 5 in this conversation"
+}
